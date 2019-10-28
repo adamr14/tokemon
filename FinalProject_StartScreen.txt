@@ -1,0 +1,275 @@
+frameRate(60);
+angleMode = "radians"; //use radians not degrees
+var onStartScreen = true;
+var onInstructionsScreen = false;
+var startGameClicked = false;
+
+var StartPokeball = function(x, y, type)
+{
+    this.position = new PVector(0, 0);
+    this.translation = new PVector(x, y);
+    this.angle = 0;
+    this.type = type;
+};
+
+StartPokeball.prototype.draw = function() {
+    pushMatrix();
+    translate(this.translation.x, this.translation.y);
+    if(mouseX < 180 && mouseX > 80 && mouseY < 330 && mouseY > 230 && this.type === "start")
+    { this.angle += (Math.PI / 24); }
+    else if(mouseX < 315 && mouseX > 215 && mouseY < 330 && mouseY > 230 && this.type === "instructions")
+    { this.angle -= (Math.PI / 24); }
+    rotate(this.angle);
+    beginShape();
+    if(this.type === "start")
+    { fill(255, 0, 0); }
+    else {fill(0, 0, 255); }
+    bezier(this.position.x - 43, this.position.y, this.position.x - 36, this.position.y - 60, this.position.x + 36, this.position.y - 60, this.position.x + 43, this.position.y);    fill(255, 255, 255);
+    bezier(this.position.x - 43, this.position.y, this.position.x - 36, this.position.y + 60, this.position.x + 36, this.position.y + 60, this.position.x + 43, this.position.y);
+    stroke(0, 0, 0);
+    strokeWeight(10);
+    line(this.position.x - 39, this.position.y, this.position.x + 37, this.position.y);
+    strokeWeight(5);
+    ellipse(this.position.x, this.position.y, 20, 20);
+    fill(0, 0, 0);
+    if(this.type === "start")
+    { textSize(25); text("Start", this.position.x - 26, this.position.y + 30); }
+    else
+    { textSize(15); text("Instructions", this.position.x - 38, this.position.y + 22);}
+    endShape();
+    popMatrix();
+    noStroke();
+};
+
+var startPokeball = new StartPokeball(130, 280, "start");
+var instructionsPokeball = new StartPokeball(265, 280, "instructions");
+
+var Cloud = function(position, index)
+{
+    this.position = position.get();
+    this.speed = random(-0.5, -1.25);
+    this.size = random(0.5, 0.85);
+    this.c = random(235, 255);
+    this.index = index;
+};
+
+Cloud.prototype.display = function()
+{
+    pushMatrix();
+    scale(this.size);
+    fill(this.c, this.c, this.c);
+    ellipse(this.position.x, this.position.y, 100, 50);
+    ellipse(this.position.x + 20, this.position.y - 20, 30, 30);
+    ellipse(this.position.x, this.position.y - 25, 30, 30);
+    ellipse(this.position.x - 25, this.position.y - 20, 30, 30);
+    ellipse(this.position.x - 45, this.position.y - 5, 30, 30);
+    ellipse(this.position.x - 35, this.position.y + 15, 30, 30);
+    ellipse(this.position.x - 10, this.position.y + 20, 30, 30);
+    ellipse(this.position.x + 15, this.position.y + 20, 30, 30);
+    ellipse(this.position.x + 40, this.position.y + 15, 30, 30);
+    ellipse(this.position.x + 40, this.position.y - 10, 30, 30);
+    popMatrix();
+    this.position.x = this.position.x + this.speed;
+};
+
+var Grass = function(x, y)
+{
+    this.position = new PVector(x, y);
+    this.randX1 = random(-3, -1);
+    this.randX2 = random(1, 3);
+    this.length = random(12, 16);
+};
+
+Grass.prototype.drawGrass = function() 
+{
+    fill(149, 247, 64);
+    rect(this.position.x, this.position.y, 20, 20);
+    stroke(37, 176, 49);
+    strokeWeight(1);
+    for(var i = this.position.x; i < this.position.x + 20; i+=5)
+    {
+        for(var j = this.position.y; j < this.position.y + 20; j+=5)
+        {
+            line(i + this.randX1, j, i + this.randX2, j + this.length);
+        }
+    }
+};
+
+var startScreenGrass = [];
+for(var i = 0; i < 400; i+= 20)
+{
+    for(var j = 200; j < 400; j+= 20)
+    {
+        startScreenGrass.push(new Grass(i, j));
+    }
+}
+
+
+
+//Tree class initialization and drawing methods were all taken from Professor Hsiao's code samples provided to us in class
+var Tree = function(position) {
+    this.position = position.get();
+    this.branchingFactor = 3;
+    this.angleBetweenBranches = 50;
+    this.scaleFactor = 0.9;
+    this.numLevels = 3;
+    this.baseBranchLength = 17;
+};
+
+///// EXPERIMENT ////
+Tree.prototype.display = function() {
+    var self = this;
+    
+    var forward = function(distance) {
+        line(0, 0, 0, -distance);
+        translate(0, -distance);
+    };
+    
+    var back = function(distance) {
+        forward(-distance);
+    };
+    
+    var right = function(angle) {
+        rotate(angle * PI / 180);
+    };
+    
+    var left = function(angle) {
+        right(-angle);
+    };
+    
+    // depth-first drawing
+    var drawTree = function(depth, length) {
+        if (depth === 0) {
+            image(getImage("avatars/leaf-green"), -10, -10, 30, 20);
+            return;
+        }
+        var totalAngle = self.angleBetweenBranches * (self.branchingFactor - 1);
+        
+        strokeWeight(depth*5);
+        forward(length);
+        right(totalAngle / 2.0);
+        for (var i = 0; i < self.branchingFactor; i += 1) {
+            drawTree(depth - 1, length * self.scaleFactor);
+            left(self.angleBetweenBranches);
+        }
+        right(totalAngle / 2.0 + self.angleBetweenBranches);
+        back(length);
+    };
+    
+    pushMatrix();
+    translate(this.position.x, this.position.y);
+    stroke(122, 112, 85);
+    drawTree(this.numLevels, this.baseBranchLength);
+    popMatrix();
+};
+
+var trees = [];
+trees.push(new Tree(new PVector(70, 200)));
+trees.push(new Tree(new PVector(330, 200)));
+trees.push(new Tree(new PVector(40, 265)));
+trees.push(new Tree(new PVector(40, 335)));
+trees.push(new Tree(new PVector(70, 395)));
+trees.push(new Tree(new PVector(360, 265)));
+trees.push(new Tree(new PVector(360, 335)));
+trees.push(new Tree(new PVector(330, 395)));
+var clouds = [];
+clouds.push(new Cloud(new PVector(600, 25), 0));
+clouds.push(new Cloud(new PVector(750, 125), 1));
+var cloudIndex = 2;
+
+var cloudTimer = 0;
+var drawStartBackground = function()
+{
+    background(163, 249, 255);
+    noStroke();
+    //draws grass texture
+    for(var i = 0; i < startScreenGrass.length; i++)
+    {
+        startScreenGrass[i].drawGrass();
+    }
+    for(var i=0; i<trees.length; i++)
+    {
+        fill(133, 102, 63);
+        ellipse(trees[i].position.x, trees[i].position.y + 5, 30, 5);
+        trees[i].display();   
+    }
+    noStroke();
+    fill(235, 166, 29);
+    ellipse(375, 25, 100, 100);
+    
+    for(var i = 0; i < clouds.length; i++)
+    {
+        clouds[i].display();
+        if(clouds[i].position.x < -100)
+        {
+            var tempIndex = clouds[i].index;
+            clouds.splice(tempIndex, 1);
+            for(var i = tempIndex; i < clouds.length; i++)
+            {
+                clouds[i].index--;
+            }
+            cloudIndex--;
+        }
+    }
+    
+    if(cloudTimer > 120)
+    {
+        clouds.push(new Cloud(new PVector(700, random(0, 150)), cloudIndex));
+        cloudIndex++;
+        cloudTimer = 0;
+    }
+    cloudTimer++;
+    
+    fill(255, 0, 0);
+    textSize(50);
+    text("Tokemon", 100, 100);
+    textSize(15);
+    text("Saam Rezaei    Adam Rankin", 100, 120);
+    startPokeball.draw();
+    instructionsPokeball.draw();
+};
+
+var drawInstructions = function()
+{
+    background(0);
+    fill(255, 255, 255);
+    text("Instructions go here", 150, 200);
+};
+
+var startGame = function()
+{
+    background(255, 255, 255);
+    fill(0);
+    text("Game would start", 150, 200);
+};
+
+
+mouseClicked = function() 
+{
+    if(mouseX < 180 && mouseX > 80 && mouseY < 330 && mouseY > 230)
+    { 
+        onStartScreen = false;
+        onInstructionsScreen = false;
+        startGameClicked = true;
+    }
+    else if(mouseX < 315 && mouseX > 215 && mouseY < 330 && mouseY > 230)
+    {
+        onStartScreen = false;
+        onInstructionsScreen = true;
+        startGameClicked = false;
+    }
+};
+
+var draw = function() 
+{
+    if(onStartScreen)
+    { drawStartBackground(); }
+    else if(onInstructionsScreen)
+    {
+        drawInstructions();
+    }
+    else if(startGameClicked)
+    {
+        startGame();
+    }
+};
