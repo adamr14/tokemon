@@ -4,7 +4,7 @@ The player starts off in their home with their own personal pokemon.
 The player needs to train his pokemon and collect more by finding, fighitng, and capturing wild 
 pokemon in the wild grass. 
 The player can find pokeballs randomly scattered throughout the map and should collect them. 
-Different pokeballs have stronger likelihoods of caputing pokemons
+Different pokeballs have stronger likelihoods of capturing pokemons
 The lower the health of a wild pokemon, the higher the chance of capturing them.
 Pokemon can be revived by going back to the players home and clicking on the stove to cook them food
 Once the player has enough pokemon and has leveled them up sufficiently, they are ready to go to the gym
