@@ -220,7 +220,7 @@ var hokieBird = function(x, y, size){
 };
 
 hokieBird.prototype.flap = function(){
-    if(this.currFrame < frameCount - 25){
+    if(this.currFrame < frameCount - 20){
         this.velocity.y*=-1;
         this.currFrame=frameCount;
     }
