@@ -1,5 +1,80 @@
 //this file holds miscellaneous objects used throughout the game
 
+
+var fountainObj = function(x, y, s) {
+    this.x = x;
+    this.y = y;
+    this.particles = [];
+    this.s=s;
+};
+
+
+var particleObj = function(x, y) {
+    this.position = new createVector(x, y);
+    this.velocity = new createVector(random(-0.3, 0.3), random(-1.3, -1.5));
+    this.size = random(2, 4);
+    this.position.y -= (18 - this.size);
+    if (this.size < 3.3 ){
+        this.c1=255;
+        this.c2=255;
+        this.c3=255;
+    }
+    else{
+        this.c1 = 0;
+        this.c2 = random(100, 255);
+        this.c3 = 255;
+    }
+    this.timeLeft = 255;
+};
+var fountainObj = function(x, y, s) {
+    this.x = x;
+    this.y = y;
+    this.particles = [];
+    this.s=s;
+};
+
+fountainObj.prototype.execute = function() {
+    if (frameCount%400 > 20*this.s && (frameCount%400<(20*(this.s+1)))){
+        if (this.particles.length < 300) {
+            this.particles.push(new particleObj(this.x, this.y));
+            this.particles.push(new particleObj(this.x, this.y));
+            this.particles.push(new particleObj(this.x, this.y));
+        }
+    }
+    for (var i=0; i<this.particles.length; i++) {
+        if ((this.particles[i].timeLeft > 0) &&
+            (this.particles[i].position.y < this.y)) {
+        this.particles[i].draw();
+        this.particles[i].move();
+        }
+        else {
+            this.particles.splice(i, 1);
+        }
+    }
+    
+    fill(62, 146, 194);
+    ellipse(this.x, this.y-9, 60, 10);
+	stroke(0);
+    fill(150, 150, 150);
+    rect(this.x-30, this.y-10, 60, 30);
+	
+	for(var i=0; i<5; i++){
+		line(this.x-20+(10*i), this.y-10, this.x-20+(10*i), this.y+20);
+		line(this.x-30, this.y-5+(5*i), this.x+30, this.y-5+(5*i));
+	}
+};
+
+particleObj.prototype.move = function() {
+    this.velocity.add(gravity);
+    this.position.add(this.velocity);
+    this.timeLeft--;
+};
+particleObj.prototype.draw = function() {
+    noStroke();
+    fill(this.c1, this.c2, this.c3, this.timeLeft);
+    ellipse(this.position.x, this.position.y, this.size, this.size*2);
+};
+
 var StartPokeball = function(x, y, type, size, angle)
 {
     this.position = new createVector(0, 0);

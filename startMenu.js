@@ -7,17 +7,20 @@ var enemyTrainer = new trainerObj(0, 0, "boss", 1);
 var egoTrainer = new trainerObj(135, 268, "ego", 0);
 var o = new orange(100, 240, 0.6);
 
+var gravity = new createVector(0, 0.02);
+var fountains = [];
+
+fountains.push(new fountainObj(40, 230, 0));
+fountains.push(new fountainObj(360, 230, 3));
+
 var startPokeball = new StartPokeball(130, 270, "normal", 1, 0);
 var instructionsPokeball = new StartPokeball(265, 270, "rare", 1, 0);
 var instructionsPokeball_2 = new StartPokeball(280, 230, "normal", 0.5, 0);
 var instructionsPokeball_3 = new StartPokeball(165, 200, "rare", 0.15, Math.PI / 4);
 var trees = [];
-trees.push(new Tree(70, 200));
-trees.push(new Tree(330, 200));
-trees.push(new Tree(40, 265));
+
 trees.push(new Tree(40, 335));
 trees.push(new Tree(70, 395));
-trees.push(new Tree(360, 265));
 trees.push(new Tree(360, 335));
 trees.push(new Tree(330, 395));
 var clouds = [];
@@ -41,6 +44,10 @@ var drawMenuBackground = function(){
         ellipse(trees[i].position.x, trees[i].position.y + 5, 30, 5);
         trees[i].display();   
     }
+	
+	for(var i=0; i<fountains.length; i++){
+		fountains[i].execute();
+	}
     noStroke();
     fill(235, 166, 29);
     ellipse(375, 25, 100, 100);
