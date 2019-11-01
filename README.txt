@@ -10,3 +10,5 @@ you can view the instructions page by clicking the blue pokeball that says "Inst
 When clicked, the instructions for general game play and battling as well as some tips
 are shown in a series of pages inside an animated book. Different characters and objects
 are also scattered throughout the pages of the instructions. 
+
+NOTE: Please extract all the files from the submitted zip file onto your local drive.
