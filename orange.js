@@ -1,16 +1,5 @@
-angleMode = "radians";
-
-var drawPart = function(points, dir){
-    beginShape();
-    for (var i=0; i<points.length; i++){
-        vertex(dir*points[i][0], points[i][1]);
-    }
-    vertex(dir*points[0][0], points[0][1]);
-    endShape();
-};
-
 var orange = function(x, y, size){
-    this.position = new PVector(x, y);
+    this.position = new createVector(x, y);
     this.size=size;
     this.body = [[75.6875, 117.125, 0],[79.3125, 104.875, 0],[85.078125, 94.1875, 0],[92.984375, 85.0625, 0],[103.03125, 77.5, 0],[115.21875, 71.5, 0],[129.546875, 67.0625, 0],[146.015625, 64.1875, 0],[164.625, 62.875, 0],[185.375, 63.125, 0],[204.015625, 64.6875, 0],[220.546875, 67.5625, 0],[234.96875, 71.75, 0],[247.28125, 77.25, 0],[257.484375, 84.0625, 0],[265.578125, 92.1875, 0],[271.5625, 101.625, 0],[275.4375, 112.375, 0],[278.203125, 123.15625, 0],[279.859375, 133.96875, 0],[280.40625, 144.8125, 0],[279.84375, 155.6875, 0],[278.171875, 166.59375, 0],[275.390625, 177.53125, 0],[271.5, 188.5, 0],[266.5, 199.5, 0],[259.65625, 209.046875, 0],[250.96875, 217.140625, 0],[240.4375, 223.78125, 0],[228.0625, 228.96875, 0],[213.84375, 232.703125, 0],[197.78125, 234.984375, 0],[179.875, 235.8125, 0],[160.125, 235.1875, 0],[142.40625, 233.5, 0],[126.71875, 230.75, 0],[113.0625, 226.9375, 0],[101.4375, 222.0625, 0],[92.28125, 217.265625, 0],[85.59375, 212.546875, 0],[81.375, 207.90625, 0],[79.625, 203.34375, 0],[77.890625, 196.109375, 0],[76.171875, 186.203125, 0],[74.890625, 177.4375, 0],[74.046875, 169.8125, 0],[73.6875, 155.3125, 0],[73.75, 144.625, 0]];
     
@@ -28,25 +17,25 @@ var orange = function(x, y, size){
 };
 
 orange.prototype.draw = function() {
-    pushMatrix();
+    push();
     translate(this.position.x, this.position.y);
     scale(this.size*0.35);
     fill(15, 13, 117);
     //legs
-    pushMatrix();
+    push();
     translate(-100, -5);
     scale(0.6);
     drawPart(this.legs, 1);
-    popMatrix();
+    pop();
     
     //body
-    pushMatrix();
+    push();
     strokeWeight(1);
     stroke(120, 73, 20);
     fill(255, 140, 0);
     translate(-170, -150);
     drawPart(this.body, 1);
-    popMatrix();
+    pop();
     fill(145, 88, 31, 50);
     noStroke();
     for(var i =0; i<this.spots.length; i++){
@@ -119,18 +108,18 @@ orange.prototype.draw = function() {
     arc(-39, 42, 15, 15, 3*Math.PI/2+0.8, 6*Math.PI/2-0.7);
     
     //hat
-    pushMatrix();
+    push();
     scale(0.5);
     translate(-210, -370);
     fill(15, 13, 117);
     drawPart(this.hat, 1);
-    pushMatrix();
+    push();
     noFill();
     scale(0.9);
     translate(20, 10);
     drawPart(this.hat, 1);
-    popMatrix();
-    popMatrix();
+    pop();
+    pop();
     noFill();
     bezier(-70, -85, -50, -105, 40, -100, 84, -80);
     strokeWeight(1);
@@ -138,7 +127,7 @@ orange.prototype.draw = function() {
     bezier(60, -90, 60, -120, 30, -140, 20, -145);
     stroke(255, 255, 255);
     strokeWeight(8);
-    pushMatrix();
+    push();
     rotate(0.08);
     translate(0, -4);
     line(5, -130, 10, -125);
@@ -165,40 +154,28 @@ orange.prototype.draw = function() {
     line(10, -105, 5, -100);
     line(5, -100, -5, -100);
     line(-5, -100, -10, -105);
-    popMatrix();
+    pop();
     //arms
     stroke(0);
     strokeWeight(1);
     fill(15, 13, 117);
-    pushMatrix();
+    push();
     translate(-40, -40);
     scale(0.7);
     rotate(-0.2);
     drawPart(this.arm, 1);
-    popMatrix();
-    pushMatrix();
+    pop();
+    push();
     translate(40, -40);
     scale(0.7);
     rotate(0.2);
     drawPart(this.arm, -1);
-    popMatrix();
+    pop();
     noFill();
     stroke(0);
     strokeWeight(1);
     arc(-88, -25, 20, 30, 3*Math.PI/2-0.6, 5*Math.PI/2+0.4);
     arc(88, -25, 20, 30, Math.PI/2-0.6, 3*Math.PI/2+1);
     
-    popMatrix();
-    
-};
-
-var o = new orange(200, 200, 1);
-
-var draw = function() {
-    background(255, 255, 255);
-    stroke(1);
-    strokeWeight(1);
-    line(200, 0, 200, 400);
-    line(0, 200, 400, 200);
-    o.draw();
+    pop();  
 };

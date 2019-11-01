@@ -14,10 +14,6 @@ var trainerObj = function(x, y, char, initialLook)
     this.char = char;
 };
 
-
-var enemyTrainer = new trainerObj(0, 0, "boss", 1);
-var egoTrainer = new trainerObj(135, 268, "ego", 0);
-
 trainerObj.prototype.drawTrainer = function()
 {
     var x = 200;
