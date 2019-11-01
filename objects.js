@@ -34,11 +34,14 @@ var fountainObj = function(x, y, s) {
 };
 
 fountainObj.prototype.execute = function() {
+	stroke(0);
+    fill(150, 150, 150);
+	bezier(this.x-30, this.y-10, this.x-5, this.y-20, this.x+5, this.y-20, this.x+30, this.y-10);
     if (frameCount%200 > 20*this.s && (frameCount%200<(20*(this.s+1)))){
         if (this.particles.length < 300) {
-            this.particles.push(new particleObj(this.x, this.y));
-            this.particles.push(new particleObj(this.x, this.y));
-            this.particles.push(new particleObj(this.x, this.y));
+            this.particles.push(new particleObj(this.x, this.y-5));
+            this.particles.push(new particleObj(this.x, this.y-5));
+            this.particles.push(new particleObj(this.x, this.y-5));
         }
     }
     for (var i=0; i<this.particles.length; i++) {
@@ -51,17 +54,54 @@ fountainObj.prototype.execute = function() {
             this.particles.splice(i, 1);
         }
     }
+	
     noStroke();
     fill(62, 146, 194);
     ellipse(this.x, this.y-9, 57, 10);
-	stroke(0);
     fill(150, 150, 150);
-    rect(this.x-30, this.y-10, 60, 30);
+    rect(this.x-30, this.y-5, 60, 25);
 	
-	for(var i=0; i<5; i++){
-		line(this.x-20+(10*i), this.y-10, this.x-20+(10*i), this.y+20);
-		line(this.x-30, this.y-5+(5*i), this.x+30, this.y-5+(5*i));
+	stroke(0);
+	noFill();
+	for(var i=0; i<7; i++){
+	
+		if (i>0){
+			fill(150, 150, 150);
+		}
+		bezier(this.x-30, this.y-10+(5*i), this.x-5, this.y-3+(i*5), this.x+5, this.y-3+(i*5), this.x+30, this.y-10+(5*i));
 	}
+	line(this.x-30, this.y-10, this.x-30, this.y+20);
+	line(this.x-20, this.y-8, this.x-20, this.y+22);
+	line(this.x-10, this.y-5, this.x-10, this.y+25);
+	line(this.x-0, this.y-5, this.x-0, this.y+26);
+	line(this.x+30, this.y-10, this.x+30, this.y+20);
+	line(this.x+20, this.y-8, this.x+20, this.y+22);
+	line(this.x+10, this.y-5, this.x+10, this.y+25);
+	noStroke();
+	triangle(this.x-29, this.y-10, this.x-29, this.y-5, this.x-18, this.y-5);
+	triangle(this.x+29, this.y-10, this.x+29, this.y-5, this.x+18, this.y-5);
+	fill(255, 255, 255);
+	ellipse(this.x, this.y-21, 9,9);
+	stroke(0);
+	ellipse(this.x, this.y-21, 2, 2);
+	fill(255, 0, 0);
+	noStroke();
+	arc(this.x, this.y-21, 9, 9, Math.PI, Math.PI*2);
+	fill(255, 255, 255);
+	ellipse(this.x-5, this.y-13, 9,9);
+	stroke(0);
+	ellipse(this.x-5, this.y-13, 2, 2);
+	fill(255, 0, 0);
+	noStroke();
+	arc(this.x-5, this.y-13, 9, 9, Math.PI-0.6, Math.PI*2-0.6);
+	fill(255, 255, 255);
+	ellipse(this.x+5, this.y-13, 9,9);
+	stroke(0);
+	ellipse(this.x+5, this.y-13, 2, 2);
+	fill(255, 0, 0);
+	noStroke();
+	arc(this.x+5, this.y-13, 9, 9, Math.PI+0.8, Math.PI*2+0.8);
+	
 };
 
 
