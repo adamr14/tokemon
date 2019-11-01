@@ -170,7 +170,7 @@ var drawInstructions = function()
                 text("-You must catch other", 215, 180, 160, 20);
                 text("Pokemon and level up", 215, 195, 160, 20);
                 text("your Pokemon", 215, 210, 160, 20);
-                text("-Explore nd fight the gym", 215, 235, 160, 20);
+                text("-Explore and fight the gym", 215, 235, 160, 20);
                 text("when you think you're ready", 215, 250, 160, 20);
 				instructionsPokeball_3.draw();
 				push();
@@ -197,7 +197,6 @@ var drawInstructions = function()
                 text("-Explore to find Pokeballs", 215, 140, 160, 20);
                 text("-A hurt Pokemon is", 215, 164, 160, 20);
                 text("easier to catch", 215, 180, 160, 20);
-                text("Pokemon/pokeball HERE", 215, 260, 160, 20);
             }
             o.draw();
 			instructionsPokeball_2.draw();
@@ -218,7 +217,10 @@ var drawInstructions = function()
                 text("the in-battle menu", 30, 195, 160, 20);
                 text("-Throw a pokeball to", 30, 220, 160, 20);
                 text("Catch a wild pokemon", 30, 235, 160, 20);
-                text("Something here", 250, 180, 160, 20);
+                text("Written by", 260, 150);
+				text("Saam Rezaei", 250, 175);
+				text("&", 280, 190);
+				text("Adam Rankin", 250, 205);
             }
             break;
     }

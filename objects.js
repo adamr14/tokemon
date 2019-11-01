@@ -34,7 +34,7 @@ var fountainObj = function(x, y, s) {
 };
 
 fountainObj.prototype.execute = function() {
-    if (frameCount%400 > 20*this.s && (frameCount%400<(20*(this.s+1)))){
+    if (frameCount%200 > 20*this.s && (frameCount%200<(20*(this.s+1)))){
         if (this.particles.length < 300) {
             this.particles.push(new particleObj(this.x, this.y));
             this.particles.push(new particleObj(this.x, this.y));
@@ -63,6 +63,7 @@ fountainObj.prototype.execute = function() {
 		line(this.x-30, this.y-5+(5*i), this.x+30, this.y-5+(5*i));
 	}
 };
+
 
 particleObj.prototype.move = function() {
     this.velocity.add(gravity);
