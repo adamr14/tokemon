@@ -51,9 +51,9 @@ fountainObj.prototype.execute = function() {
             this.particles.splice(i, 1);
         }
     }
-    
+    noStroke();
     fill(62, 146, 194);
-    ellipse(this.x, this.y-9, 60, 10);
+    ellipse(this.x, this.y-9, 57, 10);
 	stroke(0);
     fill(150, 150, 150);
     rect(this.x-30, this.y-10, 60, 30);
