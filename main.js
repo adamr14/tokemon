@@ -4,6 +4,9 @@ function setup() {
 }
 
 angleMode = "radians"; //use radians not degrees
+var globalX = 0;
+var globalY = 0;
+var keyArray = []; //array of keys being pressed
 
 
 //helper function for drawing with subdivision
@@ -16,27 +19,17 @@ var drawPart = function(points, dir){
     endShape();
 };
 
-
-
-
-var startScreenGrass = [];
-for(var i = 0; i < 400; i+= 20)
+var keyPressed = function()
 {
-    for(var j = 200; j < 400; j+= 20)
-    {
-        startScreenGrass.push(new Grass(i, j));
-    }
-}
-
-
-
-
-var startGame = function()
-{
-    background(255, 255, 255);
-    fill(0);
-    text("Game would start", 150, 200);
+    keyArray[keyCode] = 1;
 };
+
+var keyReleased = function() 
+{
+    keyArray[keyCode] = 0;
+};
+
+
 
 
 mouseClicked = function() 

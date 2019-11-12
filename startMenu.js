@@ -29,6 +29,14 @@ clouds.push(new Cloud(750, 125, 1));
 var cloudIndex = 2;
 var cloudTimer = 0;
 
+var startScreenGrass = [];
+for(var i = 0; i < 400; i+= 20)
+{
+    for(var j = 200; j < 400; j+= 20)
+    {
+        startScreenGrass.push(new Grass(i, j));
+    }
+}
 
 var drawMenuBackground = function(){
     background(163, 249, 255);

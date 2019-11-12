@@ -190,25 +190,122 @@ Cloud.prototype.display = function()
 var Grass = function(x, y)
 {
     this.position = new createVector(x, y);
-    this.randX1 = random(-3, -1);
-    this.randX2 = random(1, 3);
-    this.length = random(12, 16);
+    this.randX = random(1, 15);
+	this.randY = random(1, 15);
+	this.hasDetail = random(1, 10);
 };
 
 Grass.prototype.drawGrass = function() 
 {
+	push();
     fill(149, 247, 64);
-    rect(this.position.x, this.position.y, 20, 20);
-    stroke(37, 176, 49);
-    strokeWeight(1);
-    for(var i = this.position.x; i < this.position.x + 20; i+=5)
+	translate(this.position.x - globalX, this.position.y - globalY);
+    rect(0, 0, 20, 20);
+	if(this.hasDetail > 9)
     {
-        for(var j = this.position.y; j < this.position.y + 20; j+=5)
-        {
-            line(i + this.randX1, j, i + this.randX2, j + this.length);
-        }
-    }
+		stroke(37, 206, 49);
+		strokeWeight(2);
+		line(this.randX, this.randY, this.randX, this.randY - 4);
+		line(this.randX - 2, this.randY, this.randX - 4, this.randY - 4);
+		line(this.randX + 2, this.randY, this.randX + 4, this.randY - 4);
+	}
+	pop();
 };
+
+var wildGrassObj = function(x, y)
+{
+    this.position = new createVector(x, y);
+};
+
+var grassDetail = function(x, y)
+{
+	this.position = new createVector(x, y);
+};
+
+grassDetail.prototype.drawDetail = function()
+{
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY);
+	stroke(37, 206, 49);
+	strokeWeight(2);
+	line(0, 0, 0, -4);
+	line(-2, 0, -4, -4);
+	line(2, 0, 4, -4);
+	pop();
+};
+
+wildGrassObj.prototype.drawWildGrass = function()
+{
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY + 1);
+	fill(149, 247, 64);
+	rect(0, 0, 20, 20);
+	strokeWeight(4);
+	stroke(83, 138, 83);
+	line(10, 12, 10, 1);
+	noFill();
+	bezier(9, 10, 8, 8, 6, 3, 2, 2);
+	bezier(10, 10, 4, 8, 4, 8, 2, 12);
+	line(10, 10, 6, 16);
+	stroke(36, 122, 36);
+	bezier(11, 10, 12, 8, 14, 3, 18, 2);
+	bezier(10, 10, 16, 8, 16, 8, 18, 12);
+	line(10, 10, 14, 16);
+	pop();
+};
+
+var brickObj = function(x, y)
+{
+	this.position = new createVector(x, y);
+};
+
+brickObj.prototype.drawBrick = function()
+{
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY);
+	fill(200, 200, 200);
+	rect(0, 0, 20, 20);
+	stroke(50, 50, 50);
+	strokeWeight(1);
+	//horizontal lines
+	line(0, 0, 20, 0);
+	line(0, 20, 20, 20);
+	line(0, 5, 20, 5);
+	line(0, 10, 20, 10);
+	line(0, 15, 20, 15);
+	//vertical lines
+	line(5, 0, 5, 5);
+	line(15, 0, 15, 5);
+	line(10, 5, 10, 10);
+	line(5, 10, 5, 15);
+	line(15, 10, 15, 15);
+	line(10, 15, 10, 20);
+	noStroke();
+	pop();
+};
+
+var pathObj = function(x, y, dir)
+{
+	this.position = new createVector(x, y);
+	this.dir = dir;
+	
+};
+
+pathObj.prototype.drawPath = function()
+{
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY);
+	fill(255, 0, 0);
+	rect(0, 0, 20, 20, 2);
+	if(this.dir == "up")
+	{
+	}
+	else
+	{
+	}
+	pop();
+};
+
 
 //Tree class initialization and drawing methods were all taken from Professor Hsiao's code samples provided to us in class
 var Tree = function(x, y) {
@@ -264,7 +361,7 @@ Tree.prototype.display = function() {
     };
     
     push();
-    translate(this.position.x, this.position.y);
+    translate(this.position.x - globalX, this.position.y - globalY);
     stroke(122, 112, 85);
     drawTree(this.numLevels, this.baseBranchLength);
     pop();
