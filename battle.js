@@ -7,12 +7,17 @@ var fightScene = function(){
     this.counter = 0;
     this.slider = 0;
     this.initialized=false;
+    this.countdiff=0;
+    this.turn=true;
+    this.playerAttack=false;
+    this.npcAttacks=false;
 };
 
 
 fightScene.prototype.init = function(player, wild, enemy){
     this.initialized = true;
     this.wild = wild;
+    this.turn=true;
     if (this.wild===true){
         this.enemyP = pokemen[0];
     }
@@ -23,6 +28,8 @@ fightScene.prototype.init = function(player, wild, enemy){
     this.color = 0;
     this.colorMod=15;
     this.currPokemon=player.pokemon[0];
+    this.currPokemon.setPos(125, 45, 1);
+    this.enemyP.setPos(300, 80, 0.8);
 };
 
 fightScene.prototype.drawScene = function(){
@@ -62,8 +69,8 @@ fightScene.prototype.drawEnemyHalf = function(x, y){
     fill(34, 92, 240);
     fill(26, 217, 30);
     var hpMod = this.enemyP.hp/100;
-    rect(75, 97, 98, 8, 5);
-    this.enemyP.drawFront(300, 80, 0.8);
+    rect(75, 97, 98*hpMod, 8, 5);
+    this.enemyP.drawFront();
     pop();
 };
 
@@ -111,7 +118,7 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     //change when you figure out levels
     var hpMod = this.currPokemon.hp/100;
     rect(260, 67, 98*hpMod, 8, 5);
-    this.currPokemon.drawBack(125, 45, 1);
+    this.currPokemon.drawBack();
     pop();
 };
 
@@ -126,25 +133,27 @@ fightScene.prototype.drawPlayerMenu = function(x, y){
     fill(12, 29, 125);
     rect(10, 310, 380, 80);
     fill(255, 255, 255);
-    textSize(15);
-    noStroke();
-    text("What will Hokie Bird do?", 20, 320, 180, 85);
-    textSize(11);
-    fill(224, 213, 213);
-    rect(205, 315, 180, 70);
-    stroke(255, 0, 0);
-    noFill();
-    rect(210, 320, 80, 25);
-    rect(300, 320, 80, 25);
-    rect(210, 355, 80, 25);
-    rect(300, 355, 80, 25);
-    textSize(15);
-    fill(0);
-    noStroke();
-    text("ATTACK", 220, 325, 80, 25);
-    text("SWITCH", 310, 325, 80, 25);
-    text("POKEBALL", 210, 360, 80, 25);
-    text("RUN", 325, 360, 80, 25);
+    if(this.turn){
+        textSize(15);
+        noStroke();
+        text("What will Hokie Bird do?", 20, 320, 180, 85);
+        textSize(11);
+        fill(224, 213, 213);
+        rect(205, 315, 180, 70);
+        stroke(255, 0, 0);
+        noFill();
+        rect(210, 320, 80, 25);
+        rect(300, 320, 80, 25);
+        rect(210, 355, 80, 25);
+        rect(300, 355, 80, 25);
+        textSize(15);
+        fill(0);
+        noStroke();
+        text("ATTACK", 220, 325, 80, 25);
+        text("SWITCH", 310, 325, 80, 25);
+        text("POKEBALL", 210, 360, 80, 25);
+        text("RUN", 325, 360, 80, 25);
+    }
     textSize(11);
 };
 
@@ -170,7 +179,7 @@ fightScene.prototype.execute = function(){
                 this.colorMod*=-1;
             }
             
-            if(this.counter>1 && this.color===0){
+            if(this.counter>6 && this.color===0){
                 this.state=2;
                 this.counter=0;
             }
@@ -189,10 +198,16 @@ fightScene.prototype.execute = function(){
             this.drawEnemyHalf(0,0);
             this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
+            if(this.playerAttack){
+                this.pAttack();
+            }
+            else if(this.npcAttacks && this.counter>5){
+                this.npcAttack();
+            }
             break;
     }
     
-    if(this.currFrame < frameCount-60){
+    if(this.currFrame < frameCount-10){
         this.counter++;
         this.currFrame = frameCount;
     }
@@ -204,4 +219,48 @@ fightScene.prototype.reset = function(){
     this.counter = 0;
     this.slider = 0;
     this.initialized=false;
+};
+
+
+fightScene.prototype.moveP = function(xMod, yMod, sizeMod){
+    this.currPokemon.object.position.x+=xMod;
+    this.currPokemon.object.position.y+=yMod;
+    this.currPokemon.object.size+=sizeMod;
+};
+fightScene.prototype.moveNPC = function(xMod, yMod, sizeMod){
+    this.enemyP.object.position.x+=xMod;
+    this.enemyP.object.position.y+=yMod;
+    this.enemyP.object.size+=sizeMod;
+};
+
+//Add animation to get hit
+//change when you know attacking numbers
+fightScene.prototype.pAttack = function(){
+    if(this.counter<1){
+        this.moveP(5, 0, 0);
+    }
+    else{
+        this.moveP(-5, 0, 0);
+        if(this.currPokemon.object.position.x===125){
+            this.playerAttack=false;
+            this.enemyP.hp-=10;
+            this.npcAttacks=true;
+            this.counter=0;
+        }
+    }
+
+};
+
+fightScene.prototype.npcAttack = function(){
+    if(this.counter<7){
+        this.moveNPC(-5, 0, 0);
+    }
+    else {
+        this.moveNPC(5, 0, 0);
+        if(this.enemyP.object.position.x===300){
+            this.npcAttacks=false;
+            this.currPokemon.hp-=10;
+            this.turn=true;
+        }
+    }
 };

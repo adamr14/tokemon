@@ -69,10 +69,12 @@ mouseClicked = function()
             }
         }
     }
-    if(inBattle){
+    if(inBattle && fight.turn){
         if (mouseX >=210 && mouseX <=290){
             if(mouseY>=320 && mouseY<=345){
-                //attack
+                fight.turn=false;
+                fight.playerAttack=true;
+                fight.counter=0;
             }
             else if (mouseY>=355 && mouseY<=380){
                 //pokeball if not wild
