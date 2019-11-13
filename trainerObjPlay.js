@@ -248,7 +248,6 @@ playerObj.prototype.drawTrainer = function()
 			//hat
 			fill(200, 200, 200, this.transparency);
 			ellipse(x, y - 90, 200, 100);
-			pop();
 			break;
 		case 2:
 			

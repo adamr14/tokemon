@@ -127,6 +127,7 @@ var showText = function()
 		displayTextTimer = 0;
 	}
 	fill(255, 25, 25);
+	textSize(20);
 	text(displayTextMsg, 75, 380);
 };
 
