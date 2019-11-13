@@ -424,6 +424,10 @@ playerObj.prototype.captureMovement = function()
             }
         }
 	}
+	else
+	{
+		this.motion = 0;
+	}
 	
 	var xHighLim = 202;
 	var xLowLim = 198;

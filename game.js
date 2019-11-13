@@ -15,40 +15,40 @@ var tileMap = [
 	"b                                                b",
 	"b                                                b",
 	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
+	"b                                          pp    b",
+	"b                                          pp    b",
+	"b                                          pp    b",
+	"b                                          pp    b",
+	"b                pppppppppppppppppppppppppppp    b",
+	"b                pppppppppppppppppppppppppppp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b                pp                        pp    b",
+	"b          pppppppppppppppppppppppppppppppppp    b",
+	"b          pppppppppppppppppppppppppppppppppp    b",
 	"b                                                b",
 	"b                                                b",
 	"b                                                b",
@@ -73,6 +73,10 @@ var initializeTilemap = function ()
 			{
                 bricks.push(new brickObj(j*20, i*20));
             }
+			else if (tileMap[i][j] === 'p') 
+			{
+                paths.push(new pathObj(j*20, i*20));
+            }
         }
     }
 	
@@ -84,17 +88,17 @@ var initializeTilemap = function ()
 };
 
 
-var spawnPokeBallTimer = 0;
+var spawnPokeBallTimer = 450;
 var spawnedPokeballs = [];
 var spawnedPokeballCounter = 0;
-var pokeballSpawnThreshold = 1800;
+var pokeballSpawnThreshold = 900;
 //randomly spawn pokeball somewhere on map every 30 seconds
 var spawnPokeball = function()
 {
 	spawnPokeBallTimer++;
 	if(spawnPokeBallTimer > pokeballSpawnThreshold)
 	{
-		pokeballSpawnThreshold += 900;
+		pokeballSpawnThreshold += 300;
 		spawnPokeBallTimer = 0;
 		if(random(0, 100) < 90)
 		{
@@ -128,7 +132,7 @@ var showText = function()
 	}
 	fill(255, 25, 25);
 	textSize(20);
-	text(displayTextMsg, 75, 380);
+	text(displayTextMsg, 50, 380);
 };
 
 var displayTilemap = function() 
@@ -149,6 +153,10 @@ var displayTilemap = function()
 	for(i = 0; i < bricks.length; i++)
 	{
 		bricks[i].drawBrick();
+	}
+	for(i = 0; i < paths.length;i++)
+	{
+		paths[i].drawPath();
 	}
 	for(i = 0; i < spawnedPokeballs.length;i++)
 	{

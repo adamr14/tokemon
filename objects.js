@@ -165,6 +165,7 @@ var pokeballObj = function(x, y, type, index)
 	this.position = new createVector(x, y);
 	this.type = type;
 	this.index = index;
+	this.deleteTimer = 0;
 };
 
 pokeballObj.prototype.drawPokeball = function(size)
@@ -189,6 +190,7 @@ pokeballObj.prototype.drawPokeball = function(size)
 
 pokeballObj.prototype.checkCollected = function()
 {
+	this.deleteTimer++;
 	if(abs(player.center.x - this.position.x) < 15 && abs(player.center.y - this.position.y) < 30)
 	{
 		if(this.type === "normal")
@@ -209,8 +211,17 @@ pokeballObj.prototype.checkCollected = function()
 		var msg = "Added " + this.type + " pokeball to your bag";
 		displayText(msg);
 	}
+	else if(this.deleteTimer > 9000)
+	{
+		var tempIndex = this.index;
+		spawnedPokeballs.splice(tempIndex, 1);
+        for(var i = tempIndex; i < spawnedPokeballs.length; i++)
+        {
+            spawnedPokeballs[i].index--;
+        }
+        spawnedPokeballCounter--;
+	}
 };
-
 
 
 var Cloud = function(x, y, index)
@@ -338,10 +349,11 @@ brickObj.prototype.drawBrick = function()
 	pop();
 };
 
-var pathObj = function(x, y, dir)
+var pathObj = function(x, y)
 {
 	this.position = new createVector(x, y);
-	this.dir = dir;
+	this.r1 = random(-3, 3);
+	this.r2 = random(-3, 3);
 	
 };
 
@@ -349,14 +361,19 @@ pathObj.prototype.drawPath = function()
 {
 	push();
 	translate(this.position.x - globalX, this.position.y - globalY);
-	fill(255, 0, 0);
-	rect(0, 0, 20, 20, 2);
-	if(this.dir == "up")
-	{
-	}
-	else
-	{
-	}
+	fill(252, 221, 45);
+	rect(0, 0, 20, 20);
+
+	fill(102, 69, 13);
+	ellipse(12 + this.r1, 11 + this.r2, 2, 2);
+	ellipse(9 + this.r2, 9 + this.r1, 2, 2);
+
+	ellipse(5 + this.r1, 15 + this.r2, 2, 2);
+
+	ellipse(12 + this.r2, 4 + this.r1, 2,2);
+	ellipse(15 + this.r1, 4, 2, 2);
+	ellipse(17, 6 + this.r2, 2, 2);
+
 	pop();
 };
 
