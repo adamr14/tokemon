@@ -84,6 +84,8 @@ mouseClicked = function()
             }
             else if (mouseY>=355 && mouseY<=380){
                 //run
+                inBattle=false;
+                fight.reset();
             }
         }
     }

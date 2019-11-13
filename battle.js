@@ -198,5 +198,10 @@ fightScene.prototype.execute = function(){
     }
 };
 
-
-
+fightScene.prototype.reset = function(){
+    this.currFrame = 0;
+    this.state = 0;
+    this.counter = 0;
+    this.slider = 0;
+    this.initialized=false;
+};

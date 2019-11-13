@@ -7,6 +7,7 @@ var playerObj = function(x, y, initialLook)
 	this.transparency = 300;
 	this.pokemon =[new pokemon("Hokie", 5)];
 	this.pokeballs = 2;
+	this.moving = false;
 };
 
 playerObj.prototype.drawTrainer = function()
@@ -21,21 +22,26 @@ playerObj.prototype.drawTrainer = function()
 playerObj.prototype.captureMovement = function()
 {
 	push();
+	this.moving=false;
 	if(keyArray[40] == 1)
 	{
 		this.position.y += speed;
+		this.moving=true;
 	}
 	if(keyArray[39] == 1)
 	{
 		this.position.x += speed;
+		this.moving=true;
 	}
 	if(keyArray[37] == 1)
 	{
 		this.position.x -= speed;
+		this.moving=true;
 	}
 	if(keyArray[38] == 1)
 	{
 		this.position.y -= speed;
+		this.moving=true;
 	}
 	
 	var xHighLim = 202;

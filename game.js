@@ -102,13 +102,7 @@ var displayTilemap = function()
 	{
 		bricks[i].drawBrick();
 	}
-	player.drawTrainer();
-	player.captureMovement();
-	//ADD SOMETHING HERE TO LOWER CHANCES OF WILD ANIMAL
-	if ( player.isTouchingWildGrass() ){
-		inBattle=true;
-		wild=true;
-	}
+	
 };
 
 var initialized = 0
@@ -119,4 +113,13 @@ var startGame = function()
 
 var playGame = function(){
 	displayTilemap();
+	player.drawTrainer();
+	player.captureMovement();
+	//ADD SOMETHING HERE TO LOWER CHANCES OF WILD ANIMAL
+	if ( player.isTouchingWildGrass() && player.moving){
+		if (Math.random()*1000 <=15){
+			inBattle=true;
+			wild=true;
+		}
+	}
 }
