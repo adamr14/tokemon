@@ -206,7 +206,7 @@ var drawInstructions = function()
                 text("-A hurt Pokemon is", 215, 164, 160, 20);
                 text("easier to catch", 215, 180, 160, 20);
             }
-            o.draw();
+            o.drawFront();
 			instructionsPokeball_2.draw();
             break;
         case 3:

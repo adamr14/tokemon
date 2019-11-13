@@ -5,13 +5,9 @@ function setup() {
 
 }
 
-angleMode = "radians"; //use radians not degrees
-var globalX = 0;
-var globalY = 0;
-var inBattle = false;
-var playing = false;
-var keyArray = []; //array of keys being pressed
 
+var fight = new fightScene();
+pokemen.push(new pokemon("Otto", 2));
 
 //helper function for drawing with subdivision
 var drawPart = function(points, dir){
@@ -109,6 +105,16 @@ function draw()
         startGameClicked=false;
     }
     else if(playing){
-        playGame();
+        if(inBattle){
+            if(!fight.initialized){
+                fight.init(player, wild, false);
+            }
+            else{
+                fight.execute();
+            }
+        }
+        else{
+            playGame();
+        }
     }
 }

@@ -1,23 +1,28 @@
 angleMode="radians";
 
-var pokemon = ["Otto"]; 
 
 var fightScene = function(){
-    this.currFrame = frameCount;
+    this.currFrame = 0;
     this.state = 0;
     this.counter = 0;
     this.slider = 0;
+    this.initialized=false;
 };
 
 
-fightScene.prototype.init = function(wild, trainer){
+fightScene.prototype.init = function(player, wild, enemy){
+    this.initialized = true;
     this.wild = wild;
     if (this.wild===true){
-        this.pokemon = pokemon[0];
+        this.enemyP = pokemen[0];
     }
-    this.trainer = trainer;
+    else{
+        this.enemy = enemy;
+        this.enemyP = enemy.pokemon[0];
+    }
     this.color = 0;
     this.colorMod=15;
+    this.currPokemon=player.pokemon[0];
 };
 
 fightScene.prototype.drawScene = function(){
@@ -26,7 +31,7 @@ fightScene.prototype.drawScene = function(){
 };
 
 fightScene.prototype.drawEnemyHalf = function(x, y){
-    pushMatrix();
+    push();
     translate(x, y);
     fill(255, 255, 255);
     noStroke();
@@ -46,22 +51,25 @@ fightScene.prototype.drawEnemyHalf = function(x, y){
     rect(45, 70, 150, 50, 10);
     
     //CHANGE THIS ONCE YOU INTEGRATE INTO GAME
+    textSize(11);
     noStroke();
     fill(95, 35, 35);
-    text(this.pokemon, 55, 75, 100, 100);
-    text("LVL 1", 150, 80, 100, 100);
+    text(this.enemyP.type, 55, 75, 100, 100);
+    text("LVL "+this.enemyP.level, 150, 80, 100, 100);
     rect(55, 95, 120, 12, 5);
     fill(255, 255, 255);
     text("HP", 55, 97, 100, 100);
     fill(34, 92, 240);
     fill(26, 217, 30);
+    var hpMod = this.enemyP.hp/100;
     rect(75, 97, 98, 8, 5);
+    this.enemyP.drawFront(300, 80, 0.8);
     pop();
 };
 
 //change inputs
 fightScene.prototype.drawPlayerHalf = function(x, y){
-    pushMatrix();
+    push();
     translate(x, y);
     fill(255, 255, 255);
     noStroke();
@@ -83,8 +91,9 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     //CHANGE THIS ONCE YOU INTEGRATE INTO GAME
     noStroke();
     fill(95, 35, 35);
-    text("Hokie Bird", 240, 45, 100, 100);
-    text("LVL 1", 340, 50, 100, 100);
+    textSize(11);
+    text(this.currPokemon.type, 240, 45, 100, 100);
+    text("LVL "+this.currPokemon.level, 340, 50, 100, 100);
     rect(240, 65, 120, 12, 5);
     fill(255, 255, 255);
     text("HP", 241, 67, 100, 100);
@@ -96,9 +105,13 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     fill(168, 161, 161);
     rect(275, 88, 80, 5);
     fill(34, 92, 240);
-    rect(275,88, 30, 5);
+    var xpMod = this.currPokemon.exp/(this.currPokemon.level*50);
+    rect(275,88, 80*xpMod, 5);
     fill(26, 217, 30);
-    rect(260, 67, 98, 8, 5);
+    //change when you figure out levels
+    var hpMod = this.currPokemon.hp/100;
+    rect(260, 67, 98*hpMod, 8, 5);
+    this.currPokemon.drawBack(125, 45, 1);
     pop();
 };
 
@@ -114,6 +127,7 @@ fightScene.prototype.drawPlayerMenu = function(x, y){
     rect(10, 310, 380, 80);
     fill(255, 255, 255);
     textSize(15);
+    noStroke();
     text("What will Hokie Bird do?", 20, 320, 180, 85);
     textSize(11);
     fill(224, 213, 213);
@@ -126,6 +140,7 @@ fightScene.prototype.drawPlayerMenu = function(x, y){
     rect(300, 355, 80, 25);
     textSize(15);
     fill(0);
+    noStroke();
     text("ATTACK", 220, 325, 80, 25);
     text("SWITCH", 310, 325, 80, 25);
     text("POKEBALL", 210, 360, 80, 25);
@@ -184,6 +199,4 @@ fightScene.prototype.execute = function(){
 };
 
 
-var fight = new fightScene();
-fight.init(true, false);
 

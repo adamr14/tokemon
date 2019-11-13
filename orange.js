@@ -16,7 +16,7 @@ var orange = function(x, y, size){
     }
 };
 
-orange.prototype.draw = function() {
+orange.prototype.drawFront = function() {
     push();
     translate(this.position.x, this.position.y);
     scale(this.size*0.35);
@@ -121,6 +121,7 @@ orange.prototype.draw = function() {
     pop();
     pop();
     noFill();
+    stroke(255, 255, 255);
     bezier(-70, -85, -50, -105, 40, -100, 84, -80);
     strokeWeight(1);
     bezier(-40, -95, -35, -130, -25, -140, 0, -145);
@@ -179,3 +180,76 @@ orange.prototype.draw = function() {
     
     pop();  
 };
+
+orange.prototype.drawBack = function(){
+    push();
+    translate(this.position.x, this.position.y);
+    scale(this.size*0.35);
+    fill(15, 13, 117);
+    //legs
+    push();
+    translate(-100, -5);
+    scale(0.6);
+    drawPart(this.legs, 1);
+    pop();
+    
+    //arms
+    stroke(0);
+    strokeWeight(1);
+    fill(15, 13, 117);
+    push();
+    translate(-40, -40);
+    scale(0.7);
+    rotate(-0.2);
+    drawPart(this.arm, 1);
+    pop();
+    push();
+    translate(40, -40);
+    scale(0.7);
+    rotate(0.2);
+    drawPart(this.arm, -1);
+    pop();
+    noFill();
+    stroke(0);
+    strokeWeight(1);
+    arc(-88, -25, 20, 30, 3*Math.PI/2-0.6, 5*Math.PI/2+0.4);
+    arc(88, -25, 20, 30, Math.PI/2-0.6, 3*Math.PI/2+1);
+
+    //body
+    push();
+    strokeWeight(1);
+    stroke(120, 73, 20);
+    fill(255, 140, 0);
+    translate(-170, -150);
+    drawPart(this.body, 1);
+    pop();
+    fill(145, 88, 31, 50);
+    noStroke();
+    for(var i =0; i<this.spots.length; i++){
+        ellipse(60*this.spots[i][1], 60*this.spots[i][2], this.spots[i][0], this.spots[i][0]);
+    }  
+    
+    //hat
+    push();
+    scale(0.5);
+    translate(-210, -370);
+    fill(15, 13, 117);
+    drawPart(this.hat, 1);
+    push();
+    noFill();
+    scale(0.9);
+    translate(20, 10);
+    drawPart(this.hat, 1);
+    pop();
+    pop();
+    noFill();
+    stroke(255,255, 255);
+    strokeWeight(1);
+    bezier(-40, -55, -35, -130, -25, -140, 0, -210);
+    bezier(60, -50, 60, -120, 30, -140, 20, -210);
+    stroke(255, 255, 255);
+    strokeWeight(8);
+    
+    
+    pop();
+}

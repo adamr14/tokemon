@@ -1,67 +1,3 @@
-var gameObj = function(){
-	this.player = new playerObj(250, 50, 0);
-	this.wildGrass = []
-	this.regularGrass = [];
-	this.paths = [];
-	this.bricks = [];
-	this.tileMap = [
-	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-	"b             wwwwwwwwwwwwwwwwwwww               b",
-	"b             wwwwwwwwwwwwwwwwwwww               b",
-	"b             wwwwwwwwwwwwwwwwwwww               b",
-	"b              wwwwwwwwwwwwwwwwww                b",
-	"b               wwwwwwwwwwwwwwww                 b",
-	"b                wwwwwwwwwwwwww                  b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"];
-	this.globalX =0;
-	this.globalY=0;
-	this.inBattle = false;
-	this.playing = false;
-};
-
-
 var player = new playerObj(250, 50, 0);
 var wildGrass = [];
 var regularGrass = [];
@@ -168,7 +104,11 @@ var displayTilemap = function()
 	}
 	player.drawTrainer();
 	player.captureMovement();
-	player.isTouchingWildGrass();
+	//ADD SOMETHING HERE TO LOWER CHANCES OF WILD ANIMAL
+	if ( player.isTouchingWildGrass() ){
+		inBattle=true;
+		wild=true;
+	}
 };
 
 var initialized = 0

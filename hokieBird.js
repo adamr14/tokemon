@@ -147,3 +147,112 @@ hokieBird.prototype.drawFront= function() {
     pop();
     pop();
 };
+
+hokieBird.prototype.drawBack = function(){
+    strokeWeight(1);
+    line(200, 0, 200, 400);
+    line(0, 200, 400, 200);
+    push();
+    translate(this.position.x, this.position.y);
+    scale(this.size*0.25);
+    push();
+    stroke(0);
+    strokeWeight(1);
+
+    //beak
+    stroke(0);
+    fill(186, 117, 37);
+    push();
+    translate(-60, -180);
+    scale(0.45);
+    strokeWeight(2);
+    drawPart(this.beak, 1);
+    pop();
+    noFill();
+    strokeWeight(1);
+    line(6, -90, 6, -115);
+    bezier(-60, -100, -15, -85, 15, -75, 60, -100);
+    line(-60, -100, -58, -102);
+    line(-60, -100, -62, -98);
+    line(60, -100, 61, -98);
+    line(60, -100, 58, -102);
+    push();
+    fill(209, 42, 42);
+    translate(110, -175);
+    scale(-0.3, 0.4);
+    drawPart(this.beakThing, 1);
+    pop();
+    
+    //arms
+    //right
+    push();
+    rotate(this.wingAngle);
+    fill(95, 35, 35);
+    strokeWeight(3);
+    triangle(170, -60, 168, -25, 145, -50);
+    triangle(110, -60, 145, -17, 150, -50);
+    triangle(100, -30, 120, -10, 125, -40);
+    push();
+    translate(-10, -165);
+    scale(0.7);
+    drawPart(this.arm,  1);
+    pop();
+    pop();
+
+    //left
+    push();
+    fill(95, 35, 35);
+    rotate(-this.wingAngle);
+    triangle(-170, -60, -168, -25, -145, -50);
+    triangle(-110, -60, -145, -17, -150, -50);
+    triangle(-90, -30, -115, -10, -120, -40);
+    push();
+    translate(10, -165);
+    scale(0.7);
+    drawPart(this.arm,  -1);
+    pop();
+    pop();
+    
+    //legs
+    fill(186, 117, 37);
+    push();
+    translate(-56, 0);
+    scale(0.7, 0.8); 
+    drawPart(this.leg,  1);
+    pop();
+    push();
+    translate(55, 0);
+    scale(0.7, 0.8);
+    drawPart(this.leg,-1);
+    pop();
+    
+    //body
+    stroke(0);
+    fill(84, 29, 29);
+    push();
+    translate(-170, -187);
+    scale(0.9, 1);
+    drawPart(this.body, 1);
+    pop();
+    push();
+    translate(-125, -170);
+    scale(0.7);
+    stroke(0);
+    strokeWeight(2);
+    drawPart(this.neckThing,  1);
+    pop();
+    stroke(0);
+    arc(-45, 105, 60, 90, 0, Math.PI*1.12);
+    arc(45, 105, 60, 90, -Math.PI/12, Math.PI);
+    
+    
+    //head
+    fill(117, 39, 39);
+    push();
+    translate(-203, -295);
+    drawPart(this.head, 1);
+    pop();
+    pop();
+    pop();
+
+};

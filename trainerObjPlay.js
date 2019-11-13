@@ -1,12 +1,12 @@
 //Trainer Class
-
-var speed = 2;
 var playerObj = function(x, y, initialLook)
 {
     this.position = new createVector(x - globalX, y - globalY);
     this.i = initialLook;
     this.currFrame = frameCount;
 	this.transparency = 300;
+	this.pokemon =[new pokemon("Hokie", 5)];
+	this.pokeballs = 2;
 };
 
 playerObj.prototype.drawTrainer = function()
@@ -108,6 +108,7 @@ playerObj.prototype.isTouchingWildGrass = function()
 				if(this.position.y < wildGrass[i].position.y - globalY + 20 && this.position.y + 20 > wildGrass[i].position.y - globalY)
 				{
 					this.transparency = 100;
+					return true;
 				}
 			}
 		}
