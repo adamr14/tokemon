@@ -125,7 +125,8 @@ var StartPokeball = function(x, y, type, size, angle)
 	this.size = size;
 };
 
-StartPokeball.prototype.draw = function(){
+StartPokeball.prototype.draw = function()
+{
     push();
     translate(this.translation.x, this.translation.y);
     if(mouseX < 180 && mouseX > 80 && mouseY < 330 && mouseY > 230 && this.type === "normal" && onStartScreen)
@@ -138,7 +139,8 @@ StartPokeball.prototype.draw = function(){
     if(this.type === "normal")
     { fill(255, 0, 0); }
     else {fill(0, 0, 255); }
-    bezier(this.position.x - 43, this.position.y, this.position.x - 36, this.position.y - 60, this.position.x + 36, this.position.y - 60, this.position.x + 43, this.position.y);    fill(255, 255, 255);
+    bezier(this.position.x - 43, this.position.y, this.position.x - 36, this.position.y - 60, this.position.x + 36, this.position.y - 60, this.position.x + 43, this.position.y);    
+	fill(255, 255, 255);
     bezier(this.position.x - 43, this.position.y, this.position.x - 36, this.position.y + 60, this.position.x + 36, this.position.y + 60, this.position.x + 43, this.position.y);
     stroke(0, 0, 0);
     strokeWeight(10);
@@ -157,6 +159,58 @@ StartPokeball.prototype.draw = function(){
     pop();
     noStroke();
 };
+
+var pokeballObj = function(x, y, type, index)
+{
+	this.position = new createVector(x, y);
+	this.type = type;
+	this.index = index;
+};
+
+pokeballObj.prototype.drawPokeball = function(size)
+{
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY);
+	scale(size);
+    if(this.type === "normal")
+    { fill(255, 0, 0); }
+    else {fill(0, 0, 255); }
+    bezier(-43, 0,  -36, -60, 36, -60, 43, 0);    
+	fill(255, 255, 255);
+    bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+    stroke(0, 0, 0);
+    strokeWeight(10);
+    line(-39, 0, 37, 0);
+    strokeWeight(1);
+    ellipse(0, 0, 20, 20);
+    fill(0, 0, 0);
+	pop();
+};
+
+pokeballObj.prototype.checkCollected = function()
+{
+	if(abs(player.center.x - this.position.x) < 15 && abs(player.center.y - this.position.y) < 30)
+	{
+		if(this.type === "normal")
+		{
+			player.pokeballs[0]++;
+		}
+		else
+		{
+			player.pokeballs[1]++;
+		}
+		var tempIndex = this.index;
+		spawnedPokeballs.splice(tempIndex, 1);
+        for(var i = tempIndex; i < spawnedPokeballs.length; i++)
+        {
+            spawnedPokeballs[i].index--;
+        }
+        spawnedPokeballCounter--;
+		var msg = "Added " + this.type + " pokeball to your bag";
+		displayText(msg);
+	}
+};
+
 
 
 var Cloud = function(x, y, index)

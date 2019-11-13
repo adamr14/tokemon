@@ -1,4 +1,4 @@
-var player = new playerObj(250, 50, 0);
+var player = new playerObj(330, 50, 0);
 var wildGrass = [];
 var regularGrass = [];
 var paths = [];
@@ -83,6 +83,53 @@ var initializeTilemap = function ()
 
 };
 
+
+var spawnPokeBallTimer = 0;
+var spawnedPokeballs = [];
+var spawnedPokeballCounter = 0;
+var pokeballSpawnThreshold = 1800;
+//randomly spawn pokeball somewhere on map every 30 seconds
+var spawnPokeball = function()
+{
+	spawnPokeBallTimer++;
+	if(spawnPokeBallTimer > 60)
+	{
+		pokeballSpawnThreshold += 900;
+		spawnPokeBallTimer = 0;
+		if(random(0, 100) < 90)
+		{
+			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(25, 975), "normal", spawnedPokeballCounter));
+		}
+		else
+		{
+			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(25, 975), "rare", spawnedPokeballCounter));
+		}
+		spawnedPokeballCounter++;
+	}
+};
+
+
+var displayTextTimer = 0;
+var displayTextBool = false;
+var displayTextMsg = "";
+var displayText = function(message)
+{
+	displayTextBool = true;
+	displayTextMsg = message;
+};
+
+var showText = function()
+{
+	displayTextTimer++;
+	if(displayTextTimer > 120)
+	{
+		displayTextBool = false;
+		displayTextTimer = 0;
+	}
+	fill(255, 25, 25);
+	text(displayTextMsg, 75, 380);
+};
+
 var displayTilemap = function() 
 {
 	background(149, 247, 64);
@@ -102,7 +149,11 @@ var displayTilemap = function()
 	{
 		bricks[i].drawBrick();
 	}
-	
+	for(i = 0; i < spawnedPokeballs.length;i++)
+	{
+		spawnedPokeballs[i].drawPokeball(0.15);
+		spawnedPokeballs[i].checkCollected();
+	}
 };
 
 var initialized = 0
@@ -122,4 +173,12 @@ var playGame = function(){
 			wild=true;
 		}
 	}
+	if(displayTextBool)
+	{
+		showText();
+	}
+	player.drawTrainer();
+	player.captureMovement();
+	player.isTouchingWildGrass();
+	spawnPokeball();
 }
