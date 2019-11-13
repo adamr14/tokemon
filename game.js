@@ -92,7 +92,7 @@ var pokeballSpawnThreshold = 1800;
 var spawnPokeball = function()
 {
 	spawnPokeBallTimer++;
-	if(spawnPokeBallTimer > 60)
+	if(spawnPokeBallTimer > pokeballSpawnThreshold)
 	{
 		pokeballSpawnThreshold += 900;
 		spawnPokeBallTimer = 0;
