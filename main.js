@@ -2,12 +2,14 @@ new p5();
 function setup() {
   var canvas = createCanvas(400, 400);
   canvas.parent('hokiemon-holder');
-  
+
 }
 
 angleMode = "radians"; //use radians not degrees
 var globalX = 0;
 var globalY = 0;
+var inBattle = false;
+var playing = false;
 var keyArray = []; //array of keys being pressed
 
 
@@ -71,18 +73,42 @@ mouseClicked = function()
             }
         }
     }
+    if(inBattle){
+        if (mouseX >=210 && mouseX <=290){
+            if(mouseY>=320 && mouseY<=345){
+                //attack
+            }
+            else if (mouseY>=355 && mouseY<=380){
+                //pokeball if not wild
+            }
+        }
+        else if(mouseX >=300 && mouseX <=380){
+            if(mouseY>=320 && mouseY<=345){
+                //switch pokemon
+            }
+            else if (mouseY>=355 && mouseY<=380){
+                //run
+            }
+        }
+    }
 };
 
 function draw() 
 {
-  if(onStartScreen)
-  { drawStartBackground(); }
-  else if(onInstructionsScreen)
+    if(onStartScreen){ 
+      drawStartBackground(); 
+    }
+    else if(onInstructionsScreen)
     {
         drawInstructions();
     }
     else if(startGameClicked)
     {
         startGame();
+        playing = true;
+        startGameClicked=false;
+    }
+    else if(playing){
+        playGame();
     }
 }
