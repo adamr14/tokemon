@@ -37,25 +37,25 @@ var tileMap = [
 	"bwwwww           pp                        pp    b",
 	"bwww             pp                        pp    b",
 	"bw               pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                  	      pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b                pp                        pp    b",
-	"b          pppppppppppppppppppppppppppppppppp    b",
-	"b          pppppppppppppppppppppppppppppppppp    b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                                b",
+	"bffff            pp                        pp    b",
+	"b   ffff         pp                        pp    b",
+	"b t     f        pp                        pp    b",
+	"b        f       pp                        pp    b",
+	"b     t   f      pp                        pp    b",
+	"b        f       pp                        pp   wb",
+	"b  t    f        pp                        pp  wwb",
+	"b      f         pp                        pp  wwb",
+	"b      f         pp                        pp  wwb",
+	"bfffffff         pp                        pp  wwb",
+	"b                pp                        pp wwwb",
+	"b                pp                        pp wwwb",
+	"b                pp                        pp wwwb",
+	"b          pppppppppppppppppppppppppppppppppp wwwb",
+	"b          pppppppppppppppppppppppppppppppppp wwwb",
+	"b                                             wwwb",
+	"b                                      wwwwwwwwwwb",	
+	"b                                   wwwwwwwwwwwwwb",
+	"b                                  wwwwwwwwwwwwwwb",
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"];
 	
 var initializeTilemap = function () 
@@ -331,6 +331,7 @@ var playGame = function()
 	}
 	else
 	{
+		noStroke();
 		displayTilemap();
 		//ADD SOMETHING HERE TO LOWER CHANCES OF WILD ANIMAL
 		if ( player.isTouchingWildGrass() && player.moving)

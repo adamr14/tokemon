@@ -602,14 +602,14 @@ playerObj.prototype.captureMovement = function()
 			{
 				canMove = false;
 				if(this.center.x < 500)
-				{this.position.x += 1;}
+				{this.position.x += 3;}
 				else if(this.center.x > 500)
-				{ this.position.x -= 1; }
+				{ this.position.x -= 2; }
 				
 				if(this.center.y < 500)
-				{this.position.y += 1;}
+				{this.position.y += 2;}
 				else if(this.center.y > 500)
-				{ this.position.y -= 1; }	
+				{ this.position.y -= 2; }	
 			}
 		}
 	}
@@ -723,7 +723,7 @@ playerObj.prototype.isTouchingWildGrass = function()
 	this.transparency = 300;
 	noStroke();	
 	//check upper patch of wild grass
-	if((this.center.x > 250 && this.center.x < 670 && this.center.y < 130) || (this.center.y > 300 && this.center.y < 520 && this.center.x < 200))
+	if((this.center.x > 250 && this.center.x < 670 && this.center.y < 130) || (this.center.y > 300 && this.center.y < 520 && this.center.x < 200) || (this.center.x > 700 && this.center.y > 700))
 	{
 		for(var i = 0; i < wildGrass.length; i++)
 		{
@@ -741,7 +741,7 @@ playerObj.prototype.isTouchingWildGrass = function()
 
 playerObj.prototype.enterHouse = function()
 {
-	if(this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170)
+	if((this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170))
 	{
 		insideHouse = true;
 		this.position.x = 100;
