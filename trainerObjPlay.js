@@ -723,7 +723,7 @@ playerObj.prototype.isTouchingWildGrass = function()
 	this.transparency = 300;
 	noStroke();	
 	//check upper patch of wild grass
-	if((this.center.x > 250 && this.center.x < 670 && this.center.y < 130) || (this.center.y > 300 && this.center.y < 520 && this.center.x < 200) || (this.center.x > 700 && this.center.y > 700))
+	if((this.center.x > 250 && this.center.x < 670 && this.center.y < 130) || (this.center.y > 300 && this.center.y < 580 && this.center.x < 200) || (this.center.x > 700 && this.center.y > 700))
 	{
 		for(var i = 0; i < wildGrass.length; i++)
 		{
@@ -761,7 +761,7 @@ playerObj.prototype.exitHouse = function()
 	{
 		insideHouse = false;
 		this.position.x = 200;
-		this.position.y = 200;
+		this.position.y = 180;
 		globalX = 600;
 		globalY = 0;
 		//this.center.x = 800;
