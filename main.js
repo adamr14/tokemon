@@ -92,6 +92,13 @@ mouseClicked = function()
             }
         }
     }
+	else if(insideHouse)
+	{
+		if(mouseX > 250 && mouseX < 320 && mouseY > 80 && mouseY < 130)
+		{
+			healAnimation = true;
+		}
+	}
 };
 
 function draw() 

@@ -10,7 +10,6 @@ var playerObj = function(x, y, initialLook)
 	this.moving = false;
 	this.center = new createVector(x + globalX + 30, y + globalY + 30);
 	this.motion = 0;
-
 };
 
 playerObj.prototype.drawTrainer = function()
@@ -528,6 +527,69 @@ playerObj.prototype.drawTrainer = function()
     pop();
 };
 
+playerObj.prototype.captureMovementInsideHouse = function()
+{
+	this.moving = false;
+	this.center = new createVector(this.position.x + 30, this.position.y + 30);
+
+	if(keyArray[39] == 1)
+	{
+		this.position.x += speed;
+		this.moving=true;
+		this.i = 2;
+	}
+	if(keyArray[37] == 1)
+	{
+		this.position.x -= speed;
+		this.moving=true;
+			this.i = 3;
+	}
+	if(keyArray[40] == 1)
+	{
+		this.position.y += speed;
+		this.moving=true;
+		this.i = 0;
+	}
+	if(keyArray[38] == 1)
+	{
+		this.position.y -= speed;
+		this.moving=true;
+		this.i = 1;
+	}
+	if(this.moving)
+	{
+		if (this.currFrame < (frameCount - 3)) 
+        {
+            this.currFrame = frameCount;
+            this.motion++;
+            if (this.motion > 2) 
+            {
+                this.motion = 1;
+            }
+        }
+	}
+	else
+	{
+		this.motion = 0;
+	}
+	
+	if(this.position.x > 345)
+	{
+		this.position.x = 345;
+	}
+	else if(this.position.x < 50)
+	{
+		this.position.x = 50;
+	}
+	if(this.position.y > 340)
+	{ this.position.y = 340; }
+	else if(this.position.y < 100)
+	{
+		this.position.y = 100;
+	}
+	
+}
+
 playerObj.prototype.captureMovement = function()
 {
 	push();
@@ -539,14 +601,14 @@ playerObj.prototype.captureMovement = function()
 			if(this.center.y <= fences[i].position.y + 20 && this.center.y >= fences[i].position.y - 20)
 			{
 				canMove = false;
-				if(this.center.x - globalX < 500)
+				if(this.center.x < 500)
 				{this.position.x += 1;}
-				else if(this.center.x - globalX > 500)
+				else if(this.center.x > 500)
 				{ this.position.x -= 1; }
 				
-				if(this.center.y - globalY < 500)
+				if(this.center.y < 500)
 				{this.position.y += 1;}
-				else if(this.center.y - globalY > 500)
+				else if(this.center.y > 500)
 				{ this.position.y -= 1; }	
 			}
 		}
@@ -583,7 +645,7 @@ playerObj.prototype.captureMovement = function()
 	
 	if(this.moving)
 	{
-		if (this.currFrame < (frameCount - 5)) 
+		if (this.currFrame < (frameCount - 3)) 
         {
             this.currFrame = frameCount;
             this.motion++;
@@ -659,7 +721,9 @@ playerObj.prototype.captureMovement = function()
 playerObj.prototype.isTouchingWildGrass = function()
 {
 	this.transparency = 300;
-	if(this.center.x > 250 && this.center.x < 670 && this.center.y < 130)
+	noStroke();	
+	//check upper patch of wild grass
+	if((this.center.x > 250 && this.center.x < 670 && this.center.y < 130) || (this.center.y > 300 && this.center.y < 520 && this.center.x < 200))
 	{
 		for(var i = 0; i < wildGrass.length; i++)
 		{
@@ -674,3 +738,46 @@ playerObj.prototype.isTouchingWildGrass = function()
 		}
 	}
 }
+
+playerObj.prototype.enterHouse = function()
+{
+	if(this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170)
+	{
+		insideHouse = true;
+		this.position.x = 100;
+		this.position.y = 335;
+		this.center.x = 100;
+		this.center.y = 335;
+	}
+	else
+	{
+		insideHouse = false;
+	}
+};
+
+playerObj.prototype.exitHouse = function()
+{
+	if(this.center.x > 80 && this.center.x < 120 && this.center.y >= 340)
+	{
+		insideHouse = false;
+	}
+	else
+	{
+		insideHouse = true;
+	}
+};
+
+playerObj.prototype.isAtHealTable = function() 
+{
+	if(this.center.x > 140 && this.center.x < 240 && this.center.y > 120 && this.center.y < 180)
+	{
+		fill(0, 255, 0);
+		rect(250, 80, 70, 50, 10);
+		stroke(0);
+		strokeWeight(1);
+		fill(0);
+		textSize(12);
+		text("  Click to \nHeal Your \n Pokemon", 258, 95);
+		
+	}
+};

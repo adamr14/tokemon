@@ -511,3 +511,95 @@ Tree.prototype.display = function() {
 	}
     pop();
 };
+
+
+var houseObj = function(x, y)
+{
+	this.position = new createVector(x, y);
+	this.doorOpen = true;
+};
+
+houseObj.prototype.drawHouse = function()
+{
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY);	
+	scale(0.75);
+	var x = 0;
+    var y = 0;
+    fill(166, 166, 166);
+    rect(x - 130, y + 100, 260, 120);
+    fill(255, 158, 84);
+    rect(x - 100, y, 200, 100); 
+    fill(143, 0, 0);
+    quad(x - 100, y, x - 130, y + 20, x - 130, y + 120, x - 100, y + 100);
+    quad(x + 100, y, x + 130, y + 20, x + 130, y + 120, x + 100, y + 100);
+    
+    stroke(166, 111, 16);
+    line(x - 80, y + 20, x + 80, y + 20);
+    line(x - 80, y + 50, x + 80, y + 50);
+    line(x - 80, y + 80, x + 80, y + 80);
+    
+    stroke(99, 0, 0);
+    line(x - 120, y + 13, x - 120, y + 112);
+    line(x - 110, y + 7, x - 110, y + 106);
+    line(x + 120, y + 13, x + 120, y + 112);
+    line(x + 110, y + 7, x + 110, y + 106);
+    
+    //windows
+    strokeWeight(3);
+    stroke(28, 28, 28);
+    fill(167, 210, 235);
+    rect(x  - 90, y + 130, 30, 30);
+    rect(x - 60, y + 130, 30, 30);
+    rect(x  + 50, y + 130, 30, 30);
+    rect(x + 20, y + 130, 30, 30);
+    
+    rect(x  + 50, y + 180, 30, 30);
+    rect(x + 20, y + 180, 30, 30);
+    
+    //door
+    strokeWeight(0);
+    stroke(255, 255, 255);
+    fill(0);
+    rect(x - 75, y + 175, 30, 45, 5);
+    strokeWeight(1);
+    fill(117, 84, 13);
+	stroke(0);
+	if(this.doorOpen)
+	{
+		quad(x - 73, y + 177, x - 51, y + 186, x - 51, y + 229, x - 73, y + 220);
+		fill(0);
+		ellipse(x - 55, y + 205, 4, 4);
+	}
+	else
+	{
+		quad(x - 73, y + 177, x - 46, y + 177, x - 46, y + 220, x - 73, y + 220);
+		fill(0);
+		ellipse(x - 50, y + 200, 4, 4);
+	}
+    noStroke();
+
+    fill(92, 92, 92);
+    rect(x - 165, y + 205, 5, 10);    
+    fill(186, 186, 186);
+    rect(x - 170, y + 187, 15, 20);
+    bezier(x - 170, y + 187, x - 168, y + 175, x - 156, y + 175, x - 155, y + 187);
+
+    fill(255, 255, 255);
+    rect(x - 162, y + 178, 3, 29);
+    fill(0);
+    rect(x - 166, y + 193, 6, 2);
+	pop();
+};
+
+houseObj.prototype.openOrClose = function()
+{
+	if(player.center.x > 750 && player.center.y < 250)
+	{
+		this.doorOpen = true;
+	}
+	else
+	{
+		this.doorOpen = false;
+	}
+};
