@@ -7,3 +7,4 @@ var keyArray = []; //array of keys being pressed
 var speed =2;
 var pokemen=[];
 var wild = true;
+var healAnimation = false;
