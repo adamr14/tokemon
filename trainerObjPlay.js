@@ -741,7 +741,7 @@ playerObj.prototype.isTouchingWildGrass = function()
 
 playerObj.prototype.enterHouse = function()
 {
-	if(this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170)
+	if((this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170) || dead)
 	{
 		insideHouse = true;
 		this.position.x = 100;
@@ -760,6 +760,12 @@ playerObj.prototype.exitHouse = function()
 	if(this.center.x > 80 && this.center.x < 120 && this.center.y >= 340)
 	{
 		insideHouse = false;
+		this.position.x = 200;
+		this.position.y = 200;
+		globalX = 600;
+		globalY = 0;
+		//this.center.x = 800;
+		//this.center.y = 250;
 	}
 	else
 	{

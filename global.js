@@ -8,3 +8,6 @@ var speed =2;
 var pokemen=[];
 var wild = true;
 var healAnimation = false;
+var dead = false;
+var insideHouse = true;
+var colorMod = 255;

@@ -232,14 +232,18 @@ fightScene.prototype.execute = function(){
             this.drawPlayerMenu();
             textSize(15);
             noStroke();
-            text("All your HokieMon Fainted", 20, 320, 180, 80);
+            text("All your HokieMon Fainted", 20, 340);
             if(this.counter>12){
                 fill(this.color, this.color, this.color, this.colorMod);
                 rect(-1, -1, 402, 402);
-                this.colorMod+=10;
+                this.colorMod+=2;
                 if(this.colorMod>255){
-                    //this.currPokemon.hp=this.currPokemon.
-                    //SPAWN AT HOME
+                    this.currPokemon.hp=100+(this.currPokemon.level-1)*25;
+                    this.reset();
+                    inBattle=false;
+                    dead=true;
+                    player.transparency = 300;
+                    player.enterHouse();
                 }
             }
             break;
@@ -321,7 +325,7 @@ fightScene.prototype.npcAttack = function(){
             var range = this.enemyP.level*8-this.enemyP.level;
             //modified to make player win
             var damage = floor(random()*range+5);
-            damage=100;
+            //damage=100;
             this.currPokemon.hp-=damage;
             this.turn=true;
             if(this.currPokemon.hp <=0){

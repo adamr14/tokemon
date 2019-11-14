@@ -3,7 +3,6 @@ var wildGrass = [];
 var regularGrass = [];
 var paths = [];
 var theHouse = new houseObj(883, 0);
-var insideHouse = true;
 var fences = [];
 var bricks = [];
 var tileMap = [
@@ -291,7 +290,7 @@ var displayHouseMap = function()
     fill(99, 74, 6);
     rect(80, 370, 40, 30);
     fill(0);
-    ellipse(110, 390, 3, 3);
+	ellipse(110, 390, 3, 3);
     
 };
 
@@ -328,11 +327,21 @@ var playGame = function()
 			textSize(18);
 			text("Healing", player.center.x - 30, player.center.y + 40);
 		}
+		if(dead){
+			//background(0);
+			fill(0, 0, 0, colorMod);
+			rect(-1, -1, 402, 402);
+			colorMod-=2;
+			if(colorMod<=0){
+				dead=false;
+				colorMod=255;
+			}
+		}
+
 	}
 	else
 	{
 		displayTilemap();
-		//ADD SOMETHING HERE TO LOWER CHANCES OF WILD ANIMAL
 		if ( player.isTouchingWildGrass() && player.moving)
 		{
 			if (Math.random()*1000 <=15)
