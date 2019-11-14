@@ -741,11 +741,7 @@ playerObj.prototype.isTouchingWildGrass = function()
 
 playerObj.prototype.enterHouse = function()
 {
-<<<<<<< HEAD
 	if((this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170) || dead)
-=======
-	if((this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170))
->>>>>>> 4eb466fed5a7923b76cbe528517b44c977d62481
 	{
 		insideHouse = true;
 		this.position.x = 100;
