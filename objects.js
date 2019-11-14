@@ -379,19 +379,20 @@ pathObj.prototype.drawPath = function()
 
 
 //Tree class initialization and drawing methods were all taken from Professor Hsiao's code samples provided to us in class
-var Tree = function(x, y) {
+var Tree = function(x, y, inGameInput) {
     this.position = createVector(x, y);
-    this.branchingFactor = 3;
+    this.branchingFactor = 5;
     this.angleBetweenBranches = 50;
     this.scaleFactor = 0.9;
     this.numLevels = 3;
     this.baseBranchLength = 17;
+	this.inGame = inGameInput;
+	this.branchingFactor = 3;	
 };
 
 ///// EXPERIMENT ////
 Tree.prototype.display = function() {
     var self = this;
-    
     var forward = function(distance) {
         line(0, 0, 0, -distance);
         translate(0, -distance);
@@ -419,21 +420,52 @@ Tree.prototype.display = function() {
           return;
         }
         var totalAngle = self.angleBetweenBranches * (self.branchingFactor - 1);
-        
+	 
         strokeWeight(depth*5);
         forward(length);
         right(totalAngle / 2.0);
         for (var i = 0; i < self.branchingFactor; i += 1) {
             drawTree(depth - 1, length * self.scaleFactor);
-            left(self.angleBetweenBranches);
+			left(self.angleBetweenBranches);
         }
-        right(totalAngle / 2.0 + self.angleBetweenBranches);
+		right(totalAngle / 2.0 + self.angleBetweenBranches);
         back(length);
     };
-    
+
     push();
     translate(this.position.x - globalX, this.position.y - globalY);
-    stroke(122, 112, 85);
-    drawTree(this.numLevels, this.baseBranchLength);
+	stroke(122, 112, 85);
+	if(this.inGame)
+	{
+		scale(0.65);
+		var x = 0;
+		var y = 0;
+    
+		fill(150, 94, 30);
+		//strokeWeight(1);
+		
+		noStroke();
+	//  stroke(0);
+		rect(x - 25, y + 5, 50, 50, 6);
+		fill(22, 112, 25);
+		ellipse(x, y, 150, 60);
+		fill(42, 150, 45);
+		ellipse(x, y - 25, 110, 50);
+		fill(85, 176, 28);
+		triangle(x + 37, y - 48, x, y - 98, x - 37, y - 48);
+		ellipse(x, y - 45, 75, 25);
+		noFill();
+		stroke(0);
+		bezier(x - 55, y - 20, x - 60, y + 15, x - 55, y + 15, x - 25, y - 3);
+		bezier(x - 20, y - 2, x - 5, y + 34, x + 5, y + 34, x + 20, y -1);
+		bezier(x + 55, y - 20, x + 60, y + 15, x + 55, y + 15, x + 25, y - 3);
+		
+		bezier(x - 35, y - 40, x - 40, y - 35, x - 35, y + 10, x - 3, y - 33);
+		bezier(x + 35, y - 40, x + 40, y - 35, x + 35, y + 10, x + 3, y - 33);		
+	}
+    else
+	{
+		drawTree(this.numLevels, this.baseBranchLength);
+	}
     pop();
 };

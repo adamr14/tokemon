@@ -19,10 +19,10 @@ var instructionsPokeball_2 = new StartPokeball(280, 230, "normal", 0.5, 0);
 var instructionsPokeball_3 = new StartPokeball(165, 200, "rare", 0.15, Math.PI / 4);
 var trees = [];
 
-trees.push(new Tree(40, 335));
-trees.push(new Tree(70, 395));
-trees.push(new Tree(360, 335));
-trees.push(new Tree(330, 395));
+trees.push(new Tree(40, 335, false));
+trees.push(new Tree(70, 395, false));
+trees.push(new Tree(360, 335, false));
+trees.push(new Tree(330, 395, false));
 var clouds = [];
 clouds.push(new Cloud(600, 25, 0));
 clouds.push(new Cloud(750, 125, 1));

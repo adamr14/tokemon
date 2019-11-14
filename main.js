@@ -107,6 +107,7 @@ function draw()
         startGame();
         playing = true;
         startGameClicked=false;
+		//add intro scene
     }
     else if(playing){
         if(inBattle){

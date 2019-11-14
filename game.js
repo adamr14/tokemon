@@ -5,17 +5,17 @@ var paths = [];
 var bricks = [];
 var tileMap = [
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-	"b             wwwwwwwwwwwwwwwwwwww               b",
-	"b             wwwwwwwwwwwwwwwwwwww               b",
-	"b             wwwwwwwwwwwwwwwwwwww               b",
+	"b     t       wwwwwwwwwwwwwwwwwwww               b",
+	"b           t wwwwwwwwwwwwwwwwwwww               b",
+	"b  t     t    wwwwwwwwwwwwwwwwwwww               b",
 	"b              wwwwwwwwwwwwwwwwww                b",
-	"b               wwwwwwwwwwwwwwww                 b",
+	"b     t     t   wwwwwwwwwwwwwwww                 b",
 	"b                wwwwwwwwwwwwww                  b",
+	"b  t     t                                       b",
 	"b                                                b",
+	"b     t                                          b",
 	"b                                                b",
-	"b                                                b",
-	"b                                                b",
-	"b                                          pp    b",
+	"b  t                                       pp    b",
 	"b                                          pp    b",
 	"b                                          pp    b",
 	"b                                          pp    b",
@@ -61,6 +61,7 @@ var initializeTilemap = function ()
     keyArray[38] = 0;
     keyArray[39] = 0;
     keyArray[40] = 0;
+	trees = [];
     for (var i=0; i<tileMap.length; i++) 
 	{
         for (var j=0; j<tileMap[i].length; j++) 
@@ -77,6 +78,10 @@ var initializeTilemap = function ()
 			{
                 paths.push(new pathObj(j*20, i*20));
             }
+			else if(tileMap[i][j] === 't')
+			{
+				trees.push(new Tree(j * 20, i * 20, true));
+			}
         }
     }
 	
@@ -102,11 +107,11 @@ var spawnPokeball = function()
 		spawnPokeBallTimer = 0;
 		if(random(0, 100) < 90)
 		{
-			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(25, 975), "normal", spawnedPokeballCounter));
+			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(225, 975), "normal", spawnedPokeballCounter));
 		}
 		else
 		{
-			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(25, 975), "rare", spawnedPokeballCounter));
+			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(225, 975), "rare", spawnedPokeballCounter));
 		}
 		spawnedPokeballCounter++;
 	}
@@ -162,6 +167,10 @@ var displayTilemap = function()
 	{
 		spawnedPokeballs[i].drawPokeball(0.15);
 		spawnedPokeballs[i].checkCollected();
+	}
+	for(i = 0; i < trees.length; i++)
+	{
+		trees[i].display();
 	}
 };
 
