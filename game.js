@@ -2,23 +2,24 @@ var player = new playerObj(330, 50, 0);
 var wildGrass = [];
 var regularGrass = [];
 var paths = [];
+var fences = [];
 var bricks = [];
 var tileMap = [
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
-	"b     t       wwwwwwwwwwwwwwwwwwww               b",
-	"b           t wwwwwwwwwwwwwwwwwwww               b",
-	"b  t     t    wwwwwwwwwwwwwwwwwwww               b",
-	"b              wwwwwwwwwwwwwwwwww                b",
-	"b     t     t   wwwwwwwwwwwwwwww                 b",
-	"b                wwwwwwwwwwwwww                  b",
-	"b  t     t                                       b",
-	"b                                                b",
-	"b     t                                          b",
-	"b                                                b",
-	"b  t                                       pp    b",
-	"b                                          pp    b",
-	"b                                          pp    b",
-	"b                                          pp    b",
+	"b     t      fwwwwwwwwwwwwwwwwwwww               b",
+	"b           tfwwwwwwwwwwwwwwwwwwww               b",
+	"b  t     t   fwwwwwwwwwwwwwwwwwwww               b",
+	"b             fwwwwwwwwwwwwwwwwww                b",
+	"b     t     t  fwwwwwwwwwwwwwwww                 b",
+	"b              f wwwwwwwwwwwwww                  b",
+	"b  t     t    ff                                 b",
+	"b           ff                                   b",
+	"b     t    f                                     b",
+	"b        ff                                      b",
+	"b  t    f                                  pp    b",
+	"b     ff                                   pp    b",
+	"b    f                                     pp    b",
+	"bffff                                      pp    b",
 	"b                pppppppppppppppppppppppppppp    b",
 	"b                pppppppppppppppppppppppppppp    b",
 	"b                pp                        pp    b",
@@ -82,6 +83,10 @@ var initializeTilemap = function ()
 			{
 				trees.push(new Tree(j * 20, i * 20, true));
 			}
+			else if(tileMap[i][j] === 'f')
+			{
+				fences.push(new fenceObj(j * 20, i * 20));
+			}			
         }
     }
 	
@@ -89,7 +94,6 @@ var initializeTilemap = function ()
 	{
 		regularGrass.push(new grassDetail(random(25, 975), random(25, 975)));
 	}
-
 };
 
 
@@ -147,6 +151,10 @@ var displayTilemap = function()
 	{
         wildGrass[i].drawWildGrass();
     }
+	for(var i = 0; i < fences.length; i++)
+	{
+		fences[i].drawFence();
+	}
 	for(i = 0; i < regularGrass.length; i++)
 	{	
 		regularGrass[i].drawDetail();

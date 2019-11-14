@@ -531,31 +531,54 @@ playerObj.prototype.drawTrainer = function()
 playerObj.prototype.captureMovement = function()
 {
 	push();
+	var canMove = true;
+	for(var i = 0; i < fences.length; i++)
+	{
+		if(this.center.x <= fences[i].position.x + 20 && this.center.x >= fences[i].position.x - 20)
+		{
+			if(this.center.y <= fences[i].position.y + 20 && this.center.y >= fences[i].position.y - 20)
+			{
+				canMove = false;
+				if(this.center.x - globalX < 500)
+				{this.position.x += 1;}
+				else if(this.center.x - globalX > 500)
+				{ this.position.x -= 1; }
+				
+				if(this.center.y - globalY < 500)
+				{this.position.y += 1;}
+				else if(this.center.y - globalY > 500)
+				{ this.position.y -= 1; }	
+			}
+		}
+	}
 	this.center = new createVector(this.position.x + globalX + 30, this.position.y + globalY + 30);
 	this.moving=false;
-	if(keyArray[39] == 1)
+	if(canMove)
 	{
-		this.position.x += speed;
-		this.moving=true;
-		this.i = 2;
-	}
-	if(keyArray[37] == 1)
-	{
-		this.position.x -= speed;
-		this.moving=true;
-		this.i = 3;
-	}
-	if(keyArray[40] == 1)
-	{
-		this.position.y += speed;
-		this.moving=true;
-		this.i = 0;
-	}
-	if(keyArray[38] == 1)
-	{
-		this.position.y -= speed;
-		this.moving=true;
-		this.i = 1;
+		if(keyArray[39] == 1)
+		{
+			this.position.x += speed;
+			this.moving=true;
+			this.i = 2;
+		}
+		if(keyArray[37] == 1)
+		{
+			this.position.x -= speed;
+			this.moving=true;
+			this.i = 3;
+		}
+		if(keyArray[40] == 1)
+		{
+			this.position.y += speed;
+			this.moving=true;
+			this.i = 0;
+		}
+		if(keyArray[38] == 1)
+		{
+			this.position.y -= speed;
+			this.moving=true;
+			this.i = 1;
+		}
 	}
 	
 	if(this.moving)

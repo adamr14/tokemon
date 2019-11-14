@@ -349,6 +349,48 @@ brickObj.prototype.drawBrick = function()
 	pop();
 };
 
+var fenceObj = function(x, y)
+{
+	this.position = new createVector(x, y);
+};
+
+fenceObj.prototype.drawFence = function()
+{
+	push();
+	translate(this.position.x - globalX - 20, this.position.y - globalY - 20);
+	scale(0.1);
+	var x = 300;
+	var y = 200;
+    
+	fill(194, 194, 194);
+	stroke(0);
+	strokeWeight(2);
+	rect(0, y - 30, 400, 50);
+	rect(x - 30, y - 80, 60, 160);
+	bezier(x - 30, y - 80, x - 25, y - 150, x + 25, y - 150, x + 30, y - 80);
+	stroke(125, 125, 125);
+	strokeWeight(5);
+	line(x - 5, y - 128, x - 5, y - 116);
+	line(x + 5, y - 128, x + 5, y - 116);
+	line(x - 15, y - 120, x - 15, y - 112);   
+	line(x + 14, y - 120, x + 14, y - 112);
+	bezier(x + 25, y - 100, x + 15, y - 120, x - 15, y - 120, x - 25, y - 100);
+			
+	fill(194, 194, 194);
+	stroke(0);
+	strokeWeight(2);
+	rect(x - 230, y - 80, 60, 160);
+	bezier(x - 230, y - 80, x - 225, y - 150, x - 175, y - 150, x - 170, y - 80);
+	stroke(125, 125, 125);
+	strokeWeight(5);
+	line(x - 205, y - 128, x - 205, y - 116);
+	line(x - 195, y - 128, x - 195, y - 116);
+	line(x - 215, y - 120, x - 215, y - 112);   
+	line(x - 186, y - 120, x - 186, y - 112);
+	bezier(x - 175, y - 100, x - 185, y - 120, x - 215, y - 120, x - 225, y - 100);	
+	pop();
+};
+
 var pathObj = function(x, y)
 {
 	this.position = new createVector(x, y);
