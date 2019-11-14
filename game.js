@@ -192,7 +192,6 @@ var playGame = function(){
 	displayTilemap();
 	player.drawTrainer();
 	player.captureMovement();
-	//ADD SOMETHING HERE TO LOWER CHANCES OF WILD ANIMAL
 	if ( player.isTouchingWildGrass() && player.moving){
 		if (Math.random()*1000 <=15){
 			inBattle=true;
@@ -203,8 +202,5 @@ var playGame = function(){
 	{
 		showText();
 	}
-	player.drawTrainer();
-	player.captureMovement();
-	player.isTouchingWildGrass();
 	spawnPokeball();
 }

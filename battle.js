@@ -7,10 +7,10 @@ var fightScene = function(){
     this.counter = 0;
     this.slider = 0;
     this.initialized=false;
-    this.countdiff=0;
     this.turn=true;
     this.playerAttack=false;
     this.npcAttacks=false;
+    this.levelUp=false;
 };
 
 
@@ -18,8 +18,20 @@ fightScene.prototype.init = function(player, wild, enemy){
     this.initialized = true;
     this.wild = wild;
     this.turn=true;
+    this.levelUp=false;
+    this.playerAttack=false;
+    this.npcAttacks=false;
     if (this.wild===true){
-        this.enemyP = pokemen[0];
+        var p = floor((pokemen.length)*random());
+        var a=0;
+        for (var i=0; i<player.pokemon.length; i++){
+            a+=player.pokemon[i].level;
+        }
+        a/=player.pokemon.length;
+        a += floor(random()*3-1);
+        if(a<=1){a=1};
+        this.enemyP = pokemen[p];
+        this.enemyP.set(a);
     }
     else{
         this.enemy = enemy;
@@ -68,7 +80,7 @@ fightScene.prototype.drawEnemyHalf = function(x, y){
     text("HP", 55, 97, 100, 100);
     fill(34, 92, 240);
     fill(26, 217, 30);
-    var hpMod = this.enemyP.hp/100;
+    var hpMod = this.enemyP.hp/(100+(this.enemyP.level-1)*25);
     rect(75, 97, 98*hpMod, 8, 5);
     this.enemyP.drawFront();
     pop();
@@ -112,11 +124,11 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     fill(168, 161, 161);
     rect(275, 88, 80, 5);
     fill(34, 92, 240);
-    var xpMod = this.currPokemon.exp/(this.currPokemon.level*50);
+    var xpMod = this.currPokemon.exp/(this.currPokemon.level*3);
     rect(275,88, 80*xpMod, 5);
     fill(26, 217, 30);
     //change when you figure out levels
-    var hpMod = this.currPokemon.hp/100;
+    var hpMod = this.currPokemon.hp/(100+(this.currPokemon.level-1)*25);
     rect(260, 67, 98*hpMod, 8, 5);
     this.currPokemon.drawBack();
     pop();
@@ -149,9 +161,10 @@ fightScene.prototype.drawPlayerMenu = function(x, y){
         textSize(15);
         fill(0);
         noStroke();
+        //change this to switch and pokeball
         text("ATTACK", 220, 325, 80, 25);
-        text("SWITCH", 310, 325, 80, 25);
-        text("POKEBALL", 210, 360, 80, 25);
+        text("COMING", 310, 325, 80, 25);
+        text("COMING", 210, 360, 80, 25);
         text("RUN", 325, 360, 80, 25);
     }
     textSize(11);
@@ -194,16 +207,56 @@ fightScene.prototype.execute = function(){
                 this.state=3;
             }
             break;
-        case 3:
-            this.drawEnemyHalf(0,0);
+        case 3: //battling
             this.drawPlayerHalf(0, 200);
+            this.drawEnemyHalf(0,0);
             this.drawPlayerMenu();
-            if(this.playerAttack){
+            if(this.currPokemon.hp<=0){
+                this.turn=false;
+                this.npcAttacks=false;
+                this.pFaint();
+            }
+            else if(this.enemyP.hp<=0){
+                this.npcFaint();
+            }
+            else if(this.playerAttack){
                 this.pAttack();
             }
             else if(this.npcAttacks && this.counter>5){
                 this.npcAttack();
             }
+            break;
+        case 4: //loss
+            this.drawPlayerHalf(0, 200);
+            this.drawEnemyHalf(0,0);
+            this.drawPlayerMenu();
+            textSize(15);
+            noStroke();
+            text("All your HokieMon Fainted", 20, 320, 180, 80);
+            if(this.counter>12){
+                fill(this.color, this.color, this.color, this.colorMod);
+                rect(-1, -1, 402, 402);
+                this.colorMod+=10;
+                if(this.colorMod>255){
+                    //this.currPokemon.hp=this.currPokemon.
+                    //SPAWN AT HOME
+                }
+            }
+            break;
+        case 5: //win
+            this.drawPlayerHalf(0, 200);
+            this.drawEnemyHalf(0,0);
+            this.drawPlayerMenu();
+            textSize(15);
+            noStroke();
+            text("Enemy Fainted", 20, 320, 180, 80);
+            text(this.enemyP.level + "XP Gained", 20, 340, 180, 65);
+            if(this.levelUp){text("Your HokieMon leveled up!", 20, 360, 300, 80);}
+            if(this.counter>18){
+                inBattle=false;
+                this.reset();
+            }
+
             break;
     }
     
@@ -243,9 +296,15 @@ fightScene.prototype.pAttack = function(){
         this.moveP(-5, 0, 0);
         if(this.currPokemon.object.position.x===125){
             this.playerAttack=false;
-            this.enemyP.hp-=10;
+            var range = this.currPokemon.level*8-this.currPokemon.level;
+            var damage = floor(random()*range+10);
+            //damage=100;
+            this.enemyP.hp-=damage;
             this.npcAttacks=true;
             this.counter=0;
+            if(this.enemyP.hp <=0){
+                this.enemyP.hp=0;
+            }
         }
     }
 
@@ -259,8 +318,42 @@ fightScene.prototype.npcAttack = function(){
         this.moveNPC(5, 0, 0);
         if(this.enemyP.object.position.x===300){
             this.npcAttacks=false;
-            this.currPokemon.hp-=10;
+            var range = this.enemyP.level*8-this.enemyP.level;
+            //modified to make player win
+            var damage = floor(random()*range+5);
+            damage=100;
+            this.currPokemon.hp-=damage;
             this.turn=true;
+            if(this.currPokemon.hp <=0){
+                this.currPokemon.hp=0;
+            }
         }
+    }
+};
+
+fightScene.prototype.pFaint = function(){
+    if(this.currPokemon.object.position.y<450){
+        this.moveP(0, 5, 0);
+    }
+    else{
+        this.state=4;
+        this.counter=0;
+        this.colorMod=0;
+    }
+};
+
+fightScene.prototype.npcFaint = function(){
+    if(this.enemyP.object.position.y<450){
+        this.moveNPC(0, 5, 0);
+    }
+    else{
+        this.state=5;
+        this.currPokemon.exp+=this.enemyP.level;
+        if(this.currPokemon.exp>= this.currPokemon.level*3){
+            this.currPokemon.exp = this.currPokemon.exp-this.currPokemon.level*3;
+            this.currPokemon.level++;
+            this.levelUp=true;
+        }
+        this.counter=0;
     }
 };
