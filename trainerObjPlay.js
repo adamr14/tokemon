@@ -745,9 +745,9 @@ playerObj.prototype.enterHouse = function()
 	{
 		insideHouse = true;
 		this.position.x = 100;
-		this.position.y = 325;
+		this.position.y = 300;
 		this.center.x = 100;
-		this.center.y = 325;
+		this.center.y = 300;
 	}
 	else
 	{
@@ -787,3 +787,65 @@ playerObj.prototype.isAtHealTable = function()
 		
 	}
 };
+
+playerObj.prototype.moveForAnimation = function(left, right, up, down, speed)
+{
+	this.moving = false;
+	this.center = new createVector(this.position.x + 30, this.position.y + 30);
+	if(right)
+	{
+		this.position.x += speed;
+		this.moving=true;
+		this.i = 2;
+	}
+	if(left)
+	{
+		this.position.x -= speed;
+		this.moving=true;
+			this.i = 3;
+	}
+	if(down)
+	{
+		this.position.y += speed;
+		this.moving=true;
+		this.i = 0;
+	}
+	if(up)
+	{
+		this.position.y -= speed;
+		this.moving=true;
+		this.i = 1;
+	}
+	if(this.moving)
+	{
+		if (this.currFrame < (frameCount - 3)) 
+        {
+            this.currFrame = frameCount;
+            this.motion++;
+            if (this.motion > 2) 
+            {
+                this.motion = 1;
+            }
+        }
+	}
+	else
+	{
+		this.motion = 0;
+	}
+	
+	if(this.position.x > 345)
+	{
+		this.position.x = 345;
+	}
+	else if(this.position.x < 50)
+	{
+		this.position.x = 50;
+	}
+	if(this.position.y > 340)
+	{ this.position.y = 340; }
+	else if(this.position.y < 100)
+	{
+		this.position.y = 100;
+	}
+	
+}

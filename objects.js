@@ -208,7 +208,7 @@ pokeballObj.prototype.checkCollected = function()
             spawnedPokeballs[i].index--;
         }
         spawnedPokeballCounter--;
-		var msg = "Added " + this.type + " pokeball to your bag";
+		var msg = "Added " + this.type + " Hokieball to your bag";
 		displayText(msg);
 	}
 	else if(this.deleteTimer > 9000)
