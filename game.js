@@ -3,6 +3,7 @@ var wildGrass = [];
 var regularGrass = [];
 var paths = [];
 var theHouse = new houseObj(883, 0);
+var theGym = new gymObj(118, 840);
 var fences = [];
 var bricks = [];
 var tileMap = [
@@ -49,12 +50,12 @@ var tileMap = [
 	"b                pp                        pp wwwb",
 	"b                pp                        pp wwwb",
 	"b                pp                        pp wwwb",
-	"b          pppppppppppppppppppppppppppppppppp wwwb",
-	"b          pppppppppppppppppppppppppppppppppp wwwb",
-	"b                                             wwwb",
-	"b                                      wwwwwwwwwwb",	
-	"b                                   wwwwwwwwwwwwwb",
-	"b                                  wwwwwwwwwwwwwwb",
+	"b           ppppppppppppppppppppppppppppppppp wwwb",
+	"b           ppppppppppppppppppppppppppppppppp wwwb",
+	"b           pp                                wwwb",
+	"b     pp    pp                         wwwwwwwwwwb",	
+	"b     pppppppp                      wwwwwwwwwwwwwb",
+	"b     pppppppp                     wwwwwwwwwwwwwwb",
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"];
 	
 var initializeTilemap = function () 
@@ -97,12 +98,6 @@ var initializeTilemap = function ()
 		regularGrass.push(new grassDetail(random(25, 975), random(25, 975)));
 	}
 };
-
-var initializeHouseTileMap = function()
-{
-	
-}
-
 
 var spawnPokeBallTimer = 450;
 var spawnedPokeballs = [];
@@ -188,6 +183,7 @@ var displayTilemap = function()
 		trees[i].display();
 	}
 	theHouse.drawHouse();
+	theGym.drawGym();
 };
 
 var displayHouseMap = function()
@@ -358,6 +354,7 @@ var playGame = function()
 		player.captureMovement();
 		player.isTouchingWildGrass();
 		theHouse.openOrClose();
+		theGym.openOrClose();
 		player.enterHouse();
 		player.drawTrainer();
 

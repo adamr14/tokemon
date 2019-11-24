@@ -603,3 +603,99 @@ houseObj.prototype.openOrClose = function()
 		this.doorOpen = false;
 	}
 };
+
+var gymObj = function(x, y)
+{
+	this.position = new createVector(x, y);
+	this.doorOpen = true;
+};
+
+gymObj.prototype.drawGym = function()
+{
+	
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY);	
+	scale(0.75);
+	var x = 0;
+	var y = 0;
+	//building
+	stroke(0);
+	fill(214, 214, 214);
+	rect(x - 120, y, 240, 100, 10);
+	//windows
+	fill(0, 190, 224);
+	strokeWeight(3);
+	rect(x - 90, y + 20, 25, 25);
+	rect(x - 65, y + 20, 25, 25);
+	rect(x - 40, y + 20, 25, 25);
+	rect(x + 70, y + 20, 25, 25);
+	strokeWeight(1);
+	fill(255, 255, 255);
+	rect(x - 88, y + 39, 21, 5);
+	rect(x - 63, y + 39, 21, 5);
+	rect(x - 38, y + 39, 21, 5);
+	rect(x + 72, y + 39, 21, 5);
+
+	stroke(255, 0, 0);
+	line(x - 120, y + 75, x + 120, y + 75);
+	line(x - 120, y + 85, x + 120, y + 85);
+	stroke(0);
+
+	rect(x - 71, y + 70, 40, 20, 8);
+	fill(255, 0, 0);
+	text("GYM", x - 68, y + 84);
+
+	fill(222, 222, 222);
+	rect(x + 2, y + 50, 55, 60, 10);
+	//check if door open
+	strokeWeight(3);
+	if(this.doorOpen)
+	{
+		fill(0, 217, 255);
+		rect(x + 9, y + 50, 20, 60);
+		rect(x + 29, y + 50, 20, 60);
+	}
+	else
+	{
+		fill(0, 0, 0);
+		rect(x + 9, y + 50, 40, 60);
+		fill(0, 217, 255);
+		rect(x + 9, y + 50, 10, 60);
+		rect(x + 39, y + 50, 10, 60);
+	}
+	strokeWeight(1);
+	fill(184, 161, 48);
+	rect(x, y + 20, 60, 40, 8);
+	fill(255, 0, 0);
+	line(x + 15, y + 40, x + 45, y + 40);
+	line(x + 15, y + 45, x + 45, y + 45);
+	ellipse(x + 30, y + 43, 10, 10);
+	rect(x+1, y + 40, 15, 5);
+	rect(x + 45, y + 40, 15, 5);
+	bezier(x + 15, y + 40, x + 20, y + 25, x + 40, y + 25, x + 45, y + 40);
+	bezier(x + 15, y + 46, x + 20, y + 61, x + 40, y + 61, x + 45, y + 46);
+
+	stroke(120, 105, 29);
+	//roof
+	fill(184, 160, 40);
+	rect(x - 125, y - 100, 250, 125, 10);
+	rect(x - 110, y - 96, 220, 105, 10);
+	rect(x - 100, y - 92, 200, 85, 10);
+	line(x - 90, y - 80, x + 90, y - 80);
+	line(x - 90, y - 60, x + 90, y - 60);
+	line(x - 90, y - 40, x + 90, y - 40);
+	line(x - 90, y - 20, x + 90, y - 20);
+	pop();
+};
+
+gymObj.prototype.openOrClose = function()
+{
+	if(player.center.x > 250 && player.center.y > 750)
+	{
+		this.doorOpen = true;
+	}
+	else
+	{
+		this.doorOpen = false;
+	}
+};
