@@ -112,10 +112,16 @@ function draw()
     }
     else if(startGameClicked)
     {
-        startGame();
-        playing = true;
-        startGameClicked=false;
-		//add intro scene
+		if(introSceneRequired)
+		{
+			startIntroScene();
+		}
+		else
+		{
+			startGame();
+			playing = true;
+			startGameClicked=false;
+		}
     }
     else if(playing){
         if(inBattle){

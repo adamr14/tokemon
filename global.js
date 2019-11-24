@@ -11,3 +11,4 @@ var healAnimation = false;
 var dead = false;
 var insideHouse = true;
 var colorMod = 255;
+var introSceneRequired = true;

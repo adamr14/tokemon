@@ -1,18 +1,17 @@
-//Trainer Class
-var playerObj = function(x, y, initialLook)
+//Enemy Class
+var enemyObj = function(x, y, initialLook)
 {
     this.position = new createVector(x - globalX, y - globalY);
     this.i = initialLook;
     this.currFrame = frameCount;
 	this.transparency = 300;
 	this.pokemon =[new pokemon("Hokie", 1)];
-	this.pokeballs = [2, 1];
 	this.moving = false;
 	this.center = new createVector(x + globalX + 30, y + globalY + 30);
 	this.motion = 0;
 };
 
-playerObj.prototype.drawTrainer = function()
+enemyObj.prototype.drawTrainer = function()
 {
     var x = 200;
     var y = 200;
@@ -527,30 +526,30 @@ playerObj.prototype.drawTrainer = function()
     pop();
 };
 
-playerObj.prototype.captureMovementInsideHouse = function()
+enemyObj.prototype.captureMovementInsideHouse = function(left, right, up, down, speed)
 {
+	print("here");
 	this.moving = false;
 	this.center = new createVector(this.position.x + 30, this.position.y + 30);
-
-	if(keyArray[39] == 1)
+	if(right)
 	{
 		this.position.x += speed;
 		this.moving=true;
 		this.i = 2;
 	}
-	if(keyArray[37] == 1)
+	if(left)
 	{
 		this.position.x -= speed;
 		this.moving=true;
 			this.i = 3;
 	}
-	if(keyArray[40] == 1)
+	if(down)
 	{
 		this.position.y += speed;
 		this.moving=true;
 		this.i = 0;
 	}
-	if(keyArray[38] == 1)
+	if(up)
 	{
 		this.position.y -= speed;
 		this.moving=true;
@@ -589,201 +588,3 @@ playerObj.prototype.captureMovementInsideHouse = function()
 	}
 	
 }
-
-playerObj.prototype.captureMovement = function()
-{
-	push();
-	var canMove = true;
-	for(var i = 0; i < fences.length; i++)
-	{
-		if(this.center.x <= fences[i].position.x + 20 && this.center.x >= fences[i].position.x - 20)
-		{
-			if(this.center.y <= fences[i].position.y + 20 && this.center.y >= fences[i].position.y - 20)
-			{
-				canMove = false;
-				if(this.center.x < 500)
-				{this.position.x += 3;}
-				else if(this.center.x > 500)
-				{ this.position.x -= 2; }
-				
-				if(this.center.y < 500)
-				{this.position.y += 2;}
-				else if(this.center.y > 500)
-				{ this.position.y -= 2; }	
-			}
-		}
-	}
-	this.center = new createVector(this.position.x + globalX + 30, this.position.y + globalY + 30);
-	this.moving=false;
-	if(canMove)
-	{
-		if(keyArray[39] == 1)
-		{
-			this.position.x += speed;
-			this.moving=true;
-			this.i = 2;
-		}
-		if(keyArray[37] == 1)
-		{
-			this.position.x -= speed;
-			this.moving=true;
-			this.i = 3;
-		}
-		if(keyArray[40] == 1)
-		{
-			this.position.y += speed;
-			this.moving=true;
-			this.i = 0;
-		}
-		if(keyArray[38] == 1)
-		{
-			this.position.y -= speed;
-			this.moving=true;
-			this.i = 1;
-		}
-	}
-	
-	if(this.moving)
-	{
-		if (this.currFrame < (frameCount - 3)) 
-        {
-            this.currFrame = frameCount;
-            this.motion++;
-            if (this.motion > 2) 
-            {
-                this.motion = 1;
-            }
-        }
-	}
-	else
-	{
-		this.motion = 0;
-	}
-	
-	var xHighLim = 202;
-	var xLowLim = 198;
-	if(globalX > 598)
-	{
-		xHighLim = 335;
-	}
-	else if(globalX < 2)
-	{
-		xLowLim = 10;
-	}
-	
-	if(this.position.x > xHighLim)
-	{
-		this.position.x = xHighLim;
-		if(globalX <= 598)
-		{
-			globalX += speed;
-		}
-	}
-	if(this.position.x < xLowLim)
-	{
-		this.position.x = xLowLim;
-		if(globalX >= 2)
-		{
-			globalX -= speed;
-		}
-	}
-	
-	var yHighLim = 202;
-	var yLowLim = 198;
-	if(globalY > 598)
-	{
-		yHighLim = 320;
-	}
-	else if(globalY < 2)
-	{
-		yLowLim = 10;
-	}
-	
-	if(this.position.y > yHighLim)
-	{
-		this.position.y = yHighLim;
-		if(globalY <= 598)
-		{
-			globalY += speed;
-		}
-	}
-	if(this.position.y < yLowLim)
-	{
-		this.position.y = yLowLim;
-		if(globalY >= 2)
-		{
-			globalY -= speed;
-		}
-	}
-	pop();
-};
-
-playerObj.prototype.isTouchingWildGrass = function()
-{
-	this.transparency = 300;
-	noStroke();	
-	//check upper patch of wild grass
-	if((this.center.x > 250 && this.center.x < 670 && this.center.y < 130) || (this.center.y > 300 && this.center.y < 580 && this.center.x < 200) || (this.center.x > 700 && this.center.y > 700))
-	{
-		for(var i = 0; i < wildGrass.length; i++)
-		{
-			if(this.center.x < wildGrass[i].position.x + 20 && this.center.x + 20 > wildGrass[i].position.x)
-			{
-				if(this.center.y < wildGrass[i].position.y + 20 && this.center.y + 20 > wildGrass[i].position.y)
-				{
-					this.transparency = 100;
-					return true;
-				}
-			}
-		}
-	}
-}
-
-playerObj.prototype.enterHouse = function()
-{
-	if((this.center.x > 820 && this.center.x < 850 && this.center.y > 130 && this.center.y < 170) || dead)
-	{
-		insideHouse = true;
-		this.position.x = 100;
-		this.position.y = 325;
-		this.center.x = 100;
-		this.center.y = 325;
-	}
-	else
-	{
-		insideHouse = false;
-	}
-};
-
-playerObj.prototype.exitHouse = function()
-{
-	if(this.center.x > 80 && this.center.x < 120 && this.center.y >= 340)
-	{
-		insideHouse = false;
-		this.position.x = 200;
-		this.position.y = 180;
-		globalX = 600;
-		globalY = 0;
-		//this.center.x = 800;
-		//this.center.y = 250;
-	}
-	else
-	{
-		insideHouse = true;
-	}
-};
-
-playerObj.prototype.isAtHealTable = function() 
-{
-	if(this.center.x > 140 && this.center.x < 240 && this.center.y > 120 && this.center.y < 180)
-	{
-		fill(0, 255, 0);
-		rect(250, 80, 70, 50, 10);
-		stroke(0);
-		strokeWeight(1);
-		fill(0);
-		textSize(12);
-		text("  Click to \nHeal Your \n Pokemon", 258, 95);
-		
-	}
-};
