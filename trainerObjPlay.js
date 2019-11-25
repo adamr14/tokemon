@@ -590,6 +590,93 @@ playerObj.prototype.captureMovementInsideHouse = function()
 	
 }
 
+playerObj.prototype.captureMovementInsideGym = function()
+{
+	this.moving = false;
+	this.center = new createVector(this.position.x + 30, this.position.y + 30);
+
+	if(keyArray[39] == 1)
+	{
+		this.position.x += speed;
+		this.moving=true;
+		this.i = 2;
+	}
+	if(keyArray[37] == 1)
+	{
+		this.position.x -= speed;
+		this.moving=true;
+			this.i = 3;
+	}
+	if(keyArray[40] == 1)
+	{
+		this.position.y += speed;
+		this.moving=true;
+		this.i = 0;
+	}
+	if(keyArray[38] == 1)
+	{
+		this.position.y -= speed;
+		this.moving=true;
+		this.i = 1;
+	}
+	if(this.moving)
+	{
+		if (this.currFrame < (frameCount - 3)) 
+        {
+            this.currFrame = frameCount;
+            this.motion++;
+            if (this.motion > 2) 
+            {
+                this.motion = 1;
+            }
+        }
+	}
+	else
+	{
+		this.motion = 0;
+	}
+	
+	if(this.position.x > 380)
+	{
+		this.position.x = 380;
+	}
+	else if(this.position.x < 20)
+	{
+		this.position.x = 20;
+	}
+	if(this.position.y > 360)
+	{ this.position.y = 360; }
+	else if(this.position.y < 180)
+	{
+		this.position.y = 180;
+	}
+	if(this.center.y < 320 && this.center.y > 230 && this.center.x > 140 && this.center.x < 260)
+	{
+		var left = this.center.x - 140;
+		var right = 260 - this.center.x;
+		var up = this.center.y - 230;
+		var down = 320 - this.center.y;
+		if(left > right)
+		{
+			this.position.x += 2;
+		}
+		else
+		{
+			this.position.x -= 2;
+		}
+		
+		if(up > down)
+		{
+			this.position.y += 2;
+		}
+		else 
+		{
+			this.position.y -= 2;
+		}
+	}
+	
+}
+
 playerObj.prototype.captureMovement = function()
 {
 	push();
@@ -602,7 +689,9 @@ playerObj.prototype.captureMovement = function()
 			{
 				canMove = false;
 				if(this.center.x < 500)
-				{this.position.x += 3;}
+				{
+					this.position.x += 2;
+				}
 				else if(this.center.x > 500)
 				{ this.position.x -= 2; }
 				
@@ -715,6 +804,31 @@ playerObj.prototype.captureMovement = function()
 			globalY -= speed;
 		}
 	}
+	
+	if(this.center.y < 650 && this.center.y > 505 && this.center.x > 515 && this.center.x < 685)
+	{
+		var left = this.center.x - 515;
+		var right = 685 - this.center.x;
+		var up = this.center.y - 505;
+		var down = 650 - this.center.y;
+		if(left > right)
+		{
+			this.position.x += 2;
+		}
+		else
+		{
+			this.position.x -= 2;
+		}
+		
+		if(up > down)
+		{
+			this.position.y += 2;
+		}
+		else 
+		{
+			this.position.y -= 2;
+		}
+	}
 	pop();
 };
 
@@ -773,6 +887,38 @@ playerObj.prototype.exitHouse = function()
 	}
 };
 
+playerObj.prototype.enterGym = function()
+{
+	if((this.center.x > 20 && this.center.x < 200 && this.center.y > 790 && this.center.y < 940))
+	{
+		insideGym = true;
+		this.position.x = 250;
+		this.position.y = 280;
+	}
+	else
+	{
+		insideGym = false;
+	}
+};
+
+playerObj.prototype.exitGym = function()
+{
+	if(this.center.x > 200 && this.center.x < 300 && this.center.y >= 350)
+	{
+		insideGym = false;
+		this.position.x = 100;
+		this.position.y = 370;
+		this.i = 0;
+		globalX = 0;
+		globalY = 600;
+		talkingToEnemy = false;
+	}
+	else
+	{
+		insideGym = true;
+	}
+};
+
 playerObj.prototype.isAtHealTable = function() 
 {
 	if(this.center.x > 140 && this.center.x < 240 && this.center.y > 120 && this.center.y < 180)
@@ -785,6 +931,22 @@ playerObj.prototype.isAtHealTable = function()
 		textSize(12);
 		text("  Click to \nHeal Your \n Pokemon", 258, 95);
 		
+	}
+};
+
+playerObj.prototype.isAtEnemyPlayer = function() 
+{
+	if(this.center.x > 140 && this.center.x < 260 && this.center.y < 215 && !fightBoss)
+	{
+		strokeWeight(1);
+		fill(255, 255, 255);
+		triangle(233, 60, 233, 95, 220, 110);
+		rect(230, 60, 100, 35, 5);
+		noStroke();
+		fill(0);
+		textSize(12);
+		text("You really want\n   to fight me?",  235, 75);
+		talkingToEnemy = true;
 	}
 };
 

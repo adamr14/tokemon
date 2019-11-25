@@ -1,9 +1,11 @@
 var player = new playerObj(250, 235, 0);
+var enemy = new enemyObj(170, 128, 0);
 var wildGrass = [];
 var regularGrass = [];
 var paths = [];
 var theHouse = new houseObj(883, 0);
-var theGym = new gymObj(118, 840);
+var theGym = new gymObj(118, 850);
+var middleDecoration = new middleShrine(400, 400);
 var fences = [];
 var bricks = [];
 var tileMap = [
@@ -42,18 +44,18 @@ var tileMap = [
 	"b t     f        pp                        pp    b",
 	"b        f       pp                        pp    b",
 	"b     t   f      pp                        pp    b",
-	"b        f       pp                        pp   wb",
-	"b  t    f        pp                        pp  wwb",
-	"b      f         pp                        pp  wwb",
-	"b      f         pp                        pp  wwb",
-	"bfffffff         pp                        pp  wwb",
-	"b                pp                        pp wwwb",
-	"b                pp                        pp wwwb",
-	"b                pp                        pp wwwb",
-	"b           ppppppppppppppppppppppppppppppppp wwwb",
-	"b           ppppppppppppppppppppppppppppppppp wwwb",
-	"b           pp                                wwwb",
-	"b     pp    pp                         wwwwwwwwwwb",	
+	"b         f      pp                        pp   wb",
+	"b  t      f      pp                        pp  wwb",
+	"b      t  f      pp                        pp  wwb",
+	"b         f      pp                        pp  wwb",
+	"b         f      pp                        pp  wwb",
+	"b         f      pp                        pp wwwb",
+	"b         f      pp                        pp wwwb",
+	"b         f      pp                        pp wwwb",
+	"b         f ppppppppppppppppppppppppppppppppp wwwb",
+	"b         f ppppppppppppppppppppppppppppppppp wwwb",
+	"b         f pp                                wwwb",
+	"bfffffppfff pp                         wwwwwwwwwwb",	
 	"b     pppppppp                      wwwwwwwwwwwwwb",
 	"b     pppppppp                     wwwwwwwwwwwwwwb",
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"];
@@ -99,7 +101,7 @@ var initializeTilemap = function ()
 	}
 };
 
-var spawnPokeBallTimer = 450;
+var spawnPokeBallTimer = 0;
 var spawnedPokeballs = [];
 var spawnedPokeballCounter = 0;
 var pokeballSpawnThreshold = 900;
@@ -184,6 +186,8 @@ var displayTilemap = function()
 	}
 	theHouse.drawHouse();
 	theGym.drawGym();
+	middleDecoration.drawShrine();
+	middleDecoration.levitateTimer();
 };
 
 var displayHouseMap = function()
@@ -290,8 +294,158 @@ var displayHouseMap = function()
     
 };
 
+var displayGymMap = function()
+{
+	background(224, 218, 141);
+	stroke(224, 218, 141);
+	fill(186, 171, 97);
+	strokeWeight(4);
+	for(var i = 0; i < 400; i += 20)
+	{
+		for(var j = 0; j < 400; j+= 20)
+		{
+			rect(i, j, 20, 20, 5);
+		}
+	}
+	strokeWeight(1);
+	fill(242, 205, 19);
+	rect(0, 0, 400, 100);
+	fill(190,190, 190);
+	stroke(112, 112, 112); 
+	push();
+	translate(0, 60);
+	rect(150, 90, 100, 25);
+	rect(140, 70, 15, 55, 5);
+	rect(245, 70, 15, 55, 5);
+	rect(150, 60, 100, 30, 5);
+	fill(133, 133, 133);
+	rect(155, 113, 90, 10, 3);
+	rect(245, 120, 15, 10, 3);
+	rect(140, 120, 15, 10, 3);
+
+	fill(82, 57, 6);
+	ellipse(110, 110, 20, 10);
+	ellipse(110, 103, 25, 15);
+	ellipse(290, 110, 20, 10);
+	ellipse(290, 103, 25, 15);
+
+	stroke(33, 166, 0);
+	strokeWeight(4);
+	line(108, 100, 104, 75);
+	line(112, 100, 119, 70);
+	line(110, 100, 111, 65);
+	line(292, 100, 296, 75);
+	line(288, 100, 281, 70);
+	line(290, 100, 289, 65);
+	pop();
+
+	fill(0, 148, 212);
+	stroke(220, 220, 220);
+	strokeWeight(2);
+	rect(175, 20, 50, 25);
+	fill(87, 87, 87);
+	triangle(195, 27, 190, 45, 200, 45);
+	triangle(205, 24, 200, 45, 210, 45);
+	triangle(188, 30, 185, 45, 195, 45);
+	triangle(199, 30, 197, 45, 207, 45);
+	triangle(210, 30, 207, 45, 217, 45);
+
+	rect(330, 20, 30, 30);
+	//strokeWeight(1);
+	//stroke(0);
+	noStroke();
+	fill(255, 0, 0);
+	bezier(333, 35, 332, 19, 358, 19, 357, 35);
+	fill(255, 255, 255);
+	bezier(333, 35, 332, 51, 358, 51, 357, 35);
+	stroke(0);
+	line(333, 35, 357, 35);
+	ellipse(345, 35, 8, 8);
+	fill(125, 125, 125);
+
+	stroke(0, 0, 0);
+	strokeWeight(1);
+	rect(30, 40, 20, 20);
+	fill(0, 123, 161);
+	rect(42, 42, 5, 5);
+	ellipse(43, 52, 1, 1);
+	ellipse(47, 52, 1, 1);
+	ellipse(43, 56, 1, 1);
+	ellipse(47, 56, 1, 1);
+	fill(145, 145, 145);
+	rect(32, 42, 7, 16);
+
+	fill(143, 6, 6);
+	rect(25, 120, 50, 270);
+	rect(325, 120, 50, 270);
+	stroke(255, 255, 255);
+	strokeWeight(3);
+	line(53, 125, 70, 145);
+	line(30, 125, 70, 170);
+	line(30, 150, 70, 195);
+	line(30, 175, 70, 220);
+	line(30, 200, 70, 245);
+	line(30, 225, 70, 270);
+	line(30, 250, 70, 295);
+	line(30, 275, 70, 320);
+	line(30, 300, 70, 345);
+	line(30, 325, 70, 370);
+	line(30, 350, 57, 380);
+	line(30, 375, 39, 385);
+
+	line(400-53, 125, 400-70, 145);
+	line(400-30, 125, 400-70, 170);
+	line(400-30, 150, 400-70, 195);
+	line(400-30, 175, 400-70, 220);
+	line(400-30, 200, 400-70, 245);
+	line(400-30, 225, 400-70, 270);
+	line(400-30, 250, 400-70, 295);
+	line(400-30, 275, 400-70, 320);
+	line(400-30, 300, 400-70, 345);
+	line(400-30, 325, 400-70, 370);
+	line(400-30, 350, 400-57, 380);
+	line(400-30, 375, 400-39, 385);
+
+	stroke(0);
+	strokeWeight(1);
+	fill(92, 80, 30);
+	rect(155, 290, 10, 20);
+	rect(235, 290, 10, 20);
+	ellipse(200, 280, 100, 50);
+	fill(120, 103, 33);
+	ellipse(200, 275, 100, 50);
+
+	fill(110, 110, 110);
+	rect(190, 270, 20, 17);
+	fill(184, 184, 184);
+	rect(190, 265, 20, 17);
+
+	fill(44, 58, 219);
+	//ellipse(200, 269, 20, 17);
+	bezier(193, 270, 190, 255, 210, 255, 208, 270);
+	fill(224, 119, 0);
+	bezier(193, 270, 190, 280, 210, 280, 208, 270);
+	stroke(0);
+	strokeWeight(2);
+	fill(255, 255, 255);
+	ellipse(200, 269, 5, 4);
+
+	strokeWeight(1);
+	fill(255, 214, 255);
+	rect(-10, 0, 420, 5, 5);
+	rect(-10, 100, 420, 5, 5);
+
+	strokeWeight(3);
+	stroke(0);
+	fill(45, 144, 250);
+	rect(230, 380, 30, 30);
+	rect(260, 380, 30, 30);
+	enemy.drawTrainer();
+};
+
 var healAnimationTimer = 0;
 var initialized = 0
+var bringItOnTimer = 0;
 var startGame = function()
 {
 	initializeTilemap();
@@ -335,6 +489,33 @@ var playGame = function()
 		}
 
 	}
+	else if(insideGym)
+	{
+		displayGymMap();
+		player.drawTrainer();
+		player.captureMovementInsideGym();
+		player.exitGym();
+		player.isAtEnemyPlayer();
+		if(fightBoss)
+		{
+			if(bringItOnTimer < 120)
+			{
+				strokeWeight(1);
+				stroke(0);
+				bringItOnTimer++;
+				fill(255, 255, 255);
+				rect(player.center.x + 40, player.center.y, 60, 20);
+				triangle(player.center.x + 40, player.center.y, player.center.x + 40, player.center.y + 20, player.center.x + 30, player.center.y);
+				fill(0);
+				noStroke();
+				text("Bring it on", player.center.x + 42, player.center.y + 12);
+			}
+			else
+			{
+				//boss fight goes here
+			}
+		}
+	}
 	else
 	{
 		noStroke();
@@ -355,9 +536,9 @@ var playGame = function()
 		player.isTouchingWildGrass();
 		theHouse.openOrClose();
 		theGym.openOrClose();
+		player.enterGym();
 		player.enterHouse();
 		player.drawTrainer();
-
 	}	
 	spawnPokeball();
 }

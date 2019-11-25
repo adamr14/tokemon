@@ -607,7 +607,7 @@ houseObj.prototype.openOrClose = function()
 var gymObj = function(x, y)
 {
 	this.position = new createVector(x, y);
-	this.doorOpen = true;
+	this.doorOpen = false;
 };
 
 gymObj.prototype.drawGym = function()
@@ -649,7 +649,7 @@ gymObj.prototype.drawGym = function()
 	rect(x + 2, y + 50, 55, 60, 10);
 	//check if door open
 	strokeWeight(3);
-	if(this.doorOpen)
+	if(!this.doorOpen)
 	{
 		fill(0, 217, 255);
 		rect(x + 9, y + 50, 20, 60);
@@ -690,12 +690,68 @@ gymObj.prototype.drawGym = function()
 
 gymObj.prototype.openOrClose = function()
 {
-	if(player.center.x > 250 && player.center.y > 750)
+	if(player.center.x < 250 && player.center.y > 750)
 	{
 		this.doorOpen = true;
 	}
 	else
 	{
 		this.doorOpen = false;
+	}
+};
+
+var middleShrine = function(x, y, levitate)
+{
+	this.x = x;
+	this.y = y;
+	this.levitate = 0;
+	this.levitateNum = 0;
+};
+
+middleShrine.prototype.drawShrine = function()
+{
+	push();
+	translate(this.x - globalX, this.y - globalY);
+
+	fill(107, 107, 107);
+	quad(151, 190, 250, 190, 226, 225, 176, 225);
+	fill(181, 181, 181);
+	rect(150, 170, 100, 30, 20);
+	stroke(208, 0, 255);
+	for(var i = 20; i < 80; i+=10)
+	{
+		line(155 + i, 180, 155 + i, 160); 
+	}
+	
+	push();
+	translate(0, this.levitateNum);
+	stroke(0);
+	fill(217, 46, 46);
+	bezier(170, 140, 170, 110, 230, 110, 230, 140);
+	fill(255, 255, 255);
+	bezier(170, 140, 170, 170, 230, 170, 230, 140);
+	stroke(0);
+	strokeWeight(2);
+	fill(255, 255, 255);
+	line(170, 140, 228, 140);
+	ellipse(200, 140, 10, 8);
+	pop();
+	pop();
+};
+
+middleShrine.prototype.levitateTimer = function()
+{
+	this.levitate++;
+	if(this.levitate < 30)
+	{
+		this.levitateNum--;
+	}
+	else if(this.levitate < 60)
+	{
+		this.levitateNum++;
+	}
+	else
+	{
+		this.levitate = 0;
 	}
 };

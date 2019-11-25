@@ -99,6 +99,13 @@ mouseClicked = function()
 			healAnimation = true;
 		}
 	}
+	else if(insideGym && talkingToEnemy)
+	{
+		if(mouseX > 230 && mouseX < 330 && mouseY > 60 && mouseY < 95)
+		{
+			fightBoss = true;
+		}
+	}
 };
 
 function draw() 
