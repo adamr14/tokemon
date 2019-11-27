@@ -70,6 +70,16 @@ mouseClicked = function()
             }
         }
     }
+    else if (!inBattle){
+        if(mouseX <= 400 && mouseX >=350 && mouseY>375){
+            if(menuUp === false){
+                menuUp =true;
+            }
+            else{
+                menuUp = false;
+            }
+        }
+    }
     if(inBattle && fight.turn){
         if (mouseX >=210 && mouseX <=290){
             if(mouseY>=320 && mouseY<=345){

@@ -453,6 +453,7 @@ var startGame = function()
 
 var playGame = function()
 {
+	
 	if(insideHouse)
 	{
 		displayHouseMap();
@@ -539,6 +540,9 @@ var playGame = function()
 		player.enterGym();
 		player.enterHouse();
 		player.drawTrainer();
-	}	
+	}
+	
+	if (menuUp) { drawGameMenu(); }
+	else{drawGameMenuButton();}
 	spawnPokeball();
 }

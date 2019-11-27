@@ -15,3 +15,4 @@ var colorMod = 255;
 var introSceneRequired = false;
 var talkingToEnemy = false;
 var fightBoss = false;
+var menuUp = false;

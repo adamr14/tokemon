@@ -163,8 +163,8 @@ fightScene.prototype.drawPlayerMenu = function(x, y){
         noStroke();
         //change this to switch and pokeball
         text("ATTACK", 220, 325, 80, 25);
-        text("COMING", 310, 325, 80, 25);
-        text("COMING", 210, 360, 80, 25);
+        text("SWITCH", 315, 325, 80, 25);
+        text("POKEBALL", 210, 360, 80, 25);
         text("RUN", 325, 360, 80, 25);
     }
     textSize(11);
