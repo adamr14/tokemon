@@ -6,7 +6,6 @@ var h = new hokieBird(200, 200, 1);
 var enemyTrainer = new trainerObj(0, 0, "boss", 1);
 var egoTrainer = new trainerObj(135, 268, "ego", 0);
 var o = new orange(100, 240, 0.6);
-
 var gravity = new createVector(0, 0.02);
 var fountains = [];
 
@@ -81,7 +80,7 @@ var drawMenuBackground = function(){
         cloudIndex++;
         cloudTimer = 0;
     }
-    cloudTimer++;
+    cloudTimer++;	
 };
 
 var drawStartBackground = function()
@@ -98,7 +97,6 @@ var drawStartBackground = function()
     h.drawFront();
     h.flap();
 	egoTrainer.drawTrainer();
-
 };
 var drawBook = function(){
     stroke(0);
@@ -137,7 +135,6 @@ var drawBook = function(){
     bezier(200, 80, 250, 40, 320, 60, 380, 80);
     line(20, 80, 20, 320);
     line(380, 80, 380, 320);
-    
 };
 
 var drawInstructions = function()
