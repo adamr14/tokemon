@@ -524,7 +524,7 @@ var playGame = function()
 		if ( player.isTouchingWildGrass() && player.moving)
 		{
 			//CHANGE BACK TO 15
-			if (Math.random()*1000 <=100)
+			if (Math.random()*1000 <=20)
 			{
 				inBattle=true;
 				wild=true;

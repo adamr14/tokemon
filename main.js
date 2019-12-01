@@ -9,6 +9,8 @@ function setup() {
 var fight = new fightScene();
 pokemen.push(new pokemon("Otto", 2));
 pokemen.push(new pokemon("Hokie", 2));
+pokemen.push(new pokemon("Philly", 2));
+pokemen.push(new pokemon("Flareon", 2));
 
 //helper function for drawing with subdivision
 var drawPart = function(points, dir){

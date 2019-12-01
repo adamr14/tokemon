@@ -14,7 +14,8 @@ var philly = function(x, y, size){
 
 philly.prototype.drawFront = function() {
     push();
-    translate(this.position.x, this.position.y);
+	translate(this.position.x, this.position.y);
+	translate(-60 + (1-this.size/0.8)*60, -55 + (1-this.size/0.8)*55);
     scale(this.size * 0.35);
     strokeWeight(1);	
 	stroke(8, 102, 14);
@@ -103,6 +104,7 @@ philly.prototype.drawFront = function() {
 philly.prototype.drawBack = function() {
     push();
     translate(this.position.x, this.position.y);
+	translate(-60 + (1-this.size/0.8)*60, -55 + (1-this.size/0.8)*55);
     scale(this.size * 0.35);
     strokeWeight(1);	
 	stroke(8, 102, 14);

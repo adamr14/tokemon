@@ -12,7 +12,8 @@ var flareon = function(x, y, size){
 
 flareon.prototype.drawFront = function() {
     push();
-    translate(this.position.x, this.position.y);
+	translate(this.position.x, this.position.y);
+	translate(-50 + (1-this.size/0.8)*50, -30 + (1-this.size/0.8)*30);
     scale(this.size * 0.35);
     strokeWeight(1);	
 	stroke(0);
@@ -127,6 +128,7 @@ flareon.prototype.drawFront = function() {
 flareon.prototype.drawBack = function() {
     push();
     translate(this.position.x, this.position.y);
+	translate(-50 + (1-this.size/0.8)*50, -30 + (1-this.size/0.8)*30);
     scale(this.size * 0.35);
     strokeWeight(1);	
 	stroke(0);

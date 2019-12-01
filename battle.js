@@ -226,8 +226,9 @@ fightScene.prototype.execute = function(){
                 
             }
             
-            this.drawPlayerHalf(0, 200);
+            
             this.drawEnemyHalf(0,0);
+            this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
             if(this.currPokemon.hp<=0){
                 this.turn=false;
@@ -259,8 +260,8 @@ fightScene.prototype.execute = function(){
 
             break;
         case 4: //loss
-            this.drawPlayerHalf(0, 200);
             this.drawEnemyHalf(0,0);
+            this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
             textSize(15);
             noStroke();
@@ -282,8 +283,9 @@ fightScene.prototype.execute = function(){
             }
             break;
         case 5: //win
-            this.drawPlayerHalf(0, 200);
+            
             this.drawEnemyHalf(0,0);
+            this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
             textSize(15);
             noStroke();
@@ -297,20 +299,20 @@ fightScene.prototype.execute = function(){
 
             break;
         case 6: //throw pokeball
-            this.drawPlayerHalf(0, 200);
             this.drawEnemyHalf(0,0);
+            this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
             this.animateBall();
             break;
         case 7://catch or release pokeon
-            this.drawPlayerHalf(0, 200);
             this.drawEnemyHalf(0,0);
+            this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
             this.catch();
             break;
         case 8: // switch pokemon
-            this.drawPlayerHalf(0, 200);
             this.drawEnemyHalf(0,0);
+            this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
             this.switchAnimation();
             break;
@@ -378,7 +380,7 @@ fightScene.prototype.npcAttack = function(){
             var range = this.enemyP.level*8-this.enemyP.level;
             //modified to make player win
             var damage = floor(random()*range+5);
-            damage=100;
+            //damage=100;
             this.currPokemon.hp-=damage;
             this.turn=true;
             if(this.currPokemon.hp <=0){
@@ -451,9 +453,9 @@ fightScene.prototype.drawSwitchMenu = function(){
             textSize(14);
             text(player.pokemon[i].type, 288, 177+35*i);
             textSize(8);
-            text("LVL:    " + player.pokemon[i].level, 330,172+35*i);
+            text("LVL:    " + player.pokemon[i].level, 350,172+35*i);
             var hp = floor((player.pokemon[i].hp/player.pokemon[i].maxhp)*100);
-            text('HP: '+ hp + '%', 330, 182+35*i);
+            text('HP: '+ hp + '%', 350, 182+35*i);
             textSize(15);
             fill(255, 0, 0);
             noStroke();
@@ -575,11 +577,7 @@ fightScene.prototype.animateBall = function(){
 }
 
 fightScene.prototype.catch = function(){
-    fill(0);
-    text(this.p, 100, 180);
-    text(this.p0, 100, 200);
     fill(255);
-
     if(this.p0 < this.p){
         this.drawBall(this.ballSize);
         if(this.counter>5){

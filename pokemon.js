@@ -12,6 +12,12 @@ var pokemon = function(type, level){
     else if(this.type==="Otto"){
         this.object = new orange(100, 100, 1);
     }
+    else if(this.type==="Philly"){
+        this.object = new philly(100, 100, 1);
+    }
+    else if(this.type==="Flareon"){
+        this.object = new flareon(100, 100, 1);
+    }
 };
 
 pokemon.prototype.drawFront= function(){
