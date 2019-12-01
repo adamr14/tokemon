@@ -523,7 +523,8 @@ var playGame = function()
 		displayTilemap();
 		if ( player.isTouchingWildGrass() && player.moving)
 		{
-			if (Math.random()*1000 <=15)
+			//CHANGE BACK TO 15
+			if (Math.random()*1000 <=100)
 			{
 				inBattle=true;
 				wild=true;

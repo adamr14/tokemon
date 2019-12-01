@@ -15,6 +15,10 @@ var fightScene = function(){
 
 
 fightScene.prototype.init = function(player, wild, enemy){
+    this.ballPos = createVector(-50, 300);
+    this.ballVelocity = createVector(3, -7);
+    this.ballTheta = 0;
+    this.ballSize = 0.25;
     this.initialized = true;
     this.wild = wild;
     this.turn=true;
@@ -28,10 +32,10 @@ fightScene.prototype.init = function(player, wild, enemy){
             a+=player.pokemon[i].level;
         }
         a/=player.pokemon.length;
-        a += floor(random()*3-1);
+        a += (random()*3-1);
         if(a<=1){a=1};
         this.enemyP = pokemen[p];
-        this.enemyP.set(a);
+        this.enemyP.set(floor(a));
     }
     else{
         this.enemy = enemy;
@@ -39,7 +43,13 @@ fightScene.prototype.init = function(player, wild, enemy){
     }
     this.color = 0;
     this.colorMod=15;
-    this.currPokemon=player.pokemon[0];
+
+    for (i=player.pokemon.length-1; i>=0; i--){
+        if(player.pokemon[i].hp>0){
+            this.currPokemon=player.pokemon[i];
+        }
+    }
+
     this.currPokemon.setPos(125, 45, 1);
     this.enemyP.setPos(300, 80, 0.8);
 };
@@ -107,7 +117,6 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     fill(235, 235, 235);
     rect(230, 35, 150, 50, 10);
     
-    //CHANGE THIS ONCE YOU INTEGRATE INTO GAME
     noStroke();
     fill(95, 35, 35);
     textSize(11);
@@ -119,7 +128,6 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     textSize(8);
     text("EXP", 250, 87, 100, 100);
     
-    //modify for remaining health and xp
     textSize(11);
     fill(168, 161, 161);
     rect(275, 88, 80, 5);
@@ -127,7 +135,6 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     var xpMod = this.currPokemon.exp/(this.currPokemon.level*3);
     rect(275,88, 80*xpMod, 5);
     fill(26, 217, 30);
-    //change when you figure out levels
     var hpMod = this.currPokemon.hp/(100+(this.currPokemon.level-1)*25);
     rect(260, 67, 98*hpMod, 8, 5);
     this.currPokemon.drawBack();
@@ -148,7 +155,7 @@ fightScene.prototype.drawPlayerMenu = function(x, y){
     if(this.turn){
         textSize(15);
         noStroke();
-        text("What will Hokie Bird do?", 20, 320, 180, 85);
+        text("What will "+this.currPokemon.type+" do?", 20, 320, 180, 85);
         textSize(11);
         fill(224, 213, 213);
         rect(205, 315, 180, 70);
@@ -161,7 +168,6 @@ fightScene.prototype.drawPlayerMenu = function(x, y){
         textSize(15);
         fill(0);
         noStroke();
-        //change this to switch and pokeball
         text("ATTACK", 220, 325, 80, 25);
         text("SWITCH", 315, 325, 80, 25);
         text("POKEBALL", 210, 360, 80, 25);
@@ -208,6 +214,18 @@ fightScene.prototype.execute = function(){
             }
             break;
         case 3: //battling
+            if(throwPokeball){
+                this.state=6;
+                this.turn=false;
+                this.counter=0;
+            }
+            if(switchPokemon){
+                this.state=8;
+                this.turn = false;
+                this.counter=0;
+                
+            }
+            
             this.drawPlayerHalf(0, 200);
             this.drawEnemyHalf(0,0);
             this.drawPlayerMenu();
@@ -225,6 +243,20 @@ fightScene.prototype.execute = function(){
             else if(this.npcAttacks && this.counter>5){
                 this.npcAttack();
             }
+
+            if(switchMenu){
+                this.drawSwitchMenu();
+            }
+            else if(pokeballMenu){
+                if(wild){
+                    this.drawPokeballMenu();
+                    
+                }
+                else{
+                    pokeballMenu=false;
+                }
+            }
+
             break;
         case 4: //loss
             this.drawPlayerHalf(0, 200);
@@ -238,7 +270,9 @@ fightScene.prototype.execute = function(){
                 rect(-1, -1, 402, 402);
                 this.colorMod+=2;
                 if(this.colorMod>255){
-                    this.currPokemon.hp=100+(this.currPokemon.level-1)*25;
+                    for (var i=0; i<player.pokemon.length; i++){
+                        player.pokemon[i].hp=100+(this.currPokemon.level-1)*25;
+                    }
                     this.reset();
                     inBattle=false;
                     dead=true;
@@ -262,6 +296,25 @@ fightScene.prototype.execute = function(){
             }
 
             break;
+        case 6: //throw pokeball
+            this.drawPlayerHalf(0, 200);
+            this.drawEnemyHalf(0,0);
+            this.drawPlayerMenu();
+            this.animateBall();
+            break;
+        case 7://catch or release pokeon
+            this.drawPlayerHalf(0, 200);
+            this.drawEnemyHalf(0,0);
+            this.drawPlayerMenu();
+            this.catch();
+            break;
+        case 8: // switch pokemon
+            this.drawPlayerHalf(0, 200);
+            this.drawEnemyHalf(0,0);
+            this.drawPlayerMenu();
+            this.switchAnimation();
+            break;
+
     }
     
     if(this.currFrame < frameCount-10){
@@ -325,7 +378,7 @@ fightScene.prototype.npcAttack = function(){
             var range = this.enemyP.level*8-this.enemyP.level;
             //modified to make player win
             var damage = floor(random()*range+5);
-            //damage=100;
+            damage=100;
             this.currPokemon.hp-=damage;
             this.turn=true;
             if(this.currPokemon.hp <=0){
@@ -340,9 +393,19 @@ fightScene.prototype.pFaint = function(){
         this.moveP(0, 5, 0);
     }
     else{
-        this.state=4;
-        this.counter=0;
-        this.colorMod=0;
+        var totalHP = 0;
+        for (var i=0; i<player.pokemon.length; i++){
+            totalHP+=player.pokemon[i].hp;
+        }
+
+        if(totalHP<=0){
+            this.state=4;
+            this.counter=0;
+            this.colorMod=0;
+        }
+        else{
+            switchMenu = true;
+        }
     }
 };
 
@@ -361,3 +424,248 @@ fightScene.prototype.npcFaint = function(){
         this.counter=0;
     }
 };
+
+fightScene.prototype.drawSwitchMenu = function(){
+    fill(224, 213, 213);
+    noStroke();
+    rect(274, 134, 126, 166);
+    stroke(186, 117, 37);
+    rect(277, 137, 120, 160);
+    fill(186, 117, 37);
+    noStroke();
+    
+    textSize(15);
+    text("HokieMon", 300, 153);
+
+    //display pokemon
+    stroke(95, 35, 35);
+    noFill();
+
+    for (var i=0; i<4; i++){
+        strokeWeight(1);
+        stroke(95, 35, 35);
+        noFill();
+        rect(285, 157 + 35*i, 103, 30);
+        fill(95, 35, 35);
+        if(i<player.pokemon.length){
+            textSize(14);
+            text(player.pokemon[i].type, 288, 177+35*i);
+            textSize(8);
+            text("LVL:    " + player.pokemon[i].level, 330,172+35*i);
+            var hp = floor((player.pokemon[i].hp/player.pokemon[i].maxhp)*100);
+            text('HP: '+ hp + '%', 330, 182+35*i);
+            textSize(15);
+            fill(255, 0, 0);
+            noStroke();
+            
+        }
+        else{
+            stroke(95, 35, 35);
+            fill(95, 35, 35);
+            textSize(14);
+            text("EMPTY", 310, 177+35*i);
+        }
+    }
+    
+
+};
+
+fightScene.prototype.drawPokeballMenu = function(){
+    fill(12, 29, 125);
+    noStroke();
+    rect(11, 311, 180, 78);
+    stroke(255, 0, 0);
+    rect(20, 320, 70, 65);
+    rect(105, 320, 70, 65)
+    fill(255);
+    noStroke();
+    text("RARE", 38, 332);
+    text("REGULAR", 113, 332);
+    text(player.pokeballs[1] + ' left', 38, 350);
+    text(player.pokeballs[0] + ' left', 125, 350);
+}
+
+fightScene.prototype.drawBall = function(size){
+    push();
+	translate(this.ballPos.x, this.ballPos.y);
+    scale(size);
+    rotate(this.ballTheta);
+    noStroke();
+    if(chosen===0)
+    { fill(255, 0, 0); }
+    else {fill(0, 0, 255); }
+    bezier(-43, 0,  -36, -60, 36, -60, 43, 0);    
+	fill(220, 220, 220);
+    bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+    fill(255, 255, 255);
+    stroke(0, 0, 0);
+    strokeWeight(10);
+    line(-39, 0, 37, 0);
+    strokeWeight(1);
+    ellipse(0, 0, 20, 20);
+    fill(0, 0, 0);
+	pop();
+}
+
+fightScene.prototype.animateBall = function(){
+    this.ballPos.add(this.ballVelocity);
+
+    if(this.ballPos.x<297){
+        this.drawBall(this.ballSize);
+        this.ballVelocity.add(.01, .093);
+        this.ballTheta+=Math.PI/20;
+        this.ballSize-=0.0014;
+    }
+    else if (this.ballPos.y>20 && throwPokeball){
+        this.drawBall(this.ballSize);
+        this.ballVelocity.set(0,0);
+        this.ballTheta = 0;
+        this.ballPos.add(0,-2);
+    }
+    else if(this.enemyP.object.size>0){
+        throwPokeball = false;
+        push();
+        translate(this.ballPos.x, this.ballPos.y);
+        scale(this.ballSize);
+        noStroke();
+        fill(0);
+        ellipse(0, -43, 86, 86);   
+        fill(220, 220, 220);
+        bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+        fill(255, 255, 255);
+        stroke(0, 0, 0);
+        strokeWeight(10);
+        line(-39, 0, 37, 0);
+        strokeWeight(1);
+        ellipse(0, 0, 20, 20);
+        fill(0, 0, 0);
+        pop();
+        this.moveNPC(0.1, -2.5, -0.03);
+        if(this.enemyP.object.size<=0){
+            this.ballVelocity.set(0, 0.1);
+        }
+    }
+    else if (!throwPokeball && this.ballVelocity.y!==0){
+        if(this.ballPos.y>125){
+            this.ballVelocity.set(0, this.ballVelocity.y*=-0.6);
+        }
+        this.drawBall(this.ballSize);
+        if(this.ballPos.y<120){
+            this.ballVelocity.add(0, 0.1);
+        }
+        if(this.ballVelocity.y<0.01 && this.ballVelocity.y>-0.01 && this.ballPos.y>124){
+            this.ballVelocity.y=0;
+            this.state=7;
+            this.counter =0;
+            //modify for ball type
+            var typeMod = 0;
+            if(chosen===0){
+                typeMod = 0.95;
+            }
+            else{
+                typeMod = 0.9;
+            }
+
+            this.p = 1 - (this.enemyP.hp/this.enemyP.maxhp)*typeMod;
+            this.p0 = Math.random();
+            this.enemyP.setPos(300, 80, 0);
+        }
+    }
+    
+}
+
+fightScene.prototype.catch = function(){
+    fill(0);
+    text(this.p, 100, 180);
+    text(this.p0, 100, 200);
+    fill(255);
+
+    if(this.p0 < this.p){
+        this.drawBall(this.ballSize);
+        if(this.counter>5){
+            textSize(15);
+            noStroke();
+            text(this.enemyP.type + ' caught!', 20, 320, 180, 85);
+            
+        }
+        if(this.counter>20){
+            player.pokemon.push(new pokemon(this.enemyP.type, this.enemyP.level));
+            inBattle = false;
+            this.reset();
+        }
+    }
+    else {
+        if(this.counter>5){
+            if (this.enemyP.object.size<0.8){
+                this.moveNPC(0,0, 0.08);
+            }
+            textSize(15);
+            noStroke();
+            text(this.enemyP.type + ' not caught', 20, 320, 180, 85);
+            if(this.counter>20){
+                this.state=3;
+                this.counter=0;
+                this.npcAttacks=true;
+                this.turn=false;
+                this.ballPos.set(-50, 300);
+                this.ballVelocity.set(3, -7);
+                this.ballTheta = 0;
+                this.ballSize = 0.25;
+            }
+        }
+        else{this.drawBall(this.ballSize);}
+    }
+}
+
+fightScene.prototype.switchAnimation = function(){
+    if(this.counter<10){
+        this.moveP(-3, 1, 0);
+        this.ballVelocity.set(2,-5);
+    }
+    else if(this.counter<20){
+        this.currPokemon = player.pokemon[chosen];
+        this.drawBall(this.ballSize);
+        this.ballPos.add(this.ballVelocity);
+        this.ballTheta+=Math.PI/10;
+        this.ballVelocity.add(-0.008, 0.09);
+        this.currPokemon.setPos(125, 45, 1);
+        this.currPokemon.object.size=0;
+    }
+    else if (this.currPokemon.object.size<0.8){
+        push();
+        translate(this.ballPos.x, this.ballPos.y);
+        scale(this.ballSize);
+        noStroke();
+        fill(0);
+        ellipse(0, -43, 86, 86);   
+        fill(220, 220, 220);
+        bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+        fill(255, 255, 255);
+        stroke(0, 0, 0);
+        strokeWeight(10);
+        line(-39, 0, 37, 0);
+        strokeWeight(1);
+        ellipse(0, 0, 20, 20);
+        fill(0, 0, 0);
+        pop();
+        this.currPokemon.object.size+=0.1;
+    }
+    else if (this.counter<40){
+        textSize(15);
+        noStroke();
+        text('GO '+this.currPokemon.type+'!', 20, 320, 180, 85);
+    }
+    else{
+        this.state=3;
+        this.counter=0;
+        this.npcAttacks=true;
+        this.turn=false;
+        this.ballPos.set(-50, 300);
+        this.ballVelocity.set(3, -7);
+        this.ballTheta = 0;
+        this.ballSize = 0.25;
+        switchPokemon = false;
+        switchMenu = false;
+    }
+
+}

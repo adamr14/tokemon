@@ -2,6 +2,7 @@ var pokemon = function(type, level){
     this.type=type;
     this.level = level;
     this.hp = 100+(level-1)*25;
+    this.maxhp = 100+(level-1)*25;
     this.exp = 0;
     this.currFrame=0;
 
@@ -30,4 +31,5 @@ pokemon.prototype.setPos=function(x, y, size){
 pokemon.prototype.set=function(level){
     this.level=level;
     this.hp = 100+(level-1)*25;
+    this.maxhp = 100+(level-1)*25;
 };

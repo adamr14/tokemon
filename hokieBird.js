@@ -28,9 +28,6 @@ hokieBird.prototype.flap = function(){
 };
 
 hokieBird.prototype.drawFront= function() {
-    strokeWeight(1);
-    line(200, 0, 200, 400);
-    line(0, 200, 400, 200);
     push();
     translate(this.position.x, this.position.y);
     scale(this.size*0.25);

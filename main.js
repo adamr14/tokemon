@@ -79,26 +79,147 @@ mouseClicked = function()
                 menuUp = false;
             }
         }
-    }
-    if(inBattle && fight.turn){
-        if (mouseX >=210 && mouseX <=290){
-            if(mouseY>=320 && mouseY<=345){
-                fight.turn=false;
-                fight.playerAttack=true;
-                fight.counter=0;
-            }
-            else if (mouseY>=355 && mouseY<=380){
-                //pokeball if not wild
+        else if(menuUp){
+            if(mouseX>=375 && mouseX<=390){
+                if(mouseY>=235 && mouseY<=255){
+                    player.pokemon.splice(1, 1);
+                }
+                if(mouseY>=270 && mouseY<=290){
+                    player.pokemon.splice(2, 1);
+                }
+                if(mouseY>=305 && mouseY<=325){
+                    player.pokemon.splice(3, 1);
+                }
+
             }
         }
-        else if(mouseX >=300 && mouseX <=380){
-            if(mouseY>=320 && mouseY<=345){
-                //switch pokemon
+    }
+
+    if(switchMenu && inBattle && !fight.turn){
+        //in switch menu
+        if(mouseX>=285 && mouseX<=388){
+            if(mouseY>=157 && mouseY<=187){
+                chosen = 0;
+                switchPokemon = true;
+                switchMenu = false;
             }
-            else if (mouseY>=355 && mouseY<=380){
-                //run
-                inBattle=false;
-                fight.reset();
+            else if(mouseY>=192 && mouseY<=222){
+                chosen = 1;
+                switchPokemon = true;
+                switchMenu = false;
+            }
+            else if(mouseY>=227 && mouseY<=257){
+                chosen = 2;
+                switchPokemon = true;
+                switchMenu = false;
+            }
+            else if(mouseY>=262 && mouseY<=292){
+                chosen = 3;
+                switchPokemon = true;
+                switchMenu = false;
+            }
+
+            if (chosen >= player.pokemon.length){
+                switchPokemon = false;
+                switchMenu = true;
+            }
+            else if (player.pokemon[chosen].hp<=0){
+                switchPokemon = false;
+                switchMenu = true;
+            }
+
+        }
+        else if(mouseX < 274 || mouseY < 134){
+            switchMenu = false;
+        }
+    }
+
+    if(inBattle && fight.turn){
+        if(!switchMenu && !pokeballMenu){
+            if (mouseX >=210 && mouseX <=290){
+                if(mouseY>=320 && mouseY<=345){
+                    fight.turn=false;
+                    fight.playerAttack=true;
+                    fight.counter=0;
+                }
+                else if (mouseY>=355 && mouseY<=380){
+                    //pokeball if not wild
+                    pokeballMenu=true;
+                }
+            }
+            else if(mouseX >=300 && mouseX <=380){
+                if(mouseY>=320 && mouseY<=345){
+                    switchMenu = true;
+                }
+                else if (mouseY>=355 && mouseY<=380){
+                    //run
+                    inBattle=false;
+                    fight.reset();
+                }
+            }
+        }
+        else if(switchMenu){
+            //in switch menu
+            if(mouseX>=285 && mouseX<=388){
+                if(mouseY>=157 && mouseY<=187){
+                    chosen = 0;
+                    switchPokemon = true;
+                    switchMenu = false;
+                }
+                else if(mouseY>=192 && mouseY<=222){
+                    chosen = 1;
+                    switchPokemon = true;
+                    switchMenu = false;
+                }
+                else if(mouseY>=227 && mouseY<=257){
+                    chosen = 2;
+                    switchPokemon = true;
+                    switchMenu = false;
+                }
+                else if(mouseY>=262 && mouseY<=292){
+                    chosen = 3;
+                    switchPokemon = true;
+                    switchMenu = false;
+                }
+
+                if (chosen >= player.pokemon.length){
+                    switchPokemon = false;
+                    switchMenu = true;
+                }
+                else if (player.pokemon[chosen].hp<=0){
+                    switchPokemon = false;
+                    switchMenu = true;
+                }
+
+            }
+            else if(mouseX < 274 || mouseY < 134){
+                switchMenu = false;
+            }
+        }
+        else{
+            //choose type of pokeball then throw the ball
+            if(mouseY>=320 && mouseY<=385){
+                if(mouseX>=20 && mouseX<=90){
+                    pokeballMenu = false;
+                    throwPokeball = true;
+                    chosen = 1;
+                }
+                else if(mouseX>=105 && mouseX<=175){
+                    pokeballMenu=false;
+                    throwPokeball = true;
+                    chosen = 0;
+                }
+
+                if((throwPokeball && (player.pokeballs[chosen] <= 0)) || player.pokemon.length>=4){
+                    throwPokeball = false;
+                }
+                else{
+                    player.pokeballs[chosen]--;
+                }
+            }
+
+            if(mouseY<305 || mouseX > 192){
+                pokeballMenu = false;
             }
         }
     }
