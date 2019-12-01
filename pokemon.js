@@ -8,15 +8,19 @@ var pokemon = function(type, level){
 
     if(this.type==="Hokie"){
         this.object = new hokieBird(100, 100, 1);
+		this.element = "earth";
     }
     else if(this.type==="Otto"){
         this.object = new orange(100, 100, 1);
+		this.elementType = "fire";
     }
     else if(this.type==="Philly"){
         this.object = new philly(100, 100, 1);
+		this.elementType = "wood";
     }
     else if(this.type==="Flareon"){
         this.object = new flareon(100, 100, 1);
+		this.elementType = "fire";
     }
 };
 
@@ -38,4 +42,84 @@ pokemon.prototype.set=function(level){
     this.level=level;
     this.hp = 100+(level-1)*25;
     this.maxhp = 100+(level-1)*25;
+};
+
+pokemon.prototype.checkElementTypes = function(enemyType)
+{
+	if(this.elementType === "fire")
+	{
+		if(enemyType === "earth")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "wood")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else if(this.elementType === "earth")
+	{
+		if(enemyType === "metal")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "fire")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else if(this.elementType = "metal")
+	{
+		if(enemyType === "water")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "earth")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else if(this.elementType = "water")
+	{
+		if(enemyType === "wood")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "metal")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		//type = wood
+		if(enemyType === "fire")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "water")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
 };
