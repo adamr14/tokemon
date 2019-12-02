@@ -571,10 +571,12 @@ var playGame = function()
 				//boss fight goes here
 			}
 		}
+		strokeWeight(1);
 	}
 	else
 	{
 		noStroke();
+		strokeWeight(1);
 		displayTilemap();
 		if ( player.isTouchingWildGrass() && player.moving)
 		{
