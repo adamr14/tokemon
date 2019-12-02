@@ -145,7 +145,7 @@ var showText = function()
 	}
 	fill(255, 25, 25);
 	textSize(20);
-	text(displayTextMsg, 50, 380);
+	text(displayTextMsg, 50, 360);
 };
 
 var displayTilemap = function() 
@@ -167,10 +167,18 @@ var displayTilemap = function()
 	{
 		paths[i].drawPath();
 	}
-	for(i = 0; i < bricks.length; i++)
+	/*for(i = 0; i < bricks.length; i++)
 	{
 		bricks[i].drawBrick();
-	}
+	}*/
+	push();
+	translate(-globalX, -globalY);
+	fill(100, 100, 100);
+	rect(0, 0, 1000, 20);
+	rect(0, 0, 20, 1000);
+	rect(0, 980, 1000, 20);
+	rect(980, 0, 20, 1000);
+	pop();
 	for(i = 0; i < paths.length;i++)
 	{
 		paths[i].drawPath();
@@ -535,7 +543,6 @@ var playGame = function()
 			showText();
 		}
 		player.captureMovement();
-		player.isTouchingWildGrass();
 		theHouse.openOrClose();
 		theGym.openOrClose();
 		player.enterGym();
