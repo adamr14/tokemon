@@ -241,6 +241,7 @@ var displayTilemap = function()
 	}
 };
 
+var houseSign = new instructionalSign(285, 275);
 var displayHouseMap = function()
 {
 	fill(242, 191, 72);
@@ -342,6 +343,9 @@ var displayHouseMap = function()
     rect(80, 370, 40, 30);
     fill(0);
 	ellipse(110, 390, 3, 3);
+	
+	houseSign.drawSign();
+	houseSign.checkIfRead();
     
 };
 
