@@ -169,6 +169,8 @@ var drawBook = function(){
 
 var drawInstructions = function()
 {
+    h.flap();
+    
     drawMenuBackground();
     drawBook();
     
