@@ -945,24 +945,24 @@ sign.prototype.drawSign = function()
 	scale(0.6);
 	if(this.element1 === "fire")
 	{
-		fireElement.drawElement(1, -70, 110);
+		fireElement.drawElement(1, -60, 110);
 	}
 	else if(this.element1 === "earth")
 	{
-		earthElement.drawElement(1, -70, 110); 
+		earthElement.drawElement(1, -60, 110); 
 	}
 	else if(this.element1 === "metal")
 	{
-		metalElement.drawElement(1, -70, 110); 
+		metalElement.drawElement(1, -60, 110); 
 	}
 	else if(this.element1 === "water")
 	{
-		waterElement.drawElement(1, -70, 110); 
+		waterElement.drawElement(1, -60, 110); 
 	}
 	else 
 	{
 		//element1 = wood
-		woodElement.drawElement(1, -70, 110); 
+		woodElement.drawElement(1, -60, 110); 
 	}	
 		
 	if(this.element2 === "fire")
@@ -989,24 +989,24 @@ sign.prototype.drawSign = function()
 		
 	if(this.element3 === "fire")
 	{
-		fireElement.drawElement(1, 320, 110);
+		fireElement.drawElement(1, 310, 110);
 	}
 	else if(this.element3 === "earth")
 	{
-		earthElement.drawElement(1, 320, 110); 
+		earthElement.drawElement(1, 310, 110); 
 	}
 	else if(this.element3 === "metal")
 	{
-		metalElement.drawElement(1, 320, 110); 
+		metalElement.drawElement(1, 310, 110); 
 	}
 	else if(this.element3 === "water")
 	{
-		waterElement.drawElement(1, 320, 110); 
+		waterElement.drawElement(1, 310, 110); 
 	}
 	else 
 	{
 		//element3 = wood
-		woodElement.drawElement(1, 320, 110); 
+		woodElement.drawElement(1, 310, 110); 
 	}
 	pop();
 	pop();
@@ -1068,24 +1068,24 @@ sign.prototype.drawSign = function()
 		scale(0.6);
 		if(this.element1 === "fire")
 		{
-			fireElement.drawElement(1, -70, 110);
+			fireElement.drawElement(1, -50, 110);
 		}
 		else if(this.element1 === "earth")
 		{
-			earthElement.drawElement(1, -60, 110); 
+			earthElement.drawElement(1, -50, 110); 
 		}
 		else if(this.element1 === "metal")
 		{
-			metalElement.drawElement(1, -70, 110); 
+			metalElement.drawElement(1, -50, 110); 
 		}
 		else if(this.element1 === "water")
 		{
-			waterElement.drawElement(1, -70, 110); 
+			waterElement.drawElement(1, -50, 110); 
 		}
 		else 
 		{
 			//element1 = wood
-			woodElement.drawElement(1, -70, 110); 
+			woodElement.drawElement(1, -50, 110); 
 		}	
 		
 		if(this.element2 === "fire")
@@ -1112,24 +1112,24 @@ sign.prototype.drawSign = function()
 		
 		if(this.element3 === "fire")
 		{
-			fireElement.drawElement(1, 320, 110);
+			fireElement.drawElement(1, 310, 110);
 		}
 		else if(this.element3 === "earth")
 		{
-			earthElement.drawElement(1, 320, 110); 
+			earthElement.drawElement(1, 310, 110); 
 		}
 		else if(this.element3 === "metal")
 		{
-			metalElement.drawElement(1, 320, 110); 
+			metalElement.drawElement(1, 310, 110); 
 		}
 		else if(this.element3 === "water")
 		{
-			waterElement.drawElement(1, 320, 110); 
+			waterElement.drawElement(1, 310, 110); 
 		}
 		else 
 		{
 			//element3 = wood
-			woodElement.drawElement(1, 320, 110); 
+			woodElement.drawElement(1, 310, 110); 
 		}
 		pop();
 		pop();
