@@ -95,19 +95,19 @@ var initializeTilemap = function ()
 			}
 			else if(tileMap[i][j] === '1')
 			{
-				signs.push(new sign(j * 20, i * 20, "wood", "fire", "earth"));
+				signs.push(new sign(j * 20, i * 20, "water", "fire", "metal"));
 			}
 			else if(tileMap[i][j] === '2')
 			{
-				signs.push(new sign(j * 20, i * 20, "fire", "earth", "metal"));
+				signs.push(new sign(j * 20, i * 20, "wood", "earth", "water"));
 			}
 			else if(tileMap[i][j] === '3')
 			{
-				signs.push(new sign(j * 20, i * 20, "earth", "metal", "water"));
+				signs.push(new sign(j * 20, i * 20, "fire", "metal", "wood"));
 			}
 			else if(tileMap[i][j] === '4')
 			{
-				signs.push(new sign(j * 20, i * 20, "metal", "water", "wood"));
+				signs.push(new sign(j * 20, i * 20, "earth", "water", "fire"));
 			}
         }
     }
@@ -345,7 +345,7 @@ var displayHouseMap = function()
     
 };
 
-var gymSign = new sign(20, 250, "water", "wood", "fire");
+var gymSign = new sign(20, 250, "metal", "wood", "earth");
 var switchPokeballsTimer = 0;
 var displayGymMap = function()
 {
