@@ -47,7 +47,7 @@ var startEndGameScene = function()
 			textSize(12);
 			text("Contact Adam Ranking or Saam\n Rezaei for mission details and\n              meeting dates", 112, 360);
 			textSize(36);
-			fill(255, 255, 255);
+			fill(235, 38, 38);
 			text("Congratulations", 80, 275);
 		}
 	}
