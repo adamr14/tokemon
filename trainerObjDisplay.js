@@ -2,7 +2,7 @@
 
 var trainerObj = function(x, y, char, initialLook)
 {
-    this.position = new createVector(x - globalX, y - globalY);
+    this.position = new createVector(x, y);
     this.i = initialLook;
     this.currFrame = frameCount;
     this.char = char;

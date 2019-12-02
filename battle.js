@@ -11,10 +11,12 @@ var fightScene = function(){
     this.playerAttack=false;
     this.npcAttacks=false;
     this.levelUp=false;
+    this.enemy = new trainerObj(240, 0, "boss", 0);
 };
 
 
-fightScene.prototype.init = function(player, wild, enemy){
+fightScene.prototype.init = function(player, wild){
+    this.state=0;
     this.ballPos = createVector(-50, 300);
     this.ballVelocity = createVector(3, -7);
     this.ballTheta = 0;
@@ -38,8 +40,7 @@ fightScene.prototype.init = function(player, wild, enemy){
         this.enemyP.set(floor(a));
     }
     else{
-        this.enemy = enemy;
-        this.enemyP = enemy.pokemon[0];
+        this.enemyP = pokemen[0];
     }
     this.color = 0;
     this.colorMod=15;
@@ -71,28 +72,33 @@ fightScene.prototype.drawEnemyHalf = function(x, y){
     ellipse(300, 130, 140, 38);
 
     //pokemon bar
-    fill(95, 35, 35);
-    rect(40, 65, 160, 65, 10);
-    triangle(200, 115, 220, 130, 190, 130);
-    fill(186, 117, 37);
-    stroke(186, 117, 37);
-    fill(235, 235, 235);
-    rect(45, 70, 150, 50, 10);
-    
-    //CHANGE THIS ONCE YOU INTEGRATE INTO GAME
-    textSize(11);
-    noStroke();
-    fill(95, 35, 35);
-    text(this.enemyP.type, 55, 75, 100, 100);
-    text("LVL "+this.enemyP.level, 150, 80, 100, 100);
-    rect(55, 95, 120, 12, 5);
-    fill(255, 255, 255);
-    text("HP", 55, 97, 100, 100);
-    fill(34, 92, 240);
-    fill(26, 217, 30);
-    var hpMod = this.enemyP.hp/(100+(this.enemyP.level-1)*25);
-    rect(75, 97, 98*hpMod, 8, 5);
-    this.enemyP.drawFront();
+    if (this.wild===true || (this.state>=3 && this.state<=8)){
+        fill(95, 35, 35);
+        rect(40, 65, 160, 65, 10);
+        triangle(200, 115, 220, 130, 190, 130);
+        fill(186, 117, 37);
+        stroke(186, 117, 37);
+        fill(235, 235, 235);
+        rect(45, 70, 150, 50, 10);
+        
+        //CHANGE THIS ONCE YOU INTEGRATE INTO GAME
+        textSize(11);
+        noStroke();
+        fill(95, 35, 35);
+        text(this.enemyP.type, 55, 75, 100, 100);
+        text("LVL "+this.enemyP.level, 150, 80, 100, 100);
+        rect(55, 95, 120, 12, 5);
+        fill(255, 255, 255);
+        text("HP", 55, 97, 100, 100);
+        fill(34, 92, 240);
+        fill(26, 217, 30);
+        var hpMod = this.enemyP.hp/(100+(this.enemyP.level-1)*25);
+        rect(75, 97, 98*hpMod, 8, 5);
+        this.enemyP.drawFront();
+    }
+    else{
+        this.enemy.drawTrainer();
+    }
     pop();
 };
 
@@ -209,8 +215,12 @@ fightScene.prototype.execute = function(){
             this.drawPlayerHalf(400-this.slider, 200);
             this.slider+=4;
             
-            if(this.slider>=400){
+            if(this.slider>=400 && this.wild){
                 this.state=3;
+            }
+            else if (this.slider>=400 && !this.wild){
+                this.state=9;
+                this.counter=0;
             }
             break;
         case 3: //battling
@@ -324,6 +334,25 @@ fightScene.prototype.execute = function(){
             this.drawPlayerHalf(0, 200);
             this.drawPlayerMenu();
             this.switchAnimation();
+            break;
+        case 9:
+            this.drawScene();
+            if(this.counter>2){
+                if (this.counter<15){
+                    fill(255);
+                    stroke(0);
+                    rect(160, 10, 90, 30);
+                    triangle(250, 10, 250, 40, 290, 35);
+                    stroke(255);
+                    line(250, 11, 250, 39);
+                    fill(0);
+                    textSize(12);
+                    text("Do your Worst!", 165, 30);
+                }
+                else if (this.counter<25){
+                    this.enemy.position.x+=2;
+                }
+            }
             break;
 
     }

@@ -522,6 +522,8 @@ var playGame = function()
 			else
 			{
 				//boss fight goes here
+				inBattle = true;
+				wild = false;
 			}
 		}
 	}

@@ -266,7 +266,7 @@ function draw()
     else if(playing){
         if(inBattle){
             if(!fight.initialized){
-                fight.init(player, wild, false);
+                fight.init(player, wild);
             }
             else{
                 fight.execute();
