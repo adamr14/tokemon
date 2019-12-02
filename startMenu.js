@@ -16,12 +16,12 @@ var startPokeball = new StartPokeball(130, 270, "normal", 1, 0);
 var instructionsPokeball = new StartPokeball(265, 270, "rare", 1, 0);
 var instructionsPokeball_2 = new StartPokeball(280, 268, "normal", 0.5, 0);
 var instructionsPokeball_3 = new StartPokeball(165, 200, "rare", 0.15, Math.PI / 4);
-var trees = [];
+var startTrees = [];
 
-trees.push(new Tree(40, 335, false));
-trees.push(new Tree(70, 395, false));
-trees.push(new Tree(360, 335, false));
-trees.push(new Tree(330, 395, false));
+startTrees.push(new Tree(40, 335, false));
+startTrees.push(new Tree(70, 395, false));
+startTrees.push(new Tree(360, 335, false));
+startTrees.push(new Tree(330, 395, false));
 var clouds = [];
 clouds.push(new Cloud(600, 25, 0));
 clouds.push(new Cloud(750, 125, 1));
@@ -45,13 +45,14 @@ var drawMenuBackground = function(){
     {
         startScreenGrass[i].drawGrass();
     }
-    for(var i=0; i<trees.length; i++)
+    for(var i=0; i<startTrees.length; i++)
     {
         fill(133, 102, 63);
-        ellipse(trees[i].position.x, trees[i].position.y + 5, 30, 5);
-        trees[i].display();   
+        ellipse(startTrees[i].position.x, startTrees[i].position.y + 5, 30, 5);
+        startTrees[i].display();   
     }
 	
+	strokeWeight(1);
 	for(var i=0; i<fountains.length; i++){
 		fountains[i].execute();
 	}
@@ -83,20 +84,49 @@ var drawMenuBackground = function(){
     cloudTimer++;	
 };
 
+var reinitializeStartScreenGrass = true;
 var drawStartBackground = function()
 {
-    drawMenuBackground();    
-    fill(150, 48, 48);
-    textSize(50);
-    text("HokieMon", 85, 100);
-    fill(247, 123, 22);
-    textSize(15);
-    text("Saam Rezaei    Adam Rankin", 100, 120);
-    startPokeball.draw();
-    instructionsPokeball.draw();
-    h.drawFront();
-    h.flap();
-	egoTrainer.drawTrainer();
+    if(!showCredits)
+	{
+		drawMenuBackground();    
+		fill(150, 48, 48);
+		textSize(50);
+		text("HokieMon", 85, 100);
+		fill(247, 123, 22);
+		textSize(15);
+		text("Saam Rezaei    Adam Rankin", 100, 120);
+		startPokeball.draw();
+		instructionsPokeball.draw();
+		h.drawFront();
+		h.flap();
+		egoTrainer.drawTrainer();
+	}
+	else
+	{
+		drawMenuBackground();    
+		fill(150, 48, 48);
+		textSize(50);
+		text("HokieMon", 85, 60);
+		fill(247, 123, 22);
+		if(reinitializeStartScreenGrass)
+		{
+			globalX = 0;
+			globalY = 0;
+			reinitializeStartScreenGrass = false;
+			for(var i = 0; i < 400; i+= 20)
+			{
+				for(var j = 200; j < 400; j+= 20)
+				{
+					startScreenGrass.push(new Grass(i, j));
+				}
+			}
+			startTrees.push(new Tree(40, 335, false));
+			startTrees.push(new Tree(70, 395, false));
+			startTrees.push(new Tree(360, 335, false));
+			startTrees.push(new Tree(330, 395, false));
+		}
+	}
 };
 var drawBook = function(){
     stroke(0);

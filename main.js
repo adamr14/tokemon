@@ -263,16 +263,25 @@ function draw()
 			startGameClicked=false;
 		}
     }
-    else if(playing){
-        if(inBattle){
-            if(!fight.initialized){
+    else if(playing)
+	{
+		if(defeatedTrainer)
+		{
+			startEndGameScene();
+		}
+        else if(inBattle)
+		{
+            if(!fight.initialized)
+			{
                 fight.init(player, wild, false);
             }
-            else{
+            else
+			{
                 fight.execute();
             }
         }
-        else{
+        else
+		{
             playGame();
         }
     }

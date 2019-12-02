@@ -166,25 +166,47 @@ var pokeballObj = function(x, y, type, index)
 	this.type = type;
 	this.index = index;
 	this.deleteTimer = 0;
+	this.opened = false;
 };
 
 pokeballObj.prototype.drawPokeball = function(size)
 {
 	push();
-	translate(this.position.x - globalX, this.position.y - globalY);
-	scale(size);
-    if(this.type === "normal")
-    { fill(255, 0, 0); }
-    else {fill(0, 0, 255); }
-    bezier(-43, 0,  -36, -60, 36, -60, 43, 0);    
-	fill(255, 255, 255);
-    bezier(-43, 0, -36, 60, 36, 60, 43, 0);
-    stroke(0, 0, 0);
-    strokeWeight(10);
-    line(-39, 0, 37, 0);
-    strokeWeight(1);
-    ellipse(0, 0, 20, 20);
-    fill(0, 0, 0);
+	if(!this.opened)
+	{
+		translate(this.position.x - globalX, this.position.y - globalY);
+		scale(size);
+		if(this.type === "normal")
+		{ fill(255, 0, 0); }
+		else {fill(0, 0, 255); }
+		bezier(-43, 0,  -36, -60, 36, -60, 43, 0);    
+		fill(255, 255, 255);
+		bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+		stroke(0, 0, 0);
+		strokeWeight(10);
+		line(-39, 0, 37, 0);
+		strokeWeight(1);
+		ellipse(0, 0, 20, 20);
+		fill(0, 0, 0);
+	}
+	else
+	{
+		translate(this.position.x - globalX, this.position.y - globalY);
+		scale(size);
+		if(this.type === "normal")
+		{ fill(255, 0, 0); }
+		else {fill(0, 0, 255); }
+		fill(0);
+		ellipse(0, 0, 80, 80);
+		fill(255, 255, 255);
+		bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+		stroke(0, 0, 0);
+		strokeWeight(10);
+		line(-39, 0, 37, 0);
+		strokeWeight(1);
+		ellipse(0, 0, 20, 20);
+		fill(0, 0, 0);    
+	}
 	pop();
 };
 
@@ -744,12 +766,10 @@ middleShrine.prototype.levitateTimer = function()
 	this.levitate++;
 	if(this.levitate <= 30)
 	{
-		print(this.levitate);
 		this.levitateNum--;
 	}
 	else if(this.levitate < 60)
 	{
-		print(this.levitate);
 		this.levitateNum++;
 	}
 	else
