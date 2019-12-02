@@ -32,7 +32,6 @@ var drawGameMenu = function(){
     //display pokemon
     stroke(95, 35, 35);
     noFill();
-
     for (var i=0; i<4; i++){
         stroke(95, 35, 35);
         noFill();

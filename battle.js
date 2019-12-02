@@ -277,6 +277,15 @@ fightScene.prototype.execute = function(){
                     this.reset();
                     inBattle=false;
                     dead=true;
+                    for(var i=0; i<player.pokemon.length; i++){
+                        player.pokemon[i].level--;
+
+                        if(player.pokemon[i].level<1){
+                            player.pokemon[i].level=1;
+                        }
+                    }
+
+
                     player.transparency = 300;
                     player.enterHouse();
                 }

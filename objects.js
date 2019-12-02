@@ -706,13 +706,10 @@ var middleShrine = function(x, y, levitate)
 	this.y = y;
 	this.levitate = 0;
 	this.levitateNum = 0;
-	this.center = createVector(x + 200, y + 200);
 };
 
 middleShrine.prototype.drawShrine = function()
 {
-	this.center.x = this.x + 200;
-	this.center.y = this.y + 200;
 	push();
 	translate(this.x - globalX, this.y - globalY);
 
@@ -745,12 +742,14 @@ middleShrine.prototype.drawShrine = function()
 middleShrine.prototype.levitateTimer = function()
 {
 	this.levitate++;
-	if(this.levitate < 30)
+	if(this.levitate <= 30)
 	{
+		print(this.levitate);
 		this.levitateNum--;
 	}
-	else if(this.levitate <= 60)
+	else if(this.levitate < 60)
 	{
+		print(this.levitate);
 		this.levitateNum++;
 	}
 	else

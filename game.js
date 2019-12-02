@@ -134,7 +134,7 @@ var spawnPokeball = function()
 	{
 		pokeballSpawnThreshold += 300;
 		spawnPokeBallTimer = 0;
-		if(random(0, 100) < 90)
+		if(random(0, 100) < 80)
 		{
 			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(225, 975), "normal", spawnedPokeballCounter));
 		}
