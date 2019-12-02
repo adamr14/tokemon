@@ -14,7 +14,7 @@ fountains.push(new fountainObj(360, 230, 3));
 
 var startPokeball = new StartPokeball(130, 270, "normal", 1, 0);
 var instructionsPokeball = new StartPokeball(265, 270, "rare", 1, 0);
-var instructionsPokeball_2 = new StartPokeball(280, 230, "normal", 0.5, 0);
+var instructionsPokeball_2 = new StartPokeball(280, 268, "normal", 0.5, 0);
 var instructionsPokeball_3 = new StartPokeball(165, 200, "rare", 0.15, Math.PI / 4);
 var trees = [];
 
@@ -155,6 +155,7 @@ var drawInstructions = function()
     
     fill(0);
     textSize(20);
+	noStroke();
     text(pageNumber, 20, 295, 30, 20);
     textSize(10);
     switch(pageNumber){
@@ -202,8 +203,9 @@ var drawInstructions = function()
                 text("-Go Home to heal your", 30, 180, 160, 20);
                 text("Pokemon after battle", 30, 195, 160, 20);
                 text("-Explore to find Pokeballs", 215, 140, 160, 20);
-                text("-A hurt Pokemon is", 215, 164, 160, 20);
+                text("-A hurt Pokemon is", 215, 165, 160, 20);
                 text("easier to catch", 215, 180, 160, 20);
+				text("-Signs placed in the map\nwill tell you which elements \ncounter other elements", 215, 210);
             }
             o.drawFront();
 			instructionsPokeball_2.draw();

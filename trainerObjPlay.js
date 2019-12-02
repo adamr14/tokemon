@@ -708,25 +708,25 @@ playerObj.prototype.captureMovement = function()
 	{
 		if(keyArray[39] == 1)
 		{
-			this.position.x += speed;
+			this.position.x += speed*2;
 			this.moving=true;
 			this.i = 2;
 		}
 		if(keyArray[37] == 1)
 		{
-			this.position.x -= speed;
+			this.position.x -= speed*2;
 			this.moving=true;
 			this.i = 3;
 		}
 		if(keyArray[40] == 1)
 		{
-			this.position.y += speed;
+			this.position.y += speed*2;
 			this.moving=true;
 			this.i = 0;
 		}
 		if(keyArray[38] == 1)
 		{
-			this.position.y -= speed;
+			this.position.y -= speed*2;
 			this.moving=true;
 			this.i = 1;
 		}
@@ -813,20 +813,20 @@ playerObj.prototype.captureMovement = function()
 		var down = 650 - this.center.y;
 		if(left > right)
 		{
-			this.position.x += 2;
+			this.position.x += 4;
 		}
 		else
 		{
-			this.position.x -= 2;
+			this.position.x -= 4;
 		}
 		
 		if(up > down)
 		{
-			this.position.y += 2;
+			this.position.y += 4;
 		}
 		else 
 		{
-			this.position.y -= 2;
+			this.position.y -= 4;
 		}
 	}
 	pop();

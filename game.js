@@ -7,6 +7,7 @@ var theHouse = new houseObj(883, 0);
 var theGym = new gymObj(118, 850);
 var middleDecoration = new middleShrine(400, 400);
 var fences = [];
+var signs = [];
 var bricks = [];
 var tileMap = [
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
@@ -17,7 +18,7 @@ var tileMap = [
 	"b     t     t  fwwwwwwwwwwwwwwww        f        b",
 	"b              f wwwwwwwwwwwwww         f        b",
 	"b  t     t    ff                        f        b",
-	"b           ff                          f  ffffffb",
+	"b           ff  1                       f  ffffffb",
 	"b     t    f                                     b",
 	"b        ff                                      b",
 	"b  t    f                                  pp    b",
@@ -33,9 +34,9 @@ var tileMap = [
 	"bwwwwww          pp                        pp    b",
 	"bwwwwwww         pp                        pp    b",
 	"bwwwwwwww        pp                        pp    b",
-	"bwwwwwwwww       pp                        pp    b",
-	"bwwwwwwwww       pp                        pp    b",
-	"bwwwwwww         pp                        pp    b",
+	"b4  wwwwww       pp              2         pp    b",
+	"b   wwwwww       pp                        pp    b",
+	"bw wwwww         pp                        pp    b",
 	"bwwwww           pp                        pp    b",
 	"bwww             pp                        pp    b",
 	"bw               pp                        pp    b",
@@ -50,14 +51,14 @@ var tileMap = [
 	"b         f      pp                        pp  wwb",
 	"b         f      pp                        pp  wwb",
 	"b         f      pp                        pp wwwb",
-	"b         f      pp                        pp wwwb",
+	"b         f  5   pp                        pp wwwb",
 	"b         f      pp                        pp wwwb",
 	"b         f ppppppppppppppppppppppppppppppppp wwwb",
 	"b         f ppppppppppppppppppppppppppppppppp wwwb",
-	"b         f pp                                wwwb",
-	"bfffffppfff pp                         wwwwwwwwwwb",	
-	"b     pppppppp                      wwwwwwwwwwwwwb",
-	"b     pppppppp                     wwwwwwwwwwwwwwb",
+	"b         f pp                               wwwwb",
+	"bfffffppfff pp                         wwwwwww3  b",	
+	"b     pppppppp                      wwwwwwwwww   b",
+	"b     pppppppp                     wwwwwwwwwwww wb",
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"];
 	
 var initializeTilemap = function () 
@@ -91,7 +92,27 @@ var initializeTilemap = function ()
 			else if(tileMap[i][j] === 'f')
 			{
 				fences.push(new fenceObj(j * 20, i * 20));
-			}	
+			}
+			else if(tileMap[i][j] === '1')
+			{
+				signs.push(new sign(j * 20, i * 20, "wood", "fire", "earth"));
+			}
+			else if(tileMap[i][j] === '2')
+			{
+				signs.push(new sign(j * 20, i * 20, "fire", "earth", "metal"));
+			}
+			else if(tileMap[i][j] === '3')
+			{
+				signs.push(new sign(j * 20, i * 20, "earth", "metal", "water"));
+			}
+			else if(tileMap[i][j] === '4')
+			{
+				signs.push(new sign(j * 20, i * 20, "metal", "water", "wood"));
+			}
+			else if(tileMap[i][j] === '5')
+			{
+				signs.push(new sign(j * 20, i * 20, "water", "wood", "fire"));
+			}
         }
     }
 	
@@ -113,7 +134,7 @@ var spawnPokeball = function()
 	{
 		pokeballSpawnThreshold += 300;
 		spawnPokeBallTimer = 0;
-		if(random(0, 100) < 90)
+		if(random(0, 100) < 80)
 		{
 			spawnedPokeballs.push(new pokeballObj(random(25, 975), random(225, 975), "normal", spawnedPokeballCounter));
 		}
@@ -153,49 +174,75 @@ var displayTilemap = function()
 	background(149, 247, 64);
     for (var i =0; i<wildGrass.length; i++) 
 	{
-        wildGrass[i].drawWildGrass();
-    }
+		if(wildGrass[i].position.x - globalX < 400 && wildGrass[i].position.y - globalY < 400)
+		{
+			wildGrass[i].drawWildGrass();
+		}
+	}
 	for(var i = 0; i < fences.length; i++)
 	{
-		fences[i].drawFence();
+		if(fences[i].position.x - globalX < 400 && fences[i].position.y - globalY < 400)
+		{
+			fences[i].drawFence();
+		}
 	}
 	for(i = 0; i < regularGrass.length; i++)
 	{	
-		regularGrass[i].drawDetail();
+		if(regularGrass[i].position.x - globalX < 400 && regularGrass[i].position.y - globalY < 400)
+		{
+			regularGrass[i].drawDetail();
+		}
 	}
-	for(i = 0; i < paths.length; i++)
+	for(i = 0; i < bricks.length; i++)
 	{
-		paths[i].drawPath();
+		if(bricks[i].position.x - globalX < 400 && bricks[i].position.y - globalY < 400)
+		{
+			bricks[i].drawBrick();
+		}
 	}
-	/*for(i = 0; i < bricks.length; i++)
-	{
-		bricks[i].drawBrick();
-	}*/
-	push();
-	translate(-globalX, -globalY);
-	fill(100, 100, 100);
-	rect(0, 0, 1000, 20);
-	rect(0, 0, 20, 1000);
-	rect(0, 980, 1000, 20);
-	rect(980, 0, 20, 1000);
-	pop();
 	for(i = 0; i < paths.length;i++)
 	{
-		paths[i].drawPath();
+		if(paths[i].position.x - globalX < 400 && paths[i].position.y - globalY < 400)
+		{
+			paths[i].drawPath();
+		}
 	}
 	for(i = 0; i < spawnedPokeballs.length;i++)
 	{
-		spawnedPokeballs[i].drawPokeball(0.15);
-		spawnedPokeballs[i].checkCollected();
+		if(spawnedPokeballs[i].position.x - globalX < 400 && spawnedPokeballs[i].position.y - globalY < 400)
+		{
+			spawnedPokeballs[i].drawPokeball(0.15);
+			spawnedPokeballs[i].checkCollected();
+		}
 	}
 	for(i = 0; i < trees.length; i++)
 	{
-		trees[i].display();
+		if(trees[i].position.x - globalX < 400 && trees[i].position.y - globalY < 400)
+		{
+			trees[i].display();
+		}
 	}
-	theHouse.drawHouse();
-	theGym.drawGym();
-	middleDecoration.drawShrine();
-	middleDecoration.levitateTimer();
+	for(i = 0; i < signs.length; i++)
+	{
+		if(trees[i].position.x - globalX < 400 && trees[i].position.y - globalY < 400)
+		{
+			signs[i].checkIfRead();
+			signs[i].drawSign();
+		}
+	}
+	if(theHouse.position.x - globalX < 400 && theHouse.position.y - globalY < 400)
+	{
+		theHouse.drawHouse();
+	}
+	if(theGym.position.x - globalX < 400 && theGym.position.y - globalY < 400)
+	{
+		theGym.drawGym();
+	}
+	if(middleDecoration.x - globalX < 400 && middleDecoration.y - globalY < 400)
+	{
+		middleDecoration.levitateTimer();
+		middleDecoration.drawShrine();
+	}
 };
 
 var displayHouseMap = function()
@@ -526,10 +573,12 @@ var playGame = function()
 				wild = false;
 			}
 		}
+		strokeWeight(1);
 	}
 	else
 	{
 		noStroke();
+		strokeWeight(1);
 		displayTilemap();
 		if ( player.isTouchingWildGrass() && player.moving)
 		{
