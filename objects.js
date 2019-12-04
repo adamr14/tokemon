@@ -371,6 +371,32 @@ brickObj.prototype.drawBrick = function()
 	pop();
 };
 
+var specialBrick = function(x, y)
+{
+	this.position = new createVector(x, y);
+	this.r1 = random(-3, 3);
+	this.r2 = random(-3, 3);
+};
+
+specialBrick.prototype.drawSpecialBrick = function()
+{
+	push();
+	translate(this.position.x - globalX, this.position.y - globalY);
+	noStroke();
+	fill(250, 250, 250);
+	rect(0, 0, 20, 20);
+	fill(41, 190, 204);
+	rect(7 + this.r1, 7 + this.r2, 5, 2.5);
+	rect(14 - this.r2, 14 - this.r1, 5, 2.5);
+	fill(135, 206, 214);
+	rect(10 + this.r2, 10 - this.r2, 4, 2);
+	rect(10 + this.r1, 10 - this.r1, 4, 2);
+	fill(188, 221, 224);
+	rect(12 + this.r1 - this.r2, 12 + this.r2 - this.r1, 3, 1.5);
+	rect(8 - this.r1 + this.r2, 8 - this.r2 + this.r1, 3, 1.5);
+	pop();
+};
+
 var fenceObj = function(x, y)
 {
 	this.position = new createVector(x, y);
@@ -768,7 +794,7 @@ middleShrine.prototype.levitateTimer = function()
 	{
 		this.levitateNum--;
 	}
-	else if(this.levitate < 60)
+	else if(this.levitate <= 60)
 	{
 		this.levitateNum++;
 	}
