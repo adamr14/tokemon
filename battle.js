@@ -16,6 +16,7 @@ var fightScene = function(){
 
 
 fightScene.prototype.init = function(player, wild){
+    this.killcount=0;
     this.state=0;
     this.ballPos = createVector(-50, 300);
     this.ballVelocity = createVector(3, -7);
@@ -221,6 +222,9 @@ fightScene.prototype.execute = function(){
             else if (this.slider>=400 && !this.wild){
                 this.state=9;
                 this.counter=0;
+                this.ballPos.x = 390;
+                this.ballPos.y = 40;
+                this.ballSize*=0.8;
             }
             break;
         case 3: //battling
@@ -247,6 +251,10 @@ fightScene.prototype.execute = function(){
             }
             else if(this.enemyP.hp<=0){
                 this.npcFaint();
+                this.killcount++;
+                this.ballVelocity.x=-2;
+                this.ballVelocity.y=-1;
+                this
             }
             else if(this.playerAttack){
                 this.pAttack();
@@ -335,7 +343,7 @@ fightScene.prototype.execute = function(){
             this.drawPlayerMenu();
             this.switchAnimation();
             break;
-        case 9:
+        case 9: //trainer
             this.drawScene();
             if(this.counter>2){
                 if (this.counter<15){
@@ -348,11 +356,24 @@ fightScene.prototype.execute = function(){
                     fill(0);
                     textSize(12);
                     text("Do your Worst!", 165, 30);
+                    this.ballVelocity.x=-2;
+                    this.ballVelocity.y=-1;
+                }
+                else if (this.counter<20){
+                    this.enemy.position.x+=2;
                 }
                 else if (this.counter<25){
                     this.enemy.position.x+=2;
+                    this.animateEnemyBall();
+                }
+                else{
+                    this.animateEnemyBall();
                 }
             }
+            break;
+        case 10:
+            this.drawScene();
+            this.animateEnemyBall();
             break;
 
     }
@@ -453,15 +474,28 @@ fightScene.prototype.npcFaint = function(){
     if(this.enemyP.object.position.y<450){
         this.moveNPC(0, 5, 0);
     }
+    else if(this.wild===false && this.killcount<1){
+        //animate pokeball
+        this.enemyP = pokemen[this.killcount];
+        this.ballPos.x = 390;
+        this.ballPos.y = 40;
+        this.state=10;
+        this.enemyP.object.size=0;
+    }
     else{
         this.state=5;
-        this.currPokemon.exp+=this.enemyP.level;
+        this.currPokemon.exp+=this.enemyP.level*3;
         if(this.currPokemon.exp>= this.currPokemon.level*3){
             this.currPokemon.exp = this.currPokemon.exp-this.currPokemon.level*3;
             this.currPokemon.level++;
             this.levelUp=true;
         }
         this.counter=0;
+
+        if(!this.wild){
+            defeatedTrainer=true;
+            inBattle=false;
+        }
     }
 };
 
@@ -546,6 +580,48 @@ fightScene.prototype.drawBall = function(size){
     fill(0, 0, 0);
 	pop();
 }
+
+fightScene.prototype.animateEnemyBall = function(){
+    this.ballPos.add(this.ballVelocity);
+
+    if(this.ballPos.x>310){
+        this.drawBall(this.ballSize);
+        this.ballVelocity.add(0.02, .093);
+        this.ballTheta-=Math.PI/20;
+    }
+    else if(this.ballPos.y>20){
+        this.drawBall(this.ballSize);
+        this.ballVelocity.x=0;
+        this.ballVelocity.y=-1;
+        this.ballTheta=0;
+        this.enemyP.object.size = 0;
+    }
+    else if (this.enemyP.object.size<0.8){
+        this.enemyP.drawFront();
+        this.ballVelocity.y=0;
+        push();
+        translate(this.ballPos.x, this.ballPos.y);
+        scale(this.ballSize);
+        noStroke();
+        fill(0);
+        ellipse(0, -43, 86, 86);   
+        fill(220, 220, 220);
+        bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+        fill(255, 255, 255);
+        stroke(0, 0, 0);
+        strokeWeight(10);
+        line(-39, 0, 37, 0);
+        strokeWeight(1);
+        ellipse(0, 0, 20, 20);
+        fill(0, 0, 0);
+        pop();
+        this.moveNPC(0, 0, 0.03);
+    }
+    else{
+        this.enemyP.drawFront();
+        this.state=3;
+    }
+};
 
 fightScene.prototype.animateBall = function(){
     this.ballPos.add(this.ballVelocity);

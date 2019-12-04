@@ -632,6 +632,8 @@ var playGame = function()
 				//boss fight goes here
 				inBattle = true;
 				wild = false;
+				fight.init(player, false);
+				fightBoss=false;
 			}
 		}
 		strokeWeight(1);
