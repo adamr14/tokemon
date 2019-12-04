@@ -166,25 +166,47 @@ var pokeballObj = function(x, y, type, index)
 	this.type = type;
 	this.index = index;
 	this.deleteTimer = 0;
+	this.opened = false;
 };
 
 pokeballObj.prototype.drawPokeball = function(size)
 {
 	push();
-	translate(this.position.x - globalX, this.position.y - globalY);
-	scale(size);
-    if(this.type === "normal")
-    { fill(255, 0, 0); }
-    else {fill(0, 0, 255); }
-    bezier(-43, 0,  -36, -60, 36, -60, 43, 0);    
-	fill(255, 255, 255);
-    bezier(-43, 0, -36, 60, 36, 60, 43, 0);
-    stroke(0, 0, 0);
-    strokeWeight(10);
-    line(-39, 0, 37, 0);
-    strokeWeight(1);
-    ellipse(0, 0, 20, 20);
-    fill(0, 0, 0);
+	if(!this.opened)
+	{
+		translate(this.position.x - globalX, this.position.y - globalY);
+		scale(size);
+		if(this.type === "normal")
+		{ fill(255, 0, 0); }
+		else {fill(0, 0, 255); }
+		bezier(-43, 0,  -36, -60, 36, -60, 43, 0);    
+		fill(255, 255, 255);
+		bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+		stroke(0, 0, 0);
+		strokeWeight(10);
+		line(-39, 0, 37, 0);
+		strokeWeight(1);
+		ellipse(0, 0, 20, 20);
+		fill(0, 0, 0);
+	}
+	else
+	{
+		translate(this.position.x - globalX, this.position.y - globalY);
+		scale(size);
+		if(this.type === "normal")
+		{ fill(255, 0, 0); }
+		else {fill(0, 0, 255); }
+		fill(0);
+		ellipse(0, 0, 80, 80);
+		fill(255, 255, 255);
+		bezier(-43, 0, -36, 60, 36, 60, 43, 0);
+		stroke(0, 0, 0);
+		strokeWeight(10);
+		line(-39, 0, 37, 0);
+		strokeWeight(1);
+		ellipse(0, 0, 20, 20);
+		fill(0, 0, 0);    
+	}
 	pop();
 };
 
@@ -744,18 +766,98 @@ middleShrine.prototype.levitateTimer = function()
 	this.levitate++;
 	if(this.levitate <= 30)
 	{
-		print(this.levitate);
 		this.levitateNum--;
 	}
 	else if(this.levitate < 60)
 	{
-		print(this.levitate);
 		this.levitateNum++;
 	}
 	else
 	{
 		this.levitate = 0;
 	}
+};
+
+var instructionalSign = function(x, y, element1, element2, element3)
+{
+	this.x = x;
+	this.y = y;
+	this.isBeingRead = false;
+};
+
+instructionalSign.prototype.checkIfRead = function()
+{
+	if(player.center.x > this.x - 20 && player.center.x < this.x + 55  && player.center.y > this.y - 20 && player.center.y < this.y + 50)
+	{
+		this.isBeingRead = true;
+	}
+	else
+	{
+		this.isBeingRead = false;
+	}
+};
+
+instructionalSign.prototype.drawSign = function()
+{
+	push();
+	stroke(0);
+	strokeWeight(1);
+	translate(this.x, this.y);
+	scale(0.15);
+	fill(181, 131, 65);
+	stroke(97, 97, 97);
+	rect(185, 30, 30, 290, 1);
+	rect(50, 50, 300, 30, 8);
+	rect(55, 80, 290, 30, 8);
+	rect(40, 110, 320, 30, 8);
+	rect(50, 140, 300, 30, 8);
+	rect(45, 170, 310, 30, 8);
+	rect(55, 200, 295, 30, 8);
+	fill(0);
+	stroke(77, 77, 77);
+	fill(54, 54, 54);
+	triangle(56, 95, 56, 100, 120, 97.5);
+	triangle(355, 185, 355, 186, 220, 187);
+	textSize(12);
+	fill(0);
+	strokeWeight(0);
+	strokeWeight(1);
+	push();
+	textSize(60);
+	text("Read Me", 85, 155);
+	pop();
+	pop();
+	if(this.isBeingRead)
+	{
+		push();
+		translate(0, -45);
+		fill(181, 131, 65);
+		strokeWeight(1);
+		stroke(97, 97, 97);
+		rect(55, 80, 290, 30, 8);
+		rect(40, 110, 320, 30, 8);
+		rect(50, 140, 300, 30, 8);
+		rect(45, 170, 310, 30, 8);
+		rect(50, 200, 290, 30, 8);
+		fill(0);
+		
+		stroke(77, 77, 77);
+		fill(54, 54, 54);
+		triangle(56, 95, 56, 100, 120, 97.5);
+		triangle(355, 185, 355, 186, 220, 187);
+		textSize(12);
+		fill(0);
+		noStroke();
+		text("                      Signs reveal element counters.", 50, 100);
+		text(" Remember all the element relationships and choose your", 50, 130);
+		text("pokemon accordingly. There is damage increase or", 60, 160); 
+		text("  decrease if you counter the", 52, 190);
+		text("  opponent or get countered by your opponent.", 54, 220);
+
+		pop();
+	}
+	strokeWeight(1);
+	stroke(0);
 };
 
 
@@ -789,7 +891,7 @@ sign.prototype.drawSign = function()
 	translate(this.x - globalX, this.y - globalY);
 	scale(0.15);
 	fill(181, 131, 65);
-	stroke(97, 97, 97);
+	stroke(171, 121, 55);
 	rect(185, 30, 30, 290, 1);
 	rect(50, 50, 300, 30, 8);
 	rect(55, 80, 290, 30, 8);
@@ -838,30 +940,29 @@ sign.prototype.drawSign = function()
 	triangle(350, 185, 350, 186, 220, 187);
 	textSize(12);
 	fill(0);
-	strokeWeight(0);
 	strokeWeight(1);
 	push();
 	scale(0.6);
 	if(this.element1 === "fire")
 	{
-		fireElement.drawElement(1, -70, 110);
+		fireElement.drawElement(1, -60, 110);
 	}
 	else if(this.element1 === "earth")
 	{
-		earthElement.drawElement(1, -70, 110); 
+		earthElement.drawElement(1, -60, 110); 
 	}
 	else if(this.element1 === "metal")
 	{
-		metalElement.drawElement(1, -70, 110); 
+		metalElement.drawElement(1, -60, 110); 
 	}
 	else if(this.element1 === "water")
 	{
-		waterElement.drawElement(1, -70, 110); 
+		waterElement.drawElement(1, -60, 110); 
 	}
 	else 
 	{
 		//element1 = wood
-		woodElement.drawElement(1, -70, 110); 
+		woodElement.drawElement(1, -60, 110); 
 	}	
 		
 	if(this.element2 === "fire")
@@ -888,24 +989,24 @@ sign.prototype.drawSign = function()
 		
 	if(this.element3 === "fire")
 	{
-		fireElement.drawElement(1, 320, 110);
+		fireElement.drawElement(1, 310, 110);
 	}
 	else if(this.element3 === "earth")
 	{
-		earthElement.drawElement(1, 320, 110); 
+		earthElement.drawElement(1, 310, 110); 
 	}
 	else if(this.element3 === "metal")
 	{
-		metalElement.drawElement(1, 320, 110); 
+		metalElement.drawElement(1, 310, 110); 
 	}
 	else if(this.element3 === "water")
 	{
-		waterElement.drawElement(1, 320, 110); 
+		waterElement.drawElement(1, 310, 110); 
 	}
 	else 
 	{
 		//element3 = wood
-		woodElement.drawElement(1, 320, 110); 
+		woodElement.drawElement(1, 310, 110); 
 	}
 	pop();
 	pop();
@@ -914,6 +1015,7 @@ sign.prototype.drawSign = function()
 		push();
 		translate(0, -45);
 		fill(181, 131, 65);
+		strokeWeight(1);
 		stroke(97, 97, 97);
 		rect(55, 80, 290, 30, 8);
 		rect(40, 110, 320, 30, 8);
@@ -958,33 +1060,32 @@ sign.prototype.drawSign = function()
 		stroke(77, 77, 77);
 		fill(54, 54, 54);
 		triangle(56, 95, 56, 100, 120, 97.5);
-		triangle(350, 185, 350, 186, 220, 187);
+		triangle(355, 185, 355, 186, 220, 187);
 		textSize(12);
 		fill(0);
-		strokeWeight(0);
 		strokeWeight(1);
 		push();
 		scale(0.6);
 		if(this.element1 === "fire")
 		{
-			fireElement.drawElement(1, -70, 110);
+			fireElement.drawElement(1, -50, 110);
 		}
 		else if(this.element1 === "earth")
 		{
-			earthElement.drawElement(1, -60, 110); 
+			earthElement.drawElement(1, -50, 110); 
 		}
 		else if(this.element1 === "metal")
 		{
-			metalElement.drawElement(1, -70, 110); 
+			metalElement.drawElement(1, -50, 110); 
 		}
 		else if(this.element1 === "water")
 		{
-			waterElement.drawElement(1, -70, 110); 
+			waterElement.drawElement(1, -50, 110); 
 		}
 		else 
 		{
 			//element1 = wood
-			woodElement.drawElement(1, -70, 110); 
+			woodElement.drawElement(1, -50, 110); 
 		}	
 		
 		if(this.element2 === "fire")
@@ -1011,24 +1112,24 @@ sign.prototype.drawSign = function()
 		
 		if(this.element3 === "fire")
 		{
-			fireElement.drawElement(1, 320, 110);
+			fireElement.drawElement(1, 310, 110);
 		}
 		else if(this.element3 === "earth")
 		{
-			earthElement.drawElement(1, 320, 110); 
+			earthElement.drawElement(1, 310, 110); 
 		}
 		else if(this.element3 === "metal")
 		{
-			metalElement.drawElement(1, 320, 110); 
+			metalElement.drawElement(1, 310, 110); 
 		}
 		else if(this.element3 === "water")
 		{
-			waterElement.drawElement(1, 320, 110); 
+			waterElement.drawElement(1, 310, 110); 
 		}
 		else 
 		{
 			//element3 = wood
-			woodElement.drawElement(1, 320, 110); 
+			woodElement.drawElement(1, 310, 110); 
 		}
 		pop();
 		pop();

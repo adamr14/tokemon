@@ -558,7 +558,7 @@ playerObj.prototype.captureMovementInsideHouse = function()
 	}
 	if(this.moving)
 	{
-		if (this.currFrame < (frameCount - 3)) 
+		if (this.currFrame < (frameCount - 4)) 
         {
             this.currFrame = frameCount;
             this.motion++;
@@ -621,7 +621,7 @@ playerObj.prototype.captureMovementInsideGym = function()
 	}
 	if(this.moving)
 	{
-		if (this.currFrame < (frameCount - 3)) 
+		if (this.currFrame < (frameCount - 4)) 
         {
             this.currFrame = frameCount;
             this.motion++;
@@ -734,7 +734,7 @@ playerObj.prototype.captureMovement = function()
 	
 	if(this.moving)
 	{
-		if (this.currFrame < (frameCount - 3)) 
+		if (this.currFrame < (frameCount - 5)) 
         {
             this.currFrame = frameCount;
             this.motion++;

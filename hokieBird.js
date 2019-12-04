@@ -23,8 +23,7 @@ hokieBird.prototype.flap = function(){
     }
     
     this.wingAngle+=-1*this.velocity.y*0.03;
-    this.position.add(this.velocity);
-    
+    this.position.add(this.velocity);  
 };
 
 hokieBird.prototype.drawFront= function() {

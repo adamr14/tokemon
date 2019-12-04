@@ -263,16 +263,32 @@ function draw()
 			startGameClicked=false;
 		}
     }
+<<<<<<< HEAD
     else if(playing){
         if(inBattle){
             if(!fight.initialized){
                 fight.init(player, wild);
+=======
+    else if(playing)
+	{
+		if(defeatedTrainer)
+		{
+			startEndGameScene();
+		}
+        else if(inBattle)
+		{
+            if(!fight.initialized)
+			{
+                fight.init(player, wild, false);
+>>>>>>> 2309ddc03e0a720a8a3523f4a1fcbc8726637ae3
             }
-            else{
+            else
+			{
                 fight.execute();
             }
         }
-        else{
+        else
+		{
             playGame();
         }
     }

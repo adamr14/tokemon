@@ -51,7 +51,7 @@ var tileMap = [
 	"b         f      pp                        pp  wwb",
 	"b         f      pp                        pp  wwb",
 	"b         f      pp                        pp wwwb",
-	"b         f  5   pp                        pp wwwb",
+	"b         f      pp                        pp wwwb",
 	"b         f      pp                        pp wwwb",
 	"b         f ppppppppppppppppppppppppppppppppp wwwb",
 	"b         f ppppppppppppppppppppppppppppppppp wwwb",
@@ -95,23 +95,19 @@ var initializeTilemap = function ()
 			}
 			else if(tileMap[i][j] === '1')
 			{
-				signs.push(new sign(j * 20, i * 20, "wood", "fire", "earth"));
+				signs.push(new sign(j * 20, i * 20, "water", "fire", "metal"));
 			}
 			else if(tileMap[i][j] === '2')
 			{
-				signs.push(new sign(j * 20, i * 20, "fire", "earth", "metal"));
+				signs.push(new sign(j * 20, i * 20, "wood", "earth", "water"));
 			}
 			else if(tileMap[i][j] === '3')
 			{
-				signs.push(new sign(j * 20, i * 20, "earth", "metal", "water"));
+				signs.push(new sign(j * 20, i * 20, "fire", "metal", "wood"));
 			}
 			else if(tileMap[i][j] === '4')
 			{
-				signs.push(new sign(j * 20, i * 20, "metal", "water", "wood"));
-			}
-			else if(tileMap[i][j] === '5')
-			{
-				signs.push(new sign(j * 20, i * 20, "water", "wood", "fire"));
+				signs.push(new sign(j * 20, i * 20, "earth", "water", "fire"));
 			}
         }
     }
@@ -174,42 +170,42 @@ var displayTilemap = function()
 	background(149, 247, 64);
     for (var i =0; i<wildGrass.length; i++) 
 	{
-		if(wildGrass[i].position.x - globalX < 400 && wildGrass[i].position.y - globalY < 400)
+		if(wildGrass[i].position.x - globalX < 500 && wildGrass[i].position.y - globalY < 500 && wildGrass[i].position.x - globalX > -100 && wildGrass[i].position.y - globalY > -100)
 		{
 			wildGrass[i].drawWildGrass();
 		}
 	}
 	for(var i = 0; i < fences.length; i++)
 	{
-		if(fences[i].position.x - globalX < 400 && fences[i].position.y - globalY < 400)
+		if(fences[i].position.x - globalX < 500 && fences[i].position.y - globalY < 500 && fences[i].position.x - globalX > -100 && fences[i].position.y - globalY > -100)
 		{
 			fences[i].drawFence();
 		}
 	}
 	for(i = 0; i < regularGrass.length; i++)
 	{	
-		if(regularGrass[i].position.x - globalX < 400 && regularGrass[i].position.y - globalY < 400)
+		if(regularGrass[i].position.x - globalX < 500 && regularGrass[i].position.y - globalY < 500 && regularGrass[i].position.x - globalX > -100 && regularGrass[i].position.y - globalY > -100)
 		{
 			regularGrass[i].drawDetail();
 		}
 	}
 	for(i = 0; i < bricks.length; i++)
 	{
-		if(bricks[i].position.x - globalX < 400 && bricks[i].position.y - globalY < 400)
+		if(bricks[i].position.x - globalX < 500 && bricks[i].position.y - globalY < 500 && bricks[i].position.x - globalX > -100 && bricks[i].position.y - globalY > -100)
 		{
 			bricks[i].drawBrick();
 		}
 	}
 	for(i = 0; i < paths.length;i++)
 	{
-		if(paths[i].position.x - globalX < 400 && paths[i].position.y - globalY < 400)
+		if(paths[i].position.x - globalX < 500 && paths[i].position.y - globalY < 500 && paths[i].position.x - globalX > -100 && paths[i].position.y - globalY > -100)
 		{
 			paths[i].drawPath();
 		}
 	}
 	for(i = 0; i < spawnedPokeballs.length;i++)
 	{
-		if(spawnedPokeballs[i].position.x - globalX < 400 && spawnedPokeballs[i].position.y - globalY < 400)
+		if(spawnedPokeballs[i].position.x - globalX < 500 && spawnedPokeballs[i].position.y - globalY < 500 && spawnedPokeballs[i].position.x - globalX > -100 && spawnedPokeballs[i].position.y - globalY > -100)
 		{
 			spawnedPokeballs[i].drawPokeball(0.15);
 			spawnedPokeballs[i].checkCollected();
@@ -217,34 +213,35 @@ var displayTilemap = function()
 	}
 	for(i = 0; i < trees.length; i++)
 	{
-		if(trees[i].position.x - globalX < 400 && trees[i].position.y - globalY < 400)
+		if(trees[i].position.x - globalX < 500 && trees[i].position.y - globalY < 500 && trees[i].position.x - globalX > -100 && trees[i].position.y - globalY > -100)
 		{
 			trees[i].display();
 		}
 	}
 	for(i = 0; i < signs.length; i++)
 	{
-		if(trees[i].position.x - globalX < 400 && trees[i].position.y - globalY < 400)
+		if(signs[i].x - globalX < 500 && signs[i].y - globalY < 500 && signs[i].x - globalX > -100 && signs[i].y - globalY > -100)
 		{
 			signs[i].checkIfRead();
 			signs[i].drawSign();
 		}
 	}
-	if(theHouse.position.x - globalX < 400 && theHouse.position.y - globalY < 400)
+	if(theHouse.position.x - globalX - 50 < 500 && theHouse.position.y - globalY + 250 < 500 && theHouse.position.x - globalX - 50 > -100 && theHouse.position.y + 250 - globalY > -100)
 	{
 		theHouse.drawHouse();
 	}
-	if(theGym.position.x - globalX < 400 && theGym.position.y - globalY < 400)
+	if(theGym.position.x - globalX + 100 < 500 && theGym.position.y - globalY < 500 && theGym.position.x + 100 - globalX > -100 && theGym.position.y - globalY > -100)
 	{
 		theGym.drawGym();
 	}
-	if(middleDecoration.x - globalX < 400 && middleDecoration.y - globalY < 400)
+	if(middleDecoration.x - globalX + 200 < 500 && middleDecoration.y - globalY + 200 < 500 && middleDecoration.x - globalX + 200 > -100 && middleDecoration.y - globalY + 200 > -100)
 	{
 		middleDecoration.levitateTimer();
 		middleDecoration.drawShrine();
 	}
 };
 
+var houseSign = new instructionalSign(285, 275);
 var displayHouseMap = function()
 {
 	fill(242, 191, 72);
@@ -346,9 +343,14 @@ var displayHouseMap = function()
     rect(80, 370, 40, 30);
     fill(0);
 	ellipse(110, 390, 3, 3);
+	
+	houseSign.drawSign();
+	houseSign.checkIfRead();
     
 };
 
+var gymSign = new sign(20, 250, "metal", "wood", "earth");
+var switchPokeballsTimer = 0;
 var displayGymMap = function()
 {
 	background(224, 218, 141);
@@ -475,15 +477,66 @@ var displayGymMap = function()
 	fill(184, 184, 184);
 	rect(190, 265, 20, 17);
 
-	fill(44, 58, 219);
-	//ellipse(200, 269, 20, 17);
-	bezier(193, 270, 190, 255, 210, 255, 208, 270);
-	fill(224, 119, 0);
-	bezier(193, 270, 190, 280, 210, 280, 208, 270);
-	stroke(0);
-	strokeWeight(2);
-	fill(255, 255, 255);
-	ellipse(200, 269, 5, 4);
+	if(changeGymPokeballColor)
+	{	
+		switchPokeballsTimer+=2;
+		push();
+		if(switchPokeballsTimer >= 45 && switchPokeballsTimer <= 140)
+		{
+			translate(switchPokeballsTimer - 50, 0);
+		}
+		else if(switchPokeballsTimer > 140)
+		{
+			translate(90, 0);
+		}
+		if(!removeUVAPokeball)
+		{
+			fill(44, 58, 219);
+			bezier(193, 270, 190, 255, 210, 255, 208, 270);
+			fill(224, 119, 0);
+			bezier(193, 270, 190, 280, 210, 280, 208, 270);
+			stroke(0);
+			strokeWeight(2);
+			fill(255, 255, 255);
+			ellipse(200, 269, 5, 4);
+		}
+		pop();
+		
+		push();
+		if(switchPokeballsTimer <= 50)
+		{
+			translate(-50 + switchPokeballsTimer, 0);
+		}
+		if(!openEndGamePokeball)
+		{
+			fill(130, 35, 0);
+			bezier(193, 270, 190, 255, 210, 255, 208, 270);
+		}
+		else
+		{
+			fill(15, 15,15);
+			ellipse(200, 262, 15, 15);
+		}
+		fill(224, 119, 0);
+		bezier(193, 270, 190, 280, 210, 280, 208, 270);
+		stroke(0);
+		strokeWeight(2);
+		fill(255, 255, 255);
+		ellipse(200, 269, 5, 4);
+		pop();
+	}
+	else
+	{
+		fill(44, 58, 219);
+		//ellipse(200, 269, 20, 17);
+		bezier(193, 270, 190, 255, 210, 255, 208, 270);
+		fill(224, 119, 0);
+		bezier(193, 270, 190, 280, 210, 280, 208, 270);
+		stroke(0);
+		strokeWeight(2);
+		fill(255, 255, 255);
+		ellipse(200, 269, 5, 4);
+	}
 
 	strokeWeight(1);
 	fill(255, 214, 255);
@@ -495,7 +548,12 @@ var displayGymMap = function()
 	fill(45, 144, 250);
 	rect(230, 380, 30, 30);
 	rect(260, 380, 30, 30);
-	enemy.drawTrainer();
+	if(!defeatedTrainer)
+	{
+		enemy.drawTrainer();
+	}
+	gymSign.drawSign();
+	gymSign.checkIfRead();
 };
 
 var healAnimationTimer = 0;
@@ -547,6 +605,8 @@ var playGame = function()
 	}
 	else if(insideGym)
 	{
+		globalX = 0;
+		globalY = 0;
 		displayGymMap();
 		player.drawTrainer();
 		player.captureMovementInsideGym();
@@ -564,6 +624,7 @@ var playGame = function()
 				triangle(player.center.x + 40, player.center.y, player.center.x + 40, player.center.y + 20, player.center.x + 30, player.center.y);
 				fill(0);
 				noStroke();
+				textSize(12);
 				text("Bring it on", player.center.x + 42, player.center.y + 12);
 			}
 			else

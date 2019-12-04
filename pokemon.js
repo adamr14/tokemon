@@ -48,52 +48,7 @@ pokemon.prototype.checkElementTypes = function(enemyType)
 {
 	if(this.elementType === "fire")
 	{
-		if(enemyType === "earth")
-		{
-			return 0.5;
-		}
-		else if(enemyType === "wood")
-		{
-			return 2;
-		}
-		else
-		{
-			return 1;
-		}
-	}
-	else if(this.elementType === "earth")
-	{
-		if(enemyType === "metal")
-		{
-			return 0.5;
-		}
-		else if(enemyType === "fire")
-		{
-			return 2;
-		}
-		else
-		{
-			return 1;
-		}
-	}
-	else if(this.elementType = "metal")
-	{
 		if(enemyType === "water")
-		{
-			return 0.5;
-		}
-		else if(enemyType === "earth")
-		{
-			return 2;
-		}
-		else
-		{
-			return 1;
-		}
-	}
-	else if(this.elementType = "water")
-	{
-		if(enemyType === "wood")
 		{
 			return 0.5;
 		}
@@ -106,14 +61,59 @@ pokemon.prototype.checkElementTypes = function(enemyType)
 			return 1;
 		}
 	}
-	else
+	else if(this.elementType === "earth")
 	{
-		//type = wood
-		if(enemyType === "fire")
+		if(enemyType === "wood")
 		{
 			return 0.5;
 		}
 		else if(enemyType === "water")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else if(this.elementType = "metal")
+	{
+		if(enemyType === "fire")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "wood")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else if(this.elementType = "water")
+	{
+		if(enemyType === "earth")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "fire")
+		{
+			return 2;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		//type = wood
+		if(enemyType === "metal")
+		{
+			return 0.5;
+		}
+		else if(enemyType === "earth")
 		{
 			return 2;
 		}
