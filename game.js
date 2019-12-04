@@ -50,13 +50,13 @@ var tileMap = [
 	"b      t  f      pp                        pp  wwb",
 	"b         f      pp                        pp  wwb",
 	"b         f      pp                        pp  wwb",
-	"b         f      pp                        pp wwwb",
-	"b         f      pp                        pp wwwb",
-	"b         f      pp                        pp wwwb",
-	"b         f ppppppppppppppppppppppppppppppppp wwwb",
-	"b         f ppppppppppppppppppppppppppppppppp wwwb",
-	"b         f pp                               wwwwb",
-	"bfffffppfff pp                         wwwwwww3  b",	
+	"b        f       pp                        pp wwwb",
+	"b        f       pp                        pp wwwb",
+	"b        f       pp                        pp wwwb",
+	"b        f  ppppppppppppppppppppppppppppppppp wwwb",
+	"b        f  ppppppppppppppppppppppppppppppppp wwwb",
+	"bfffff  ff  pp                               wwwwb",
+	"b     pp    pp                         wwwwwww3  b",	
 	"b     pppppppp                      wwwwwwwwww   b",
 	"b     pppppppp                     wwwwwwwwwwww wb",
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"];
@@ -614,9 +614,10 @@ var playGame = function()
 		player.isAtEnemyPlayer();
 		if(fightBoss)
 		{
-			if(bringItOnTimer < 120)
+			if(bringItOnTimer < 75)
 			{
 				strokeWeight(1);
+				player.i = 1;
 				stroke(0);
 				bringItOnTimer++;
 				fill(255, 255, 255);
