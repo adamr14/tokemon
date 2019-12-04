@@ -251,10 +251,8 @@ fightScene.prototype.execute = function(){
             }
             else if(this.enemyP.hp<=0){
                 this.npcFaint();
-                this.killcount++;
                 this.ballVelocity.x=-2;
                 this.ballVelocity.y=-1;
-                this
             }
             else if(this.playerAttack){
                 this.pAttack();
@@ -322,6 +320,9 @@ fightScene.prototype.execute = function(){
             if(this.counter>18){
                 inBattle=false;
                 this.reset();
+                if(!this.wild){
+                    defeatedTrainer=true;
+                }
             }
 
             break;
@@ -378,6 +379,7 @@ fightScene.prototype.execute = function(){
 
     }
     
+
     if(this.currFrame < frameCount-10){
         this.counter++;
         this.currFrame = frameCount;
@@ -474,13 +476,25 @@ fightScene.prototype.npcFaint = function(){
     if(this.enemyP.object.position.y<450){
         this.moveNPC(0, 5, 0);
     }
-    else if(this.wild===false && this.killcount<1){
+    //THIS CONTROLS THE POKEMON THAT THE TRAINER FIGHTS
+    else if(!this.wild && this.killcount<2){
         //animate pokeball
-        this.enemyP = pokemen[this.killcount];
+        this.currPokemon.exp+=this.enemyP.level*2;
+        if(this.currPokemon.exp>= this.currPokemon.level*3){
+            this.currPokemon.exp = this.currPokemon.exp-this.currPokemon.level*3;
+            this.currPokemon.level++;
+            this.levelUp=true;
+        }
+        this.counter=0;
+        this.enemyP = pokemen[this.killcount+1];
         this.ballPos.x = 390;
         this.ballPos.y = 40;
+        this.killcount++;
         this.state=10;
-        this.enemyP.object.size=0;
+        this.enemyP.setPos(300, 80, 0);
+        this.npcAttacks =false;
+        this.turn=true;
+
     }
     else{
         this.state=5;
@@ -492,10 +506,7 @@ fightScene.prototype.npcFaint = function(){
         }
         this.counter=0;
 
-        if(!this.wild){
-            defeatedTrainer=true;
-            inBattle=false;
-        }
+        
     }
 };
 
