@@ -1,7 +1,7 @@
 angleMode = "radians"; //use radians not degrees
 var globalX = 0;
 var globalY = 0;
-var inBattle = true;
+var inBattle = false;
 var playing = false;
 var keyArray = []; //array of keys being pressed
 var speed =2;
