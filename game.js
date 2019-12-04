@@ -4,11 +4,12 @@ var wildGrass = [];
 var regularGrass = [];
 var paths = [];
 var theHouse = new houseObj(883, 0);
-var theGym = new gymObj(118, 850);
+var theGym = new gymObj(121, 850);
 var middleDecoration = new middleShrine(400, 400);
 var fences = [];
 var signs = [];
 var bricks = [];
+var specialBricks = [];
 var tileMap = [
 	"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
 	"b     t      fwwwwwwwwwwwwwwwwwwww      f        b",
@@ -27,35 +28,35 @@ var tileMap = [
 	"bffff                                      pp    b",
 	"bwwww            pppppppppppppppppppppppppppp    b",
 	"bwwww            pppppppppppppppppppppppppppp    b",
-	"bwwww            pp                        pp    b",
-	"bwwww            pp                        pp    b",
-	"bwwww            pp                        pp    b",
-	"bwwwww           pp                        pp    b",
-	"bwwwwww          pp                        pp    b",
-	"bwwwwwww         pp                        pp    b",
-	"bwwwwwwww        pp                        pp    b",
-	"b4  wwwwww       pp              2         pp    b",
-	"b   wwwwww       pp                        pp    b",
-	"bw wwwww         pp                        pp    b",
-	"bwwwww           pp                        pp    b",
-	"bwww             pp                        pp    b",
-	"bw               pp                        pp    b",
-	"bffff            pp                        pp    b",
-	"b   ffff         pp                        pp    b",
-	"b t     f        pp                        pp    b",
-	"b        f       pp                        pp    b",
-	"b     t   f      pp                        pp    b",
-	"b         f      pp                        pp   wb",
-	"b  t      f      pp                        pp  wwb",
-	"b      t  f      pp                        pp  wwb",
-	"b         f      pp                        pp  wwb",
-	"b         f      pp                        pp  wwb",
-	"b        f       pp                        pp wwwb",
-	"b        f       pp                        pp wwwb",
-	"b        f       pp                        pp wwwb",
-	"b        f  ppppppppppppppppppppppppppppppppp wwwb",
-	"b        f  ppppppppppppppppppppppppppppppppp wwwb",
-	"bfffff  ff  pp                               wwwwb",
+	"bwwww            pp          pp            pp    b",
+	"bwwww            pp          pp            pp    b",
+	"bwwww            pp          pp            pp    b",
+	"bwwwww           pp          pp            pp    b",
+	"bwwwwww          pp          pp            pp    b",
+	"bwwwwwww         pp          pp            pp    b",
+	"bwwwwwwww        pp          pp            pp    b",
+	"b4  wwwwww       pp          pp            pp    b",
+	"b   wwwwww       pp          pp  2         pp    b",
+	"bw wwwww         pp          ss            pp    b",
+	"bwwwww           pp         ssss           pp    b",
+	"bwww             pp        ssssss         pp    b",
+	"bw               pppppppppssssssssppppppppppp    b",
+	"bffff            pppppppppssssssssppppppppppp    b",
+	"b   ffff         pp        ssssss          pp    b",
+	"b t     f        pp         ssss           pp    b",
+	"b        f       pp          ss            pp    b",
+	"b     t   f      pp          pp            pp    b",
+	"b         f      pp          pp            pp   wb",
+	"b  t      f      pp          pp            pp  wwb",
+	"b      t  f      pp          pp            pp  wwb",
+	"b         f      pp          pp            pp  wwb",
+	"b         f      pp          pp            pp  wwb",
+	"b         f      pp          pp            pp wwwb",
+	"b         f      pp          pp            pp wwwb",
+	"b         f      pp          pp            pp wwwb",
+	"b         f ppppppppppppppppppppppppppppppppp wwwb",
+	"b         f ppppppppppppppppppppppppppppppppp wwwb",
+	"b ffff  fff pp                               wwwwb",
 	"b     pp    pp                         wwwwwww3  b",	
 	"b     pppppppp                      wwwwwwwwww   b",
 	"b     pppppppp                     wwwwwwwwwwww wb",
@@ -108,6 +109,10 @@ var initializeTilemap = function ()
 			else if(tileMap[i][j] === '4')
 			{
 				signs.push(new sign(j * 20, i * 20, "earth", "water", "fire"));
+			}
+			else if(tileMap[i][j] === 's')
+			{
+				specialBricks.push(new specialBrick(j * 20, i * 20));
 			}
         }
     }
@@ -209,6 +214,13 @@ var displayTilemap = function()
 		{
 			spawnedPokeballs[i].drawPokeball(0.15);
 			spawnedPokeballs[i].checkCollected();
+		}
+	}
+	for(i = 0; i < specialBricks.length;i++)
+	{
+		if(specialBricks[i].position.x - globalX < 500 && specialBricks[i].position.y - globalY < 500 && specialBricks[i].position.x - globalX > -100 && specialBricks[i].position.y - globalY > -100)
+		{
+			specialBricks[i].drawSpecialBrick();
 		}
 	}
 	for(i = 0; i < trees.length; i++)
