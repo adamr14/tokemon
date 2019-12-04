@@ -237,6 +237,7 @@ fightScene.prototype.execute = function(){
                 this.state=8;
                 this.turn = false;
                 this.counter=0;
+                this.ballPos.set(-50, 300);
                 
             }
             
@@ -372,9 +373,24 @@ fightScene.prototype.execute = function(){
                 }
             }
             break;
-        case 10:
+        case 10://trainer sends out new
             this.drawScene();
             this.animateEnemyBall();
+            break;
+        case 11://delay
+
+            textSize(15);
+            noStroke();
+            fill(255, 255, 255);
+            text(this.enemyP.type + " Fainted", 20, 340);
+
+            if(this.counter>20){
+                this.state=10;
+                this.enemyP = pokemen[this.killcount+1];
+                this.enemyP.setPos(300, 80, 0);
+                this.npcAttacks =false;
+                this.turn=true;
+            }
             break;
 
     }
@@ -486,14 +502,10 @@ fightScene.prototype.npcFaint = function(){
             this.levelUp=true;
         }
         this.counter=0;
-        this.enemyP = pokemen[this.killcount+1];
         this.ballPos.x = 390;
         this.ballPos.y = 40;
         this.killcount++;
-        this.state=10;
-        this.enemyP.setPos(300, 80, 0);
-        this.npcAttacks =false;
-        this.turn=true;
+        this.state=11;
 
     }
     else{
