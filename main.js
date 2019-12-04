@@ -267,7 +267,7 @@ function draw()
         if(defeatedTrainer){
             startEndGameScene();
         }
-        if(inBattle){
+        else if(inBattle){
             if(!fight.initialized){
                 fight.init(player, wild);
             }
