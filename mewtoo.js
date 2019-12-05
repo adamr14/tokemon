@@ -33,16 +33,6 @@ mewtoo.prototype.drawFront = function() {
 	pop();
     //noStroke();
     fill(151, 33, 184);
-	fill(214, 214, 214);
-	push();
-	drawPart(this.body, 1);
-	pop();
-	push();
-	fill(230, 230, 230);
-	translate(5,5);
-	drawPart(this.chest, 1);
-	pop();
-	fill(151, 33, 184);
 	ellipse(50, 38, 20, 20);
 	ellipse(60, 34, 18, 18);    
 	ellipse(67, 33, 18, 18);
@@ -76,6 +66,15 @@ mewtoo.prototype.drawFront = function() {
     translate(22, -9);
     ellipse(30, 56, 29, 42);
     pop();
+	fill(214, 214, 214);
+	push();
+	drawPart(this.body, 1);
+	pop();
+	push();
+	fill(230, 230, 230);
+	translate(5,5);
+	drawPart(this.chest, 1);
+	pop();
     
     stroke(0);
     fill(214, 214, 214);
