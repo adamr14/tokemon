@@ -889,7 +889,7 @@ playerObj.prototype.exitHouse = function()
 
 playerObj.prototype.enterGym = function()
 {
-	if((this.center.x > 20 && this.center.x < 200 && this.center.y > 790 && this.center.y < 940))
+	if((this.center.x > 20 && this.center.x < 200 && this.center.y > 790 && this.center.y < 940) && !insideHouse)
 	{
 		insideGym = true;
 		this.position.x = 250;
