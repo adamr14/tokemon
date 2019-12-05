@@ -22,6 +22,10 @@ var pokemon = function(type, level){
         this.object = new flareon(100, 100, 1);
 		this.elementType = "fire";
 	}
+	else if(this.type==="Mewtoo"){
+        this.object = new flareon(100, 100, 1);
+		this.elementType = "metal";
+	}
 	
 };
 
