@@ -39,7 +39,7 @@ var tileMap = [
 	"b   wwwwww       pp          pp  2         pp    b",
 	"bw wwwww         pp          ss            pp    b",
 	"bwwwww           pp         ssss           pp    b",
-	"bwww             pp        ssssss         pp    b",
+	"bwww             pp        ssssss          pp    b",
 	"bw               pppppppppssssssssppppppppppp    b",
 	"bffff            pppppppppssssssssppppppppppp    b",
 	"b   ffff         pp        ssssss          pp    b",
@@ -133,7 +133,7 @@ var spawnPokeball = function()
 	spawnPokeBallTimer++;
 	if(spawnPokeBallTimer > pokeballSpawnThreshold)
 	{
-		pokeballSpawnThreshold += 300;
+		pokeballSpawnThreshold += 900;
 		spawnPokeBallTimer = 0;
 		if(random(0, 100) < 80)
 		{

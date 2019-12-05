@@ -9,7 +9,7 @@ elementObj.prototype.drawElement= function(size, x, y)
 	if(this.type === "fire")
 	{
 		fill(224, 138, 0);
-		ellipse(200, 150, 30, 40);
+		ellipse(200, 150, 37, 42);
 		bezier(190, 170, 140, 160, 190, 140, 190, 110);
 		bezier(210, 170, 270, 170, 210, 140, 210, 90);
 		triangle(190, 170, 210, 170, 200, 100);

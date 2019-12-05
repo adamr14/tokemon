@@ -76,7 +76,7 @@ pokemon.prototype.checkElementTypes = function(enemyType)
 			return 1;
 		}
 	}
-	else if(this.elementType = "metal")
+	else if(this.elementType === "metal")
 	{
 		if(enemyType === "fire")
 		{
@@ -91,7 +91,7 @@ pokemon.prototype.checkElementTypes = function(enemyType)
 			return 1;
 		}
 	}
-	else if(this.elementType = "water")
+	else if(this.elementType === "water")
 	{
 		if(enemyType === "earth")
 		{
