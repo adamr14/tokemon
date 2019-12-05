@@ -202,7 +202,8 @@ var drawInstructions = function()
                 line(80, 122, 160, 122);
                 textSize(12);
                 text("-Use Arrow Keys to move", 30, 140, 160, 20);
-                text("-Use Mouse to press buttons", 30, 170, 160, 20);
+                text("-Use Mouse to press buttons", 30, 155, 160, 20);
+                text("-Your Inventory is in the bottom right", 30, 170, 160);
                 text("-You will start at home with", 215, 130, 160, 20);
                 text("a choice of starter Pokemon", 215, 145, 160, 20);
                 text("-You must catch other", 215, 170, 160, 20);
