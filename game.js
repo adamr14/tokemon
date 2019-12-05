@@ -578,9 +578,9 @@ var startGame = function()
 
 var playGame = function()
 {
-	
 	if(insideHouse)
 	{
+		insideGym = false;
 		displayHouseMap();
 		player.exitHouse();
 		player.captureMovementInsideHouse();
@@ -617,6 +617,7 @@ var playGame = function()
 	}
 	else if(insideGym)
 	{
+		insideHouse = false;
 		globalX = 0;
 		globalY = 0;
 		displayGymMap();

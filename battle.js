@@ -276,10 +276,6 @@ fightScene.prototype.execute = function(){
                     pokeballMenu=false;
                 }
             }
-            text(this.enemyP.checkElementTypes(this.currPokemon.elementType), 200, 200);
-            text(this.currPokemon.checkElementTypes(this.enemyP.elementType), 200, 220);
-            text(this.enemyP.elementType, 220, 200);
-            text(this.currPokemon.elementType, 220, 220);
             break;
         case 4: //loss
             this.drawEnemyHalf(0,0);
