@@ -87,6 +87,7 @@ fightScene.prototype.drawEnemyHalf = function(x, y){
         noStroke();
         fill(95, 35, 35);
         text(this.enemyP.type, 55, 75, 100, 100);
+        drawElement(this.enemyP.elementType, 0.3, 45, 40);
         text("LVL "+this.enemyP.level, 150, 80, 100, 100);
         rect(55, 95, 120, 12, 5);
         fill(255, 255, 255);
@@ -128,6 +129,7 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     fill(95, 35, 35);
     textSize(11);
     text(this.currPokemon.type, 240, 45, 100, 100);
+    drawElement(this.currPokemon.elementType, 0.3, 230, 10);
     text("LVL "+this.currPokemon.level, 340, 50, 100, 100);
     rect(240, 65, 120, 12, 5);
     fill(255, 255, 255);
@@ -274,7 +276,10 @@ fightScene.prototype.execute = function(){
                     pokeballMenu=false;
                 }
             }
-
+            text(this.enemyP.checkElementTypes(this.currPokemon.elementType), 200, 200);
+            text(this.currPokemon.checkElementTypes(this.enemyP.elementType), 200, 220);
+            text(this.enemyP.elementType, 220, 200);
+            text(this.currPokemon.elementType, 220, 220);
             break;
         case 4: //loss
             this.drawEnemyHalf(0,0);
@@ -433,7 +438,8 @@ fightScene.prototype.pAttack = function(){
         if(this.currPokemon.object.position.x===125){
             this.playerAttack=false;
             var range = this.currPokemon.level*8-this.currPokemon.level;
-            var damage = floor(random()*range+10);
+            var damage = floor(random()*range+15);
+            damage*=this.currPokemon.checkElementTypes(this.enemyP.elementType);
             //damage=100;
             this.enemyP.hp-=damage;
             this.npcAttacks=true;
@@ -456,7 +462,8 @@ fightScene.prototype.npcAttack = function(){
             this.npcAttacks=false;
             var range = this.enemyP.level*8-this.enemyP.level;
             //modified to make player win
-            var damage = floor(random()*range+5);
+            var damage = floor(random()*range+12);
+            damage*=this.enemyP.checkElementTypes(this.currPokemon.elementType);
             //damage=100;
             this.currPokemon.hp-=damage;
             this.turn=true;
