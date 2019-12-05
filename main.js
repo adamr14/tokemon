@@ -153,7 +153,7 @@ mouseClicked = function()
                 if(mouseY>=320 && mouseY<=345){
                     switchMenu = true;
                 }
-                else if (mouseY>=355 && mouseY<=380){
+                else if (mouseY>=355 && mouseY<=380 && wild){
                     //run
                     inBattle=false;
                     fight.reset();

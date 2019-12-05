@@ -8,7 +8,7 @@ var pokemon = function(type, level){
 
     if(this.type==="Hokie"){
         this.object = new hokieBird(100, 100, 1);
-		this.element = "earth";
+		this.elementType = "earth";
     }
     else if(this.type==="Otto"){
         this.object = new orange(100, 100, 1);
@@ -21,7 +21,8 @@ var pokemon = function(type, level){
     else if(this.type==="Flareon"){
         this.object = new flareon(100, 100, 1);
 		this.elementType = "fire";
-    }
+	}
+	
 };
 
 pokemon.prototype.drawFront= function(){
