@@ -12,6 +12,12 @@ pokemen.push(new pokemon("Hokie", 1));
 pokemen.push(new pokemon("Philly", 1));
 pokemen.push(new pokemon("Flareon", 1));
 
+var trainerP = [new pokemon("Otto", 1), new pokemon("Philly", 1)];
+
+var resetTrainer = function(){
+    trainerP = [new pokemon("Otto", 1), new pokemon("Philly", 1)];
+}
+
 //helper function for drawing with subdivision
 var drawPart = function(points, dir){
     beginShape();

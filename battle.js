@@ -41,7 +41,7 @@ fightScene.prototype.init = function(player, wild){
         this.enemyP.set(floor(a));
     }
     else{
-        this.enemyP = pokemen[0];
+        this.enemyP = trainerP[0];
     }
     this.color = 0;
     this.colorMod=15;
@@ -276,10 +276,6 @@ fightScene.prototype.execute = function(){
                     pokeballMenu=false;
                 }
             }
-            text(this.enemyP.checkElementTypes(this.currPokemon.elementType), 200, 200);
-            text(this.currPokemon.checkElementTypes(this.enemyP.elementType), 200, 220);
-            text(this.enemyP.elementType, 220, 200);
-            text(this.currPokemon.elementType, 220, 220);
             break;
         case 4: //loss
             this.drawEnemyHalf(0,0);
@@ -310,6 +306,8 @@ fightScene.prototype.execute = function(){
 
                     player.transparency = 300;
                     player.enterHouse();
+                    resetTrainer();
+                    this.enemy.position.x=240;
                 }
             }
             break;
@@ -328,6 +326,8 @@ fightScene.prototype.execute = function(){
                 this.reset();
                 if(!this.wild){
                     defeatedTrainer=true;
+                    resetTrainer();
+                    this.enemy.position.x=240;
                 }
             }
 
@@ -391,7 +391,7 @@ fightScene.prototype.execute = function(){
 
             if(this.counter>20){
                 this.state=10;
-                this.enemyP = pokemen[this.killcount+1];
+                this.enemyP = trainerP[this.killcount];
                 this.enemyP.setPos(300, 80, 0);
                 this.npcAttacks =false;
                 this.turn=true;
