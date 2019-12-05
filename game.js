@@ -642,6 +642,7 @@ var playGame = function()
 			}
 			else
 			{
+				bringItOnTimer=0;
 				//boss fight goes here
 				inBattle = true;
 				wild = false;
