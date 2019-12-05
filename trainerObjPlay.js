@@ -874,6 +874,7 @@ playerObj.prototype.exitHouse = function()
 	if(this.center.x > 80 && this.center.x < 120 && this.center.y >= 340)
 	{
 		insideHouse = false;
+		insideGym = false;
 		this.position.x = 200;
 		this.position.y = 180;
 		globalX = 600;
@@ -940,7 +941,7 @@ playerObj.prototype.isAtEnemyPlayer = function()
 	{
 		strokeWeight(1);
 		fill(255, 255, 255);
-		triangle(233, 60, 233, 95, 220, 110);
+		triangle(231, 56, 233, 95, 220, 110);
 		rect(230, 60, 100, 35, 5);
 		noStroke();
 		fill(0);
