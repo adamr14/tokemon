@@ -555,9 +555,9 @@ fightScene.prototype.drawSwitchMenu = function(){
             textSize(14);
             text(player.pokemon[i].type, 288, 177+35*i);
             textSize(8);
-            text("LVL:    " + player.pokemon[i].level, 370,172+35*i);
+            text("LVL:    " + player.pokemon[i].level, 350,172+35*i);
             var hp = floor((player.pokemon[i].hp/player.pokemon[i].maxhp)*100);
-            text('HP: '+ floor(hp) + '%', 370, 182+35*i);
+            text('HP: '+ floor(hp) + '%', 350, 182+35*i);
             textSize(15);
             fill(255, 0, 0);
             noStroke();

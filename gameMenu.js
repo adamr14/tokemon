@@ -42,9 +42,9 @@ var drawGameMenu = function(){
             textSize(14);
             text(player.pokemon[i].type, 288, 220+35*i);
             textSize(8);
-            text("LVL:    " + player.pokemon[i].level, 330,215+35*i);
+            text("LVL:    " + player.pokemon[i].level, 340,215+35*i);
             var hp = (player.pokemon[i].hp/player.pokemon[i].maxhp)*100;
-            text('HP: '+ hp + '%', 330, 225+35*i);
+            text('HP: '+ floor(hp) + '%', 340, 225+35*i);
             textSize(15);
             fill(255, 0, 0);
             noStroke();
