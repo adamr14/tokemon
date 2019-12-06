@@ -301,6 +301,8 @@ fightScene.prototype.execute = function(){
                         if(player.pokemon[i].level<1){
                             player.pokemon[i].level=1;
                         }
+
+                        player.pokemon[i].hp = 100 + (25 *(player.pokemon[i].level - 1));
                     }
 
 
