@@ -25,5 +25,5 @@ var chosen=0;
 var openEndGamePokeball = false;
 var showCredits = false;
 
-var introSceneRequired = false;
+var introSceneRequired = true;
 var defeatedTrainer = false;
