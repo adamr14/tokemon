@@ -570,10 +570,10 @@ var displayGymMap = function()
 
 var activateDemoMode = function()
 {
-	player.pokemon = [new pokemon("Hokie", 6), 
-					  new pokemon("Flareon", 6),
-					  new pokemon("Geodude", 6),
-					  new pokemon("Snorlax", 6)];
+	player.pokemon = [new pokemon("Hokie", 5), 
+					  new pokemon("Flareon", 5),
+					  new pokemon("Geodude", 5),
+					  new pokemon("Snorlax", 5)];
 };
 
 var healAnimationTimer = 0;
