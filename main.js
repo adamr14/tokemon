@@ -16,7 +16,7 @@ pokemen.push(new pokemon("Mewtoo", 1));*/
 pokemen.push(new pokemon("Geodude", 1));
 
 var trainerP = [new pokemon("Cavalier", 5), 
-                new pokemon("Philly", 5),
+                new pokemon("Geodude", 5),
                 new pokemon("Mewtoo", 5),
                 new pokemon("Otto", 5)];
 

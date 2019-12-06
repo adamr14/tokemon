@@ -568,6 +568,14 @@ var displayGymMap = function()
 	gymSign.checkIfRead();
 };
 
+var activateDemoMode = function()
+{
+	player.pokemon = [new pokemon("Hokie", 5), 
+					  new pokemon("Flareon", 5),
+					  new pokemon("Philly", 5),
+					  new pokemon("Snorlax", 5)];
+};
+
 var healAnimationTimer = 0;
 var initialized = 0
 var bringItOnTimer = 0;
@@ -682,4 +690,9 @@ var playGame = function()
 	if (menuUp) { drawGameMenu(); }
 	else{drawGameMenuButton();}
 	spawnPokeball();
+	//check for demo mode
+	if(keyArray[8] === 1)
+	{
+		activateDemoMode();
+	}
 }
