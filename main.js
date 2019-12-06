@@ -277,7 +277,9 @@ function draw()
 			startGameClicked=false;
 		}
     }
-    else if(playing){
+    else if(playing)
+	{
+		print("just fucking up");
         if(defeatedTrainer){
             startEndGameScene();
         }
