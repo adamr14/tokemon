@@ -87,7 +87,7 @@ fightScene.prototype.drawEnemyHalf = function(x, y){
         noStroke();
         fill(95, 35, 35);
         text(this.enemyP.type, 55, 75, 100, 100);
-        drawElement(this.enemyP.elementType, 0.3, 45, 40);
+        drawElement(this.enemyP.elementType, 0.3, 55, 40);
         text("LVL "+this.enemyP.level, 150, 80, 100, 100);
         rect(55, 95, 120, 12, 5);
         fill(255, 255, 255);
@@ -129,7 +129,7 @@ fightScene.prototype.drawPlayerHalf = function(x, y){
     fill(95, 35, 35);
     textSize(11);
     text(this.currPokemon.type, 240, 45, 100, 100);
-    drawElement(this.currPokemon.elementType, 0.3, 230, 10);
+    drawElement(this.currPokemon.elementType, 0.3, 240, 10);
     text("LVL "+this.currPokemon.level, 340, 50, 100, 100);
     rect(240, 65, 120, 12, 5);
     fill(255, 255, 255);
@@ -500,7 +500,7 @@ fightScene.prototype.npcFaint = function(){
         this.moveNPC(0, 5, 0);
     }
     //THIS CONTROLS THE POKEMON THAT THE TRAINER FIGHTS
-    else if(!this.wild && this.killcount<2){
+    else if(!this.wild && this.killcount<3){
         //animate pokeball
         this.currPokemon.exp+=this.enemyP.level*2;
         if(this.currPokemon.exp>= this.currPokemon.level*3){
