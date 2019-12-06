@@ -462,7 +462,7 @@ fightScene.prototype.npcAttack = function(){
             this.npcAttacks=false;
             var range = this.enemyP.level*8-this.enemyP.level;
             //modified to make player win
-            var damage = floor(random()*range+12);
+            var damage = floor(random()*range+14);
             damage*=this.enemyP.checkElementTypes(this.currPokemon.elementType);
             //damage=100;
             this.currPokemon.hp-=damage;
@@ -500,7 +500,7 @@ fightScene.prototype.npcFaint = function(){
         this.moveNPC(0, 5, 0);
     }
     //THIS CONTROLS THE POKEMON THAT THE TRAINER FIGHTS
-    else if(!this.wild && this.killcount<3){
+    else if(!this.wild && this.killcount<4){
         //animate pokeball
         this.currPokemon.exp+=this.enemyP.level*2;
         if(this.currPokemon.exp>= this.currPokemon.level*3){
