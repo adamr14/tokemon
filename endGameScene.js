@@ -6,21 +6,7 @@ var slide = 0;
 var threshold = 1000;
 var moveText = 0;
 var hb2 = new hokieBird(250, 310, 0.65);
-var p1 = new pokeballObj(75, 320, "normal", -1);
-var p2 = new pokeballObj(85, 320, "normal", -2);
-var p3 = new pokeballObj(80, 330, "rare", -3);
-var p4 = new pokeballObj(80, 330, "rare", -4);
-var p5 = new pokeballObj(80, 330, "normal", -5);
-var initializePokeballs = true;
 
-var initBalls = function()
-{
-	p1.opened = true;
-	p2.opened = true;
-	p3.opened = true;
-	p4.opened = true;
-	p5.opened = true;
-};
 
 var fadeOutColor = 255;
 var fadeOutTransparency = 0;
@@ -56,11 +42,6 @@ var startEndGameScene = function()
 		if(animation !== 14)
 		{
 			displayGymMap();
-		}
-		if(initializePokeballs)
-		{
-			initializePokeballs = false;
-			initBalls();
 		}
 		textSize(15);
 		noStroke();
