@@ -16,7 +16,7 @@ var cavalier = function(x, y, size){
 cavalier.prototype.drawFront = function() {
     push();
     translate(this.position.x, this.position.y);
-    scale(0.25);
+    scale(0.25*this.size);
     
     //tail
     stroke(240, 148,19);
@@ -146,21 +146,6 @@ cavalier.prototype.drawFront = function() {
     
     pop();
     
-};
-
-
-
-var cav = new cavalier(200, 200, 1);
-
-
-var draw = function() {
-    background(255, 255, 255);
-    strokeWeight(1);
-    stroke(0);
-    noFill();
-    line(200, 0, 200, 400);
-    line(0, 200, 400, 200);
-    cav.drawFront();
 };
 
 

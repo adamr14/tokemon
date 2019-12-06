@@ -23,11 +23,15 @@ var pokemon = function(type, level){
 		this.elementType = "fire";
 	}
 	else if(this.type==="Mewtoo"){
-        this.object = new flareon(100, 100, 1);
+        this.object = new mewtoo(100, 100, 1);
 		this.elementType = "metal";
 	}
 	else if(this.type==="Cavalier"){
 		this.object = new cavalier(100, 100, 1);
+		this.elementType = "water";
+	}
+	else if(this.type==="Snorlax"){
+		this.object = new snorlax(100, 100, 1);
 		this.elementType = "water";
 	}
 	

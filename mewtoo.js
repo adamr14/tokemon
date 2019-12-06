@@ -16,8 +16,9 @@ var mewtoo = function(x, y, size){
 mewtoo.prototype.drawFront = function() {
     push();
 	translate(0, 50);
-	translate(this.position.x, this.position.y);
-    scale(this.size * 0.35);
+    translate(this.position.x-56, this.position.y-85);
+    translate((1-this.size)*50, 0);
+    scale(this.size * 0.3);
     push();
     translate(0, 60);
     stroke(0, 0, 0);
@@ -27,6 +28,12 @@ mewtoo.prototype.drawFront = function() {
     quad(199, 270, 260, 285, 270, 315, 189, 295);
     ellipse(215, 190, 70, 90);
     rect(187, 10, 15, 50);
+    stroke(0, 0, 0);
+    fill(219, 219, 219);
+    pop();
+    stroke(0, 0, 0);
+    fill(219, 219, 219);
+    translate(0, 60);
 	push();
 	translate(0, -55);
 	drawPart(this.leftArm, 1);
@@ -58,6 +65,7 @@ mewtoo.prototype.drawFront = function() {
 	ellipse(180, 215, 50, 60);    
 	ellipse(190, 205, 50, 60);
     ellipse(195, 195, 50, 60);
+
 
     fill(215, 17, 237);
     ellipse(40, 46, 22, 22);
@@ -152,9 +160,9 @@ mewtoo.prototype.drawFront = function() {
 
 mewtoo.prototype.drawBack = function() {
     push();
-    translate(this.position.x, this.position.y);
-	translate(-50 + (1-this.size/0.8)*50, -30 + (1-this.size/0.8)*30);
-    scale(this.size);
+    translate(this.position.x-50, this.position.y-15);
+    translate((1-this.size)*50, 0);
+    scale(this.size*0.25);
     strokeWeight(1);	
 	stroke(0);
 	fill(214, 214, 214);
@@ -267,5 +275,6 @@ mewtoo.prototype.drawBack = function() {
     ellipse(205, 190, 70, 90);   
     pop();
 	
+    pop();
     pop();
 };

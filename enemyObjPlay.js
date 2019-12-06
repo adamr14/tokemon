@@ -5,7 +5,6 @@ var enemyObj = function(x, y, initialLook)
     this.i = initialLook;
     this.currFrame = frameCount;
 	this.transparency = 300;
-	this.pokemon =[new pokemon("Hokie", 1)];
 	this.moving = false;
 	this.center = new createVector(x + globalX + 30, y + globalY + 30);
 	this.motion = 0;

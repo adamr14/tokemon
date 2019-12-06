@@ -7,16 +7,22 @@ function setup() {
 
 
 var fight = new fightScene();
-/*pokemen.push(new pokemon("Otto", 1));
+pokemen.push(new pokemon("Otto", 1));
 pokemen.push(new pokemon("Hokie", 1));
 pokemen.push(new pokemon("Philly", 1));
-pokemen.push(new pokemon("Flareon", 1));*/
-pokemen.push(new pokemon("Cavalier", 1));
+pokemen.push(new pokemon("Flareon", 1));
+pokemen.push(new pokemon("Snorlax", 1));
+pokemen.push(new pokemon("Mewtoo", 1));
 
-var trainerP = [new pokemon("Otto", 1), new pokemon("Philly", 1)];
+var trainerP = [new pokemon("Cavalier", 5), 
+                new pokemon("Philly", 5),
+                new pokemon("Mewtoo", 5),
+                new pokemon("Otto", 5)];
+
+var tp = trainerP;
 
 var resetTrainer = function(){
-    trainerP = [new pokemon("Otto", 1), new pokemon("Philly", 1)];
+    trainerP = tp;
 }
 
 //helper function for drawing with subdivision

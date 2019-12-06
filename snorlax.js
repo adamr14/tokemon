@@ -9,8 +9,9 @@ var snorlax = function(x, y, size){
 
 snorlax.prototype.drawFront = function() {
     push();
-	translate(this.position.x, this.position.y);
-    scale(this.size * 0.35);
+	translate(this.position.x-58, this.position.y-38);
+	translate((1-this.size)*50, 0);
+    scale(this.size * 0.3);
     strokeWeight(1);	
 	stroke(0);
 	
@@ -104,8 +105,9 @@ snorlax.prototype.drawFront = function() {
 
 snorlax.prototype.drawBack = function() {
     push();
-	translate(this.position.x, this.position.y);
-    scale(this.size * 0.35);
+	translate(this.position.x-58, this.position.y-38);
+	translate((1-this.size)*50, 0);
+    scale(this.size * 0.3);
     strokeWeight(1);	
 	stroke(0);
 	
