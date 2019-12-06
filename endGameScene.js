@@ -13,7 +13,6 @@ var fadeOutTransparency = 0;
 
 var startEndGameScene = function()
 {
-	print("fuck my life");
 	if(showCredits)
 	{
 		drawStartBackground();

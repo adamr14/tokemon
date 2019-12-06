@@ -279,7 +279,6 @@ function draw()
     }
     else if(playing)
 	{
-		print("just fucking up");
         if(defeatedTrainer){
             startEndGameScene();
         }
