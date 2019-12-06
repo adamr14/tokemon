@@ -7,12 +7,13 @@ function setup() {
 
 
 var fight = new fightScene();
-pokemen.push(new pokemon("Otto", 1));
+/*pokemen.push(new pokemon("Otto", 1));
 pokemen.push(new pokemon("Hokie", 1));
 pokemen.push(new pokemon("Philly", 1));
 pokemen.push(new pokemon("Flareon", 1));
 pokemen.push(new pokemon("Snorlax", 1));
-pokemen.push(new pokemon("Mewtoo", 1));
+pokemen.push(new pokemon("Mewtoo", 1));*/
+pokemen.push(new pokemon("Geodude", 1));
 
 var trainerP = [new pokemon("Cavalier", 5), 
                 new pokemon("Philly", 5),

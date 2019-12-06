@@ -7,8 +7,9 @@ var geodude = function(x, y, size){
 
 geodude.prototype.drawFront = function() {
     push();
-	translate(this.position.x, this.position.y);
-    scale(this.size * 0.35);
+    translate(this.position.x-50, this.position.y-10);
+    translate((1-this.size)*50, 0);
+    scale(this.size * 0.3);
     strokeWeight(1);	
 	stroke(0);
 	
@@ -68,12 +69,14 @@ geodude.prototype.drawFront = function() {
     quad(205, 185, 235, 165, 245, 170, 215, 195);
 	
     pop();
+    pop();
 };
 
 geodude.prototype.drawBack = function() {
     push();
-	translate(this.position.x, this.position.y);
-    scale(this.size * 0.35);
+    translate(this.position.x-60, this.position.y-20);
+    translate((1-this.size)*60, 0)
+    scale(this.size * 0.3);
     strokeWeight(1);	
 	stroke(0);
 	
@@ -110,8 +113,7 @@ geodude.prototype.drawBack = function() {
 	
 	fill(189, 180, 136);
     rect(140, 140, 120, 120, 100);
-
-    
+    pop();
 	
     pop();
 };

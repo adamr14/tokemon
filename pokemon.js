@@ -34,7 +34,10 @@ var pokemon = function(type, level){
 		this.object = new snorlax(100, 100, 1);
 		this.elementType = "water";
 	}
-	
+	else if(this.type==="Geodude"){
+		this.object = new geodude(100, 100, 1);
+		this.elementType = "earth";
+	}
 };
 
 pokemon.prototype.drawFront= function(){
