@@ -572,7 +572,7 @@ var activateDemoMode = function()
 {
 	player.pokemon = [new pokemon("Hokie", 5), 
 					  new pokemon("Flareon", 5),
-					  new pokemon("Geodude", 5),
+					  new pokemon("Philly", 5),
 					  new pokemon("Snorlax", 5)];
 };
 
