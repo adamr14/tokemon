@@ -914,10 +914,6 @@ playerObj.prototype.exitGym = function()
 		globalY = 600;
 		talkingToEnemy = false;
 	}
-	else
-	{
-		insideGym = true;
-	}
 };
 
 playerObj.prototype.isAtHealTable = function() 
