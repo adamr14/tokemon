@@ -26,6 +26,10 @@ var pokemon = function(type, level){
         this.object = new flareon(100, 100, 1);
 		this.elementType = "metal";
 	}
+	else if(this.type==="Cavalier"){
+		this.object = new cavalier(100, 100, 1);
+		this.elementType = "water";
+	}
 	
 };
 
