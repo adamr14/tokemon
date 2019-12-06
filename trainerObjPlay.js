@@ -876,15 +876,11 @@ playerObj.prototype.exitHouse = function()
 		insideHouse = false;
 		insideGym = false;
 		this.position.x = 200;
-		this.position.y = 180;
+		this.position.y = 210;
 		globalX = 600;
 		globalY = 0;
 		//this.center.x = 800;
 		//this.center.y = 250;
-	}
-	else
-	{
-		insideHouse = true;
 	}
 };
 
