@@ -150,7 +150,7 @@ mouseClicked = function()
         }
     }
 
-    if(inBattle && fight.turn && fight.state>2){
+    if(inBattle && fight.turn && fight.state>2 && fight.state<7){
         if(!switchMenu && !pokeballMenu){
             if (mouseX >=210 && mouseX <=290){
                 if(mouseY>=320 && mouseY<=345){
