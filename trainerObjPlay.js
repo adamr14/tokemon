@@ -938,11 +938,11 @@ playerObj.prototype.isAtEnemyPlayer = function()
 		strokeWeight(1);
 		fill(255, 255, 255);
 		triangle(231, 64, 233, 95, 220, 110);
-		rect(230, 60, 100, 35, 5);
+		rect(230, 60, 100, 47, 5);
 		noStroke();
 		fill(0);
 		textSize(12);
-		text("You really want\n   to fight me?",  235, 75);
+		text("You really want\n   to fight me?\n    *Click Me*",  235, 75);
 		talkingToEnemy = true;
 	}
 };
