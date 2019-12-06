@@ -5,7 +5,7 @@ var uvaGuy2 = new enemyObj(170, 130, 0);
 var slide = 0;
 var threshold = 1000;
 var moveText = 0;
-var hb = new hokieBird(250, 310, 0.65);
+var hb2 = new hokieBird(250, 310, 0.65);
 var p1 = new pokeballObj(75, 320, "normal", -1);
 var p2 = new pokeballObj(85, 320, "normal", -2);
 var p3 = new pokeballObj(80, 330, "rare", -3);
@@ -271,8 +271,8 @@ var startEndGameScene = function()
 				break;
 			case 9:
 				threshold = 1000;
-				hb.drawBack();
-				hb.flap();
+				hb2.drawBack();
+				hb2.flap();
 				vtGuy2.drawTrainer();
 				if(animationCounter > 100)
 				{
@@ -288,8 +288,8 @@ var startEndGameScene = function()
 				break;
 			case 10:
 				vtGuy2.drawTrainer();
-				hb.drawBack();
-				hb.flap();
+				hb2.drawBack();
+				hb2.flap();
 				fill(255, 255, 255);
 				rect(290, 200, 80, 70, 5);
 				triangle(292.5, 200, 292.5, 270, 272.5, 275);
@@ -305,15 +305,15 @@ var startEndGameScene = function()
 					moveText += 1;
 				}
 				push();
-				hb.position.x = 0;
-				hb.position.y = 0;
+				hb2.position.x = 0;
+				hb2.position.y = 0;
 				translate(250 - moveText, 310 - moveText);
 				push();
 				scale(slide);
-				hb.drawBack();
+				hb2.drawBack();
 				pop();
 				pop();
-				hb.flap();
+				hb2.flap();
 				vtGuy2.drawTrainer();
 				if(animationCounter > 200)
 				{

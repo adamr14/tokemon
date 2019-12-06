@@ -357,8 +357,10 @@ var displayHouseMap = function()
 	ellipse(110, 390, 3, 3);
 	
 	houseSign.drawSign();
-	houseSign.checkIfRead();
-    
+	if(!introSceneRequired)
+	{		
+		houseSign.checkIfRead();
+	}
 };
 
 var gymSign = new sign(20, 250, "metal", "wood", "earth");
