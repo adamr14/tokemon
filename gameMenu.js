@@ -39,7 +39,7 @@ var drawGameMenu = function(){
         fill(95, 35, 35);
         strokeWeight(1);
         if(i<player.pokemon.length){
-            textSize(14);
+            textSize(12);
             text(player.pokemon[i].type, 288, 220+35*i);
             textSize(8);
             text("LVL:    " + player.pokemon[i].level, 340,215+35*i);
