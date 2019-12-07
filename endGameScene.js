@@ -89,7 +89,7 @@ var startEndGameScene = function()
 					uvaGuy2.captureMovementInsideHouse(false, false, false, true, 3);
 					if(animation2Counter > 50)
 					{	
-						vtGuy2.moveForanimation2(false, true, false, false, -2);
+						vtGuy2.moveForAnimation(false, true, false, false, -2);
 					}
 				}
 				else
@@ -173,15 +173,15 @@ var startEndGameScene = function()
 				uvaGuy2.drawTrainer();
 				if(animation2Counter < 150)
 				{
-					vtGuy2.moveForanimation2(true, false, false, false, 1);
+					vtGuy2.moveForAnimation(true, false, false, false, 1);
 				}
 				else if(animation2Counter < 350)
 				{
-					vtGuy2.moveForanimation2(false, false, false, true, 1);
+					vtGuy2.moveForAnimation(false, false, false, true, 1);
 				}
 				else if(animation2Counter < 425)
 				{
-					vtGuy2.moveForanimation2(false, true, false, false, 1);
+					vtGuy2.moveForAnimation(false, true, false, false, 1);
 				}
 				else
 				{
@@ -312,19 +312,19 @@ var startEndGameScene = function()
 				threshold2 = 2550;
 				if(animation2Counter < 200)
 				{
-					vtGuy2.moveForanimation2(true, false, false, false, 1);
+					vtGuy2.moveForAnimation(true, false, false, false, 1);
 				}
 				else if(animation2Counter < 700)
 				{
-					vtGuy2.moveForanimation2(false, false, true, false, 1);		
+					vtGuy2.moveForAnimation(false, false, true, false, 1);		
 				}
 				else if(animation2Counter < 1550)
 				{
-					vtGuy2.moveForanimation2(false, true, false, false, 1);
+					vtGuy2.moveForAnimation(false, true, false, false, 1);
 				}
 				else if(animation2Counter < 2100)
 				{
-					vtGuy2.moveForanimation2(false, false, true, false, 1);
+					vtGuy2.moveForAnimation(false, false, true, false, 1);
 				}
 				else
 				{
