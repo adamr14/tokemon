@@ -13,4 +13,5 @@ Read the instructions to learn how to play.
 - fight the UVA boss when you are ready
 
 
-
+NOTE FOR GRADER
+- Press backspace to enable admin mode and fight the boss to see the end scene
